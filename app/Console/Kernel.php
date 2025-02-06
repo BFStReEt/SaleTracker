@@ -12,9 +12,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('check:import-excel')->everyMinute();
+        $schedule->command('check:import-excel')->everyTenMinutes();
     }
 
+//     protected function schedule(Schedule $schedule)
+//     {
+//      $schedule->command('check:import-excel')->cron('*/10 * * * *');
+//     }
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');

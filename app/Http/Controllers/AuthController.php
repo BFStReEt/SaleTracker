@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -43,9 +44,15 @@ class AuthController extends Controller
             ], 401);
         }
 
-
+        $last_login = Carbon::now(); 
+        $carbonLastlogin = Carbon::parse($last_login);
+        $carbonLastlogin->setTimezone('Asia/Ho_Chi_Minh'); 
+        $admin->lastlogin = $formattedLastlogin = $carbonLastlogin->format('d-m-Y H:i:s');
+        $admin->status = '1';
+        $admin->save();
         $token = $admin->createToken('Admin')->accessToken;
 
+        
         return response()->json([
             'status' => true,
             'token' => $token,

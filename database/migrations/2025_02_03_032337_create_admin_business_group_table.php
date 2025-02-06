@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_permission', function (Blueprint $table) {
+        Schema::create('admin_business_group', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
-            $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
+            $table->foreignId('business_group_id')->constrained('business_groups')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
-        Schema::dropIfExists('role_permission');
+        Schema::dropIfExists('admin_business_group');
     }
 };

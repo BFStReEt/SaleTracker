@@ -19,5 +19,11 @@ class Sale extends Model
         'quantity',
         'price',
         'sales_result',
+        'suggestions'
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'user_name', 'username'); // Hoặc khóa ngoại phù hợp
+    }
 }

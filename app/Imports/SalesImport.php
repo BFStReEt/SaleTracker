@@ -5,12 +5,13 @@ namespace App\Imports;
 use App\Models\Sale;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Carbon\Carbon;
 
 class SalesImport implements ToModel
 {
     public function model(array $row)
     {
-        if ($row[0] === 'Thời gian bắt đầu') {
+        if ($row[0] === 'Thời gian bắt đầu' || empty($row[0])) {
             return null;
         }
         $startTime = $this->convertExcelTimeToString($row[0]);
@@ -26,6 +27,7 @@ class SalesImport implements ToModel
             'quantity' => $this->getValue($row[6]),
             'price' => $this->getValue($row[7]),
             'sales_result' => $this->getValue($row[8]),
+            'suggestions' => $this->getValue($row[9]),
         ]);
     }
 
@@ -35,13 +37,27 @@ class SalesImport implements ToModel
     }
 
     private function convertExcelTimeToString($excelTime)
-    {
-        if (!is_numeric($excelTime)) {
+{
+    if (empty($excelTime)) {
+        return null;
+    }
+
+    if (is_numeric($excelTime)) {
+        try {
+            $dateTime = Date::excelToDateTimeObject($excelTime);
+            return $dateTime->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            \Log::error("Lỗi chuyển đổi thời gian Excel (dạng số): " . $e->getMessage() . " Giá trị: " . $excelTime);
             return null;
         }
-
-        $dateTime = Date::excelToDateTimeObject($excelTime);
-
-        return $dateTime->format('H:i:s');
+    } else {
+        try {
+            $dateTime = Carbon::parse($excelTime);
+            return $dateTime->format('Y-m-d H:i:s'); 
+        } catch (\Exception $e) {
+            \Log::error("Lỗi chuyển đổi thời gian Excel (dạng chuỗi): " . $e->getMessage() . " Giá trị: " . $excelTime);
+            return null;
+        }
     }
+}
 }

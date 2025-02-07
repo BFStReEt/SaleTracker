@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin;
 use App\Models\BusinessGroup;
+use App\Models\DefaultPassword;
 
 class AdminController extends Controller
 {
@@ -450,5 +451,22 @@ class AdminController extends Controller
         }
     }
 
+    public function updateDefaultPassword(Request $request)
+    {
+        $newPassword = $request->input('default_password');
+
+        $request->validate([
+            'default_password' => 'required|min:6',
+        ]);
+
+        $hashedPassword = Hash::make($newPassword);
+
+        DefaultPassword::where('key', 'default_password')->update(['value' => $hashedPassword]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Update default passwrod successfully.'
+        ]);
+    }
    
 }

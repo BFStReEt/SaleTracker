@@ -19,6 +19,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/profile/update',[AdminController::class, 'UpdateID']);
     Route::get('/profile',[AdminController::class, 'getProfile']);
     Route::delete('/profile/delete',[AdminController::class, 'delete']);
+    
+    //Reset Password
+    Route::post('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
+
 });
 
 
@@ -28,6 +32,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('group', BusinessGroupController::class);
     Route::get('groups/search', [BusinessGroupController::class, 'search']);
 });
+
 
 //Sales
 Route::group(['middleware' => 'admin', 'prefix' => 'sales'], function () {

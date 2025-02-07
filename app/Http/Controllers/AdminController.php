@@ -183,6 +183,7 @@ class AdminController extends Controller
             'status' => true,
             'admin_detail' => [
                 'username' => $user->username,
+                //'pasword' => $user->password,
                 'email' => $user->email,
                 'display_name' => $user->display_name,
                 'is_manager' => $user->is_manager,

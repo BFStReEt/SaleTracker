@@ -14,6 +14,14 @@ class BusinessGroupController extends Controller
    
     public function index(Request $request)
     {
+        $currentUser = auth('admin')->user(); 
+       
+        if (!$currentUser->is_default) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view this admin.',
+            ], 403); 
+        }
         $searchName = $request->query('data');
 
         $query = BusinessGroup::with('manager:id,display_name');

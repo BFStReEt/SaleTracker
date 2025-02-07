@@ -19,12 +19,10 @@ class AuthController extends Controller
         ],); 
         
         if ($val->fails()) {
-            $errorMessage = $val->errors()->first();
-        
             return response()->json([
                 'status' => false,
-                'message' => $errorMessage,
-            ], 202);
+                'errors' => $val->errors(), 
+            ], 422); 
         }
 
 

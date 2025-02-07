@@ -17,48 +17,51 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $currentUser = Auth::guard('admin')->user();
-    
-        $query = Admin::with('businessGroup');
-    
-        if ($currentUser->is_default === 1) {} 
-        // elseif ($currentUser->is_manager === 1 && $currentUser->business_group_id) { 
+
+        if (!$currentUser) {
+            return response()->json(['status' => false, 'message' => 'Unauthorized.'], 401);
+        }
+
+        $query = Admin::with('businessGroup'); 
+
+        if ($currentUser->is_default === 1) {
+        // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
         //     $query->where('business_group_id', $currentUser->business_group_id);
-        // } 
-        else {
+        // 
+        } else {
             return response()->json(['status' => false, 'message' => 'No permission.'], 403);
         }
-    
-        $filterGroupId = $request->query('group_id');
-        if (!empty($filterGroupId)) {
-            $query->where('business_group_id', $filterGroupId);
+
+        $searchUsername = $request->query('data');
+        if (!empty($searchUsername)) {
+            $query->where('username', 'like', '%' . $searchUsername . '%');
         }
-    
-        $searchKeyword = $request->query('data');
-        if (!empty($searchKeyword)) {
-            $query->where(function ($q) use ($searchKeyword) {
-                $q->where('username', 'like', '%' . $searchKeyword . '%')
-                  ->orWhereHas('businessGroup', function ($q) use ($searchKeyword) {
-                      $q->where('name', 'like', '%' . $searchKeyword . '%');
-                  });
-            });
+
+        // Tìm kiếm theo nhóm (nếu có)
+        $searchBusinessGroupId = $request->query('group_id');
+        if (!empty($searchBusinessGroupId)) {
+            $query->where('business_group_id', $searchBusinessGroupId);
         }
-    
+
         $users = $query->orderBy('id', 'asc')->paginate(10);
-    
-        if ($users instanceof \Illuminate\Http\JsonResponse) {
+
+
+        if ($users instanceof \Illuminate\Http\JsonResponse) { 
             return $users;
         }
-    
+
         $formattedUsers = $users->map(function ($user) {
             return [
                 'id' => $user->id,
                 'username' => $user->username,
                 'email' => $user->email,
                 'display_name' => $user->display_name,
+                'business_group_id' => $user->business_group_id,
                 'business_group_name' => $user->businessGroup ? $user->businessGroup->name : null,
+
             ];
         });
-    
+
         return response()->json([
             'status' => true,
             'data' => $formattedUsers,
@@ -70,7 +73,6 @@ class AdminController extends Controller
             ],
         ]);
     }
-
    
     public function create()
     {
@@ -80,21 +82,22 @@ class AdminController extends Controller
     
     public function store(Request $request)
     {
-        $currentUser = Auth::guard('admin')->user(); 
+        $currentUser = Auth::guard('admin')->user();
 
-        if (!$currentUser || !$currentUser->is_manager) { 
+        if (!$currentUser->is_default) {
             return response()->json([
                 'status' => false,
                 'message' => 'You do not have permission to create new admins.'
-            ], 403); 
+            ], 403);
         }
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:admins',
             'password' => 'required|min:6',
             'display_name' => 'required|string',
-            'email' => 'nullable|email',
-            //'business_group_id' => 'required|exists:business_groups,id', 
+            'email' => 'nullable|email|unique:admins', 
+            'business_group_id' => 'required|exists:business_groups,id',
+            'is_manager' => 'boolean',
         ]);
 
         if ($validator->fails()) {
@@ -104,15 +107,9 @@ class AdminController extends Controller
             ], 422);
         }
 
-        $check = Admin::where('username', $request->username)->first();
-        if ($check) {
-            return response()->json([
-                'message' => 'Username already exists',
-                'status' => false
-            ], 409);
-        }
 
-        DB::beginTransaction(); 
+
+        DB::beginTransaction();
 
         try {
             $userAdmin = new Admin();
@@ -120,13 +117,26 @@ class AdminController extends Controller
             $userAdmin->password = Hash::make($request->password);
             $userAdmin->display_name = $request->display_name;
             $userAdmin->email = $request->email;
-            $userAdmin->business_group_id = $request->business_group_id; 
             $userAdmin->is_manager = $request->input('is_manager', 0);
 
+            $businessGroupId = $request->input('business_group_id');
+
+            if ($userAdmin->is_manager && $businessGroupId) {
+                $existingManager = Admin::where('business_group_id', $businessGroupId)
+                    ->where('is_manager', 1)
+                    ->first();
+
+                if ($existingManager) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'This business group already has a manager.'
+                    ], 400);
+                }
+            }
+            $userAdmin->business_group_id = $businessGroupId;
             $userAdmin->save();
 
-
-            DB::commit(); 
+            DB::commit();
 
             return response()->json([
                 'status' => true,
@@ -134,18 +144,15 @@ class AdminController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-            DB::rollBack(); 
-            \Log::error($e); 
+            DB::rollBack();
+            \Log::error($e);
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to create admin. Please try again.'
-            ], 500); 
+            ], 500);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $currentUser = auth('admin')->user(); 
@@ -156,7 +163,7 @@ class AdminController extends Controller
             ], 401);
         }
 
-        if (!$currentUser->is_manager) { 
+        if (!$currentUser->is_default) { 
             return response()->json([
                 'status' => false,
                 'message' => 'You do not have permission to view this admin.',
@@ -178,8 +185,8 @@ class AdminController extends Controller
                 'username' => $user->username,
                 'email' => $user->email,
                 'display_name' => $user->display_name,
-                'is_manager' => $user->is_manager ? 'Trưởng nhóm' : 'Nhân viên',
-                'business_group' => $user->businessGroup ? $user->businessGroup->name : null,
+                'is_manager' => $user->is_manager,
+                'business_group_id' => $user->business_group_id, 
             ],
         ]);
     }
@@ -199,6 +206,7 @@ class AdminController extends Controller
                 'username' => $user->username,
                 'email' => $user->email,
                 'display_name' => $user->display_name,
+                'is_manager' => $user->is_manager,
             ],
         ]);
 
@@ -255,9 +263,8 @@ class AdminController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            //'password' => 'nullable|min:6',
-            'display_name' => 'required|string',
-            'email' => 'required|email|unique:admins,email,' . $id,
+            'display_name' => 'nullable|string',
+            'email' => 'nullable|email|unique:admins,email,' . $id,
             'is_manager' => 'boolean',
             'business_group_id' => 'nullable|exists:business_groups,id',
         ]);
@@ -272,13 +279,8 @@ class AdminController extends Controller
         DB::beginTransaction();
 
         try {
-            //$user->username = $request->input('username');
             $user->display_name = $request->input('display_name');
             $user->email = $request->input('email');
-
-            if ($request->filled('password')) {
-                $user->password = Hash::make($request->input('password'));
-            }
 
             $isManager = $request->input('is_manager');
             $user->is_manager = $isManager ? 1 : 0;
@@ -286,33 +288,30 @@ class AdminController extends Controller
 
             $businessGroupId = $request->input('business_group_id');
 
-            if ($user->business_group_id != $businessGroupId) {
-                // Kiểm tra nếu nhóm đã có quản lý khác
-                if ($businessGroupId) {
-                    $existingManager = BusinessGroup::where('id', $businessGroupId)
-                        ->whereNotNull('manager_id')
-                        ->where('manager_id', '!=', $user->id)
-                        ->first();
+            if ($user->is_manager && $businessGroupId) {
+                $existingManager = Admin::where('business_group_id', $businessGroupId)
+                    ->where('is_manager', 1)
+                    ->where('id', '!=', $user->id) 
+                    ->first();
 
-                    if ($existingManager) {
-                        return response()->json([
-                            'status' => false,
-                            'message' => 'This business group already has a manager.'
-                        ], 400);
-                    }
+                if ($existingManager) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'This business group already has a manager.'
+                    ], 400);
                 }
+            }
 
-                // Cập nhật business group của user
+
+            if ($user->business_group_id != $businessGroupId) {
                 $originalBusinessGroupId = $user->getOriginal('business_group_id');
                 $user->business_group_id = $businessGroupId;
                 $user->save();
 
-                // Cập nhật manager_id của nhóm mới
                 if ($businessGroupId) {
                     BusinessGroup::where('id', $businessGroupId)->update(['manager_id' => $user->id]);
                 }
 
-                // Nếu chuyển nhóm, xóa manager_id của nhóm cũ (nếu có)
                 if ($originalBusinessGroupId && $originalBusinessGroupId != $businessGroupId) {
                     BusinessGroup::where('id', $originalBusinessGroupId)->update(['manager_id' => null]);
                 }
@@ -330,7 +329,7 @@ class AdminController extends Controller
                     'username' => $user->username,
                     'email' => $user->email,
                     'display_name' => $user->display_name,
-                    'business_group' => $user->businessGroup ? $user->businessGroup->name : null,
+                    'business_group_id' => $user->business_group_id,
                     'is_manager' => $user->is_manager,
                 ],
             ], 200);
@@ -375,14 +374,14 @@ class AdminController extends Controller
                 if ($user->id === $currentUser->id) {
                     return response()->json([
                         'status' => false,
-                        'message' => "Bạn không thể tự xóa tài khoản của mình (ID: $id)"
+                        'message' => "You cannot delete your own account (ID: $id)"
                     ], 400);
                 }
 
                 if ($user->id === 1) {
                     return response()->json([
                         'status' => false,
-                        'message' => "Không thể xóa tài khoản Super Admin"
+                        'message' => "Can delete Super Admin"
                     ], 400);
                 }
 
@@ -400,6 +399,54 @@ class AdminController extends Controller
         }
 
         
+    }
+
+    public function destroy(string $id)
+    {
+        $currentUser = Auth::guard('admin')->user();
+
+        try {
+            $userToDelete = Admin::findOrFail($id);
+
+            if ($userToDelete->id === $currentUser->id) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "You cannot delete your own account (ID: $id)"
+                ], 400); 
+            }
+
+            if ($userToDelete->is_default === 1) {  
+                return response()->json([
+                    'status' => false,
+                    'message' => "Cannot delete Super Admin" 
+                ], 400);
+            }
+
+            if ($userToDelete->is_manager) {
+                BusinessGroup::where('manager_id', $userToDelete->id)->update(['manager_id' => null]);
+            }
+
+            $userToDelete->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Admin deleted successfully.'
+            ]);
+
+        } catch (\Exception $e) {
+            if ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Admin not found.'
+                ], 404);
+            } else {
+                \Log::error($e); 
+                return response()->json([
+                    'status' => false,
+                    'message' => 'An error occurred during deletion.'
+                ], 500);
+            }
+        }
     }
 
    

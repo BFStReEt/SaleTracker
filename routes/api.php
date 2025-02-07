@@ -32,6 +32,12 @@ Route::group(['middleware' => 'admin'], function () {
 //Sales
 Route::group(['middleware' => 'admin', 'prefix' => 'sales'], function () {
     Route::get('/index', [SaleController::class, 'index']);
+    Route::delete('/{id}',[SaleController::class, 'destroy']);
+    Route::delete('/delete',[SaleController::class, 'delete']);
+});
+
+Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
+    Route::delete('/delete',[SaleController::class, 'delete']);
 });
 
 //Upload

@@ -33,7 +33,7 @@ class SaleController extends Controller
                     $salesQuery->whereBetween('start_time', [$startTime, $endTime]);
                 } elseif ($startTime) {
                     $now = \Carbon\Carbon::now()->endOfDay();
-                    $salesQuery->whereBetween('start_time', [$startTime, $now]); 
+                    $salesQuery->whereBetween('start_time', [$startTime, $now]);
                 } elseif ($endTime) {
                     $salesQuery->where('start_time', '<=', $endTime);
                 }

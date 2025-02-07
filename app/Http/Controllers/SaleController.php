@@ -15,11 +15,29 @@ class SaleController extends Controller
         $user = Auth::guard('admin')->user();
         $salesQuery = Sale::with('admin');
     
-        if ($request->has('start_time') && $request->has('end_time')) {
+        if ($request->has('start_time') || $request->has('end_time')) {
             try {
-                $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->start_time)->startOfDay();
-                $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->end_time)->endOfDay();
-                $salesQuery->whereBetween('start_time', [$startTime, $endTime]);
+                if ($request->has('start_time')) {
+                    $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->start_time)->startOfDay();
+                } else {
+                    $startTime = null;
+                }
+        
+                if ($request->has('end_time')) {
+                    $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->end_time)->endOfDay();
+                } else {
+                    $endTime = null;
+                }
+        
+                if ($startTime && $endTime) {
+                    $salesQuery->whereBetween('start_time', [$startTime, $endTime]);
+                } elseif ($startTime) {
+                    $now = \Carbon\Carbon::now()->endOfDay();
+                    $salesQuery->whereBetween('start_time', [$startTime, $now]); 
+                } elseif ($endTime) {
+                    $salesQuery->where('start_time', '<=', $endTime);
+                }
+        
             } catch (\Exception $e) {
                 return response()->json(['status' => false, 'message' => 'Invalid date format for filtering'], 400);
             }

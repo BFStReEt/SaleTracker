@@ -36,28 +36,49 @@ class SalesImport implements ToModel
         return empty($value) ? null : $value;
     }
 
-    private function convertExcelTimeToString($excelTime)
-{
-    if (empty($excelTime)) {
-        return null;
-    }
+    // private function convertExcelTimeToString($excelTime)
+    // {
+    //     if (empty($excelTime)) {
+    //         return null;
+    //     }
 
-    if (is_numeric($excelTime)) {
-        try {
-            $dateTime = Date::excelToDateTimeObject($excelTime);
-            return $dateTime->format('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            \Log::error("Lỗi chuyển đổi thời gian Excel (dạng số): " . $e->getMessage() . " Giá trị: " . $excelTime);
+    //     if (is_numeric($excelTime)) {
+    //         try {
+    //             $dateTime = Date::excelToDateTimeObject($excelTime);
+    //             return $dateTime->format('Y-m-d H:i:s');
+    //         } catch (\Exception $e) {
+    //             \Log::error("Lỗi chuyển đổi thời gian Excel (dạng số): " . $e->getMessage() . " Giá trị: " . $excelTime);
+    //             return null;
+    //         }
+    //     } else {
+    //         try {
+    //             $dateTime = Carbon::parse($excelTime);
+    //             return $dateTime->format('Y-m-d H:i:s'); 
+    //         } catch (\Exception $e) {
+    //             \Log::error("Lỗi chuyển đổi thời gian Excel (dạng chuỗi): " . $e->getMessage() . " Giá trị: " . $excelTime);
+    //             return null;
+    //         }
+    //     }
+    // }
+
+    private function convertExcelTimeToString($excelTime)
+    {
+        if (empty($excelTime)) {
             return null;
         }
-    } else {
+
         try {
-            $dateTime = Carbon::parse($excelTime);
-            return $dateTime->format('Y-m-d H:i:s'); 
+            if (is_numeric($excelTime)) {
+                $dateTime = Date::excelToDateTimeObject($excelTime);
+                return $dateTime->format('Y-m-d H:i:s');
+            }
+
+            $dateTime = Carbon::createFromFormat('d/m/Y h:i:s A', $excelTime); 
+            return $dateTime->format('Y-m-d H:i:s');
+
         } catch (\Exception $e) {
-            \Log::error("Lỗi chuyển đổi thời gian Excel (dạng chuỗi): " . $e->getMessage() . " Giá trị: " . $excelTime);
+            \Log::error("Lỗi chuyển đổi thời gian Excel: " . $e->getMessage() . " Giá trị: " . $excelTime);
             return null;
         }
     }
-}
 }

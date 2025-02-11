@@ -11,51 +11,48 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $val = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
-        ],); 
-        
-        if ($val->fails()) {
-            return response()->json([
-                'status' => false,
-                'errors' => $val->errors(), 
-            ], 422); 
-        }
-
-
-        $admin = Admin::where('username', $request->username)->first();
-
-        if (!$admin) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Username does not exist.'
-            ], 404);
-        }
-
-        if (!Hash::check($request->password, $admin->password)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Incorrect password.'
-            ], 401);
-        }
-
-        $last_login = Carbon::now(); 
-        $carbonLastlogin = Carbon::parse($last_login);
-        $carbonLastlogin->setTimezone('Asia/Ho_Chi_Minh'); 
-        $admin->lastlogin = $formattedLastlogin = $carbonLastlogin->format('d-m-Y H:i:s');
-        $admin->status = '1';
-        $admin->save();
-        $token = $admin->createToken('Admin')->accessToken;
-
-        
-        return response()->json([
-            'status' => true,
-            'token' => $token,
-            'display_name' => $admin->username
         ]);
+        if ($val->fails()) {
+            return response()->json($val->errors(), 202);
+        }
+        $now = date('d-m-Y H:i:s');
+        $stringTime = strtotime($now);
+        $admin = Admin::where('username',$request->username)->first();
+
+        if(isset($admin)!=1)
+        {
+            return response()->json([
+                'status' => false,
+                'mess' => 'username'
+            ]);
+        }
+
+        $check =  $admin->makeVisible('password');
+
+
+        if(Hash::check($request->password,$check->password)){
+
+                $success= $admin->createToken('Admin')->accessToken;
+
+                $admin->lastlogin=$stringTime;
+                $admin->save();
+
+                return response()->json([
+                    'status' => true,
+                    'token' => $success,
+                    'username'=>$admin->display_name
+                ]);
+        }else {
+
+            return response()->json([
+                    'status' => false,
+                    'mess' => 'pass'
+            ]);
+        }
     }
 
 

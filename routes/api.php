@@ -43,6 +43,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sales'], function () {
 
 Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
     Route::delete('/delete',[SaleController::class, 'delete']);
+    Route::get('/{id}',[SaleController::class,'edit']);
+    Route::put('/{id}',[SaleController::class,'updateNote']);
 });
 
 //Upload

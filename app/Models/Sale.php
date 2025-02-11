@@ -19,7 +19,8 @@ class Sale extends Model
         'quantity',
         'price',
         'sales_result',
-        'suggestions'
+        'suggestions',
+        'note',
     ];
 
     public function admin()

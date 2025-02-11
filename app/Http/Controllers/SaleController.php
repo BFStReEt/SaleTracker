@@ -17,27 +17,21 @@ class SaleController extends Controller
     
         if ($request->has('start_time') || $request->has('end_time')) {
             try {
-                if ($request->has('start_time')) {
-                    $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->start_time)->startOfDay();
-                } else {
-                    $startTime = null;
-                }
-        
-                if ($request->has('end_time')) {
-                    $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $request->end_time)->endOfDay();
-                } else {
-                    $endTime = null;
-                }
-        
-                if ($startTime && $endTime) {
+                $startTime = $request->input('start_time');
+                $endTime = $request->input('end_time');
+    
+                if (!empty($startTime) && !empty($endTime)) {
+                    $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $startTime)->startOfDay();
+                    $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $endTime)->endOfDay();
                     $salesQuery->whereBetween('start_time', [$startTime, $endTime]);
-                } elseif ($startTime) {
+                } elseif (!empty($startTime)) {
+                    $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $startTime)->startOfDay();
                     $now = \Carbon\Carbon::now()->endOfDay();
                     $salesQuery->whereBetween('start_time', [$startTime, $now]);
-                } elseif ($endTime) {
+                } elseif (!empty($endTime)) {
+                    $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $endTime)->endOfDay();
                     $salesQuery->where('start_time', '<=', $endTime);
                 }
-        
             } catch (\Exception $e) {
                 return response()->json(['status' => false, 'message' => 'Invalid date format for filtering'], 400);
             }
@@ -57,7 +51,7 @@ class SaleController extends Controller
             });
         }
 
-        if ($user->is_default === 1) {
+        if ($user->is_default === 1 || $user->is_viewer === 1) { 
         } elseif ($user->is_manager && $user->business_group_id) {
             $salesQuery->whereHas('admin', function ($query) use ($user) {
                 $query->where('business_group_id', $user->business_group_id);
@@ -182,5 +176,61 @@ class SaleController extends Controller
         }
 
         
+    }
+
+    public function edit(string $id){
+        $sale = Sale::find($id);
+
+        if (!$sale) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data id not found'
+            ], 404);
+        }
+        return response()->json([
+            'status' => true,
+            'data' => [
+            'customer_name' => $sale->customer_name,
+            'item' => $sale->item,
+            'quantity' => $sale->quantity,
+            'sales_result' => $sale->sales_result,
+            'note' => $sale->note,
+        ],]);
+    }
+
+    public function updateNote(Request $request, string $id)
+    {
+        $sale = Sale::find($id);
+
+        if (!$sale) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data id not found'
+            ], 404);
+        }
+
+        $request->validate([
+            'note' => 'nullable|string', 
+        ]);
+
+        try {
+            $sale->note = $request->input('note');
+            $sale->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Note updated successfully',
+                'data' => [
+                    'note' => $sale->note, 
+                ],
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error($e); 
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to update note'
+            ], 500);
+        }
     }
 }

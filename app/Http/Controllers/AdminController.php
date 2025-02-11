@@ -209,6 +209,8 @@ class AdminController extends Controller
                 'email' => $user->email,
                 'display_name' => $user->display_name,
                 'is_manager' => $user->is_manager,
+                'is_admin' => $user->is_default ? true : false,
+
             ],
         ]);
 
@@ -286,43 +288,48 @@ class AdminController extends Controller
 
             $isManager = $request->input('is_manager');
             $user->is_manager = $isManager ? 1 : 0;
-            $user->save();
+            $user->save(); 
 
             $businessGroupId = $request->input('business_group_id');
 
-            if ($user->is_manager && $businessGroupId) {
-                $existingManager = Admin::where('business_group_id', $businessGroupId)
-                    ->where('is_manager', 1)
-                    ->where('id', '!=', $user->id) 
-                    ->first();
-
-                if ($existingManager) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'This business group already has a manager.'
-                    ], 400);
-                }
-            }
-
-
-            if ($user->business_group_id != $businessGroupId) {
+            if ($user->is_manager) {
                 $originalBusinessGroupId = $user->getOriginal('business_group_id');
-                $user->business_group_id = $businessGroupId;
-                $user->save();
-
-                if ($businessGroupId) {
-                    BusinessGroup::where('id', $businessGroupId)->update(['manager_id' => $user->id]);
-                }
 
                 if ($originalBusinessGroupId && $originalBusinessGroupId != $businessGroupId) {
                     BusinessGroup::where('id', $originalBusinessGroupId)->update(['manager_id' => null]);
                 }
+
+                if ($businessGroupId) {
+                    $existingManager = Admin::where('business_group_id', $businessGroupId)
+                        ->where('is_manager', 1)
+                        ->where('id', '!=', $user->id)
+                        ->first();
+
+                    if ($existingManager) {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'This business group already has a manager.'
+                        ], 400);
+                    }
+
+                    BusinessGroup::where('id', $businessGroupId)->update(['manager_id' => $user->id]);
+                }
+            } else {
+                $originalBusinessGroupId = $user->getOriginal('business_group_id');
+                if ($originalBusinessGroupId) {
+                    BusinessGroup::where('id', $originalBusinessGroupId)->update(['manager_id' => null]);
+                }
+                $businessGroupId = null; 
             }
+
+            $user->business_group_id = $businessGroupId; 
+            $user->save(); 
 
             DB::commit();
 
-            $user->refresh();
-            $user->load('businessGroup');
+            $user->refresh(); 
+            $user->load('businessGroup'); 
 
             return response()->json([
                 'status' => true,

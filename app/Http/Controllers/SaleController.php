@@ -46,8 +46,10 @@ class SaleController extends Controller
                       })
                       ->orWhere(function($query) use ($searchTerm) { 
                             $query->where('item', 'like', "%$searchTerm%"); 
+                      })
+                      ->orWhere(function($query) use ($searchTerm){
+                            $query->where('sales_result','like',"%$searchTerm%");
                       });
-    
             });
         }
 

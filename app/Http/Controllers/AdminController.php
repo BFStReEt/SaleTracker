@@ -77,7 +77,6 @@ class AdminController extends Controller
    
     public function create()
     {
-        //
     }
 
     
@@ -94,9 +93,8 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:admins',
-            'password' => 'required|min:6',
             'display_name' => 'required|string',
-            'email' => 'nullable|email|unique:admins', 
+            'email' => 'nullable|email|unique:admins',
             'business_group_id' => 'required|exists:business_groups,id',
             'is_manager' => 'boolean',
         ]);
@@ -108,14 +106,11 @@ class AdminController extends Controller
             ], 422);
         }
 
-
-
         DB::beginTransaction();
 
         try {
             $userAdmin = new Admin();
             $userAdmin->username = $request->username;
-            $userAdmin->password = Hash::make($request->password);
             $userAdmin->display_name = $request->display_name;
             $userAdmin->email = $request->email;
             $userAdmin->is_manager = $request->input('is_manager', 0);
@@ -135,13 +130,24 @@ class AdminController extends Controller
                 }
             }
             $userAdmin->business_group_id = $businessGroupId;
+
+
+            $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value'); 
+            if (!$defaultPassword) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Default password not found.'
+                ], 500);
+            }
+
+            $userAdmin->password = $defaultPassword;
             $userAdmin->save();
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Successful',
+                'message' => 'successful',
             ], 201);
 
         } catch (\Exception $e) {
@@ -270,7 +276,7 @@ class AdminController extends Controller
             'display_name' => 'nullable|string',
             'email' => 'nullable|email|unique:admins,email,' . $id,
             'is_manager' => 'boolean',
-            'business_group_id' => 'nullable|exists:business_groups,id',
+            'business_group_id' => 'required|exists:business_groups,id',
         ]);
 
         if ($validator->fails()) {

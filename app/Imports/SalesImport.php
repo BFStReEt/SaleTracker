@@ -39,7 +39,7 @@ class SalesImport implements ToModel
             'suggestions' => $this->getValue($row[8] ?? null), 
         ]);
     }
-//hi
+    
     private function getValue($value)
     {
         return empty($value) ? null : $value;

@@ -208,6 +208,15 @@ class AdminController extends Controller
                 'message' => 'User not found',
             ], 404);
         }
+
+    $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
+
+    $check_password = false; 
+
+    if ($defaultPassword && Hash::check($user->password, $defaultPassword)) {
+        $check_password = true;
+    }
+
         return response()->json([
             'status' => true,
             'admin_detail' => [
@@ -216,12 +225,9 @@ class AdminController extends Controller
                 'display_name' => $user->display_name,
                 'is_manager' => $user->is_manager,
                 'is_admin' => $user->is_default ? true : false,
-
+                'check_password' => $check_password,
             ],
         ]);
-
-
-       
     }
 
     public function edit(string $id){
@@ -494,7 +500,7 @@ class AdminController extends Controller
         }
 
         $currentUser = Auth::guard('admin')->user();
-        if (!$currentUser->is_manager) { 
+        if (!$currentUser->is_default) { 
             return response()->json([
                 'status' => false,
                 'message' => 'You do not have permission to update this admin\'s password.'
@@ -503,7 +509,6 @@ class AdminController extends Controller
 
         try {
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
-
             if (!$defaultPassword) {
                 return response()->json([
                     'status' => false,
@@ -528,4 +533,9 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    // public function changePassword(Request $request){
+    //     $currentUser = Auth::guard('admin')->user();
+
+    // }
 }

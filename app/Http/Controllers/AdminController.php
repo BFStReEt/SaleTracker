@@ -209,13 +209,13 @@ class AdminController extends Controller
             ], 404);
         }
 
-    $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
+        $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
 
-    $check_password = false; 
+        $check_password = false; 
 
-    if ($defaultPassword && Hash::check($user->password, $defaultPassword)) {
-        $check_password = true;
-    }
+        if ($defaultPassword == $user->password) {
+            $check_password = true;
+        }
 
         return response()->json([
             'status' => true,
@@ -484,7 +484,7 @@ class AdminController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Update default passwrod successfully.'
+            'message' => 'Update default password successfully.'
         ]);
     }
    
@@ -517,9 +517,8 @@ class AdminController extends Controller
             }
 
             $admin->password = $defaultPassword; 
-            $admin->must_change_password = true;
             $admin->save();
-
+           
             return response()->json([
                 'status' => true,
                 'message' => 'Password updated successfully.'
@@ -534,8 +533,27 @@ class AdminController extends Controller
         }
     }
 
-    // public function changePassword(Request $request){
-    //     $currentUser = Auth::guard('admin')->user();
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+        ]);
 
-    // }
+        $currentUser = Auth::guard('admin')->user();
+        if (Hash::check($request->current_password, $currentUser->password)) {
+            $currentUser->password = Hash::make($request->new_password);
+            $currentUser->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'success'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Incorrect current password'
+            ], 404); 
+        }
+    }
 }

@@ -23,7 +23,7 @@ Route::group(['middleware' => 'admin'], function () {
     //Reset Password
     Route::put('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
     Route::patch('/password/update-password/{id}',[AdminController::class,'updatePasswordID']);
-    Route::post('/password/change-password',[AdminController::class,'changePassword']);
+    Route::patch('/password/change-password',[AdminController::class,'changePassword']);
 });
 
 

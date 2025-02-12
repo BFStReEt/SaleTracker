@@ -28,7 +28,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'mess' => 'username'
-            ]);
+            ],401);
         }
 
         $check =  $admin->makeVisible('password');
@@ -50,8 +50,8 @@ class AuthController extends Controller
 
             return response()->json([
                     'status' => false,
-                    'mess' => 'pass'
-            ]);
+                    'mess' => 'password'
+            ],401);
         }
     }
 

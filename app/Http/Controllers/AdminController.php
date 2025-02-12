@@ -38,14 +38,12 @@ class AdminController extends Controller
             $query->where('username', 'like', '%' . $searchUsername . '%');
         }
 
-        // Tìm kiếm theo nhóm (nếu có)
         $searchBusinessGroupId = $request->query('group_id');
         if (!empty($searchBusinessGroupId)) {
             $query->where('business_group_id', $searchBusinessGroupId);
         }
 
         $users = $query->orderBy('id', 'asc')->paginate(10);
-
 
         if ($users instanceof \Illuminate\Http\JsonResponse) { 
             return $users;
@@ -114,10 +112,9 @@ class AdminController extends Controller
             $userAdmin->display_name = $request->display_name;
             $userAdmin->email = $request->email;
             $userAdmin->is_manager = $request->input('is_manager', 0);
-
             $businessGroupId = $request->input('business_group_id');
 
-            if ($userAdmin->is_manager && $businessGroupId) {
+            if ($userAdmin->is_manager) {
                 $existingManager = Admin::where('business_group_id', $businessGroupId)
                     ->where('is_manager', 1)
                     ->first();
@@ -128,11 +125,17 @@ class AdminController extends Controller
                         'message' => 'This business group already has a manager.'
                     ], 400);
                 }
+
+                $businessGroup = BusinessGroup::find($businessGroupId);
+                if ($businessGroup) {
+                    $businessGroup->manager_id = null; 
+                    $businessGroup->save();
+                }
             }
+
             $userAdmin->business_group_id = $businessGroupId;
 
-
-            $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value'); 
+            $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
             if (!$defaultPassword) {
                 return response()->json([
                     'status' => false,
@@ -142,6 +145,11 @@ class AdminController extends Controller
 
             $userAdmin->password = $defaultPassword;
             $userAdmin->save();
+
+            if ($userAdmin->is_manager) {
+                BusinessGroup::where('id', $businessGroupId)
+                    ->update(['manager_id' => $userAdmin->id]);
+            }
 
             DB::commit();
 
@@ -297,51 +305,42 @@ class AdminController extends Controller
         try {
             $user->display_name = $request->input('display_name');
             $user->email = $request->input('email');
-
             $isManager = $request->input('is_manager');
-            $user->is_manager = $isManager ? 1 : 0;
-            $user->save(); 
-
             $businessGroupId = $request->input('business_group_id');
 
-            if ($user->is_manager) {
-                $originalBusinessGroupId = $user->getOriginal('business_group_id');
+            if ($isManager) {
+                $existingManager = Admin::where('business_group_id', $businessGroupId)
+                    ->where('is_manager', 1)
+                    ->where('id', '!=', $user->id)
+                    ->first();
 
-                if ($originalBusinessGroupId && $originalBusinessGroupId != $businessGroupId) {
-                    BusinessGroup::where('id', $originalBusinessGroupId)->update(['manager_id' => null]);
+                if ($existingManager) {
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'This business group already has a manager.'
+                    ], 400);
                 }
 
-                if ($businessGroupId) {
-                    $existingManager = Admin::where('business_group_id', $businessGroupId)
-                        ->where('is_manager', 1)
-                        ->where('id', '!=', $user->id)
-                        ->first();
-
-                    if ($existingManager) {
-                        DB::rollBack();
-                        return response()->json([
-                            'status' => false,
-                            'message' => 'This business group already has a manager.'
-                        ], 400);
-                    }
-
-                    BusinessGroup::where('id', $businessGroupId)->update(['manager_id' => $user->id]);
+                if ($user->business_group_id != $businessGroupId) {
+                    BusinessGroup::where('id', $user->business_group_id)
+                        ->where('manager_id', $user->id)
+                        ->update(['manager_id' => null]);
                 }
+
+                BusinessGroup::where('id', $businessGroupId)
+                    ->update(['manager_id' => $user->id]);
             } else {
-                $originalBusinessGroupId = $user->getOriginal('business_group_id');
-                if ($originalBusinessGroupId) {
-                    BusinessGroup::where('id', $originalBusinessGroupId)->update(['manager_id' => null]);
-                }
-                $businessGroupId = null; 
+                BusinessGroup::where('id', $user->business_group_id)
+                    ->where('manager_id', $user->id)
+                    ->update(['manager_id' => null]);
             }
 
-            $user->business_group_id = $businessGroupId; 
-            $user->save(); 
+            $user->is_manager = $isManager;
+            $user->business_group_id = $businessGroupId;
+            $user->save();
 
             DB::commit();
-
-            $user->refresh(); 
-            $user->load('businessGroup'); 
 
             return response()->json([
                 'status' => true,

@@ -14,20 +14,29 @@ class SalesImport implements ToModel
         if ($row[0] === 'Thời gian bắt đầu' || empty($row[0])) {
             return null;
         }
+
         $startTime = $this->convertExcelTimeToString($row[0]);
         $endTime = $this->convertExcelTimeToString($row[1]);
 
+        $businessName = $this->getValue($row[2]);
+
+        preg_match('/\d{10}/', $businessName, $matches);
+
+        $phoneNumber = $matches[0] ?? null;
+
+        $userName = $phoneNumber;
+
         return new Sale([
-            'start_time' => $startTime, 
+            'start_time' => $startTime,
             'end_time' => $endTime,
-            'business_name' => $this->getValue($row[2]),
-            'user_name' => $this->getValue($row[3]),
-            'customer_name' => $this->getValue($row[4]),
-            'item' => $this->getValue($row[5]),
-            'quantity' => $this->getValue($row[6]),
-            'price' => $this->getValue($row[7]),
-            'sales_result' => $this->getValue($row[8]),
-            'suggestions' => $this->getValue($row[9]),
+            'business_name' => $businessName,
+            'user_name' => $userName,
+            'customer_name' => $this->getValue($row[3] ?? null), 
+            'item' => $this->getValue($row[4] ?? null), 
+            'quantity' => $this->getValue($row[5] ?? null),
+            'price' => $this->getValue($row[6] ?? null),
+            'sales_result' => $this->getValue($row[7] ?? null),
+            'suggestions' => $this->getValue($row[8] ?? null), 
         ]);
     }
 
@@ -35,31 +44,6 @@ class SalesImport implements ToModel
     {
         return empty($value) ? null : $value;
     }
-
-    // private function convertExcelTimeToString($excelTime)
-    // {
-    //     if (empty($excelTime)) {
-    //         return null;
-    //     }
-
-    //     if (is_numeric($excelTime)) {
-    //         try {
-    //             $dateTime = Date::excelToDateTimeObject($excelTime);
-    //             return $dateTime->format('Y-m-d H:i:s');
-    //         } catch (\Exception $e) {
-    //             \Log::error("Lỗi chuyển đổi thời gian Excel (dạng số): " . $e->getMessage() . " Giá trị: " . $excelTime);
-    //             return null;
-    //         }
-    //     } else {
-    //         try {
-    //             $dateTime = Carbon::parse($excelTime);
-    //             return $dateTime->format('Y-m-d H:i:s'); 
-    //         } catch (\Exception $e) {
-    //             \Log::error("Lỗi chuyển đổi thời gian Excel (dạng chuỗi): " . $e->getMessage() . " Giá trị: " . $excelTime);
-    //             return null;
-    //         }
-    //     }
-    // }
 
     private function convertExcelTimeToString($excelTime)
     {

@@ -469,7 +469,7 @@ class AdminController extends Controller
         $newPassword = $request->input('default_password');
 
         $request->validate([
-            'default_password' => 'required|min:6',
+            'default_password' => 'required',
         ]);
 
         $hashedPassword = Hash::make($newPassword);
@@ -482,4 +482,50 @@ class AdminController extends Controller
         ]);
     }
    
+    public function updatePasswordID(string $id)
+    {
+        $admin = Admin::find($id);
+
+        if (!$admin) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Admin not found.'
+            ], 404);
+        }
+
+        $currentUser = Auth::guard('admin')->user();
+        if (!$currentUser->is_manager) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update this admin\'s password.'
+            ], 403);
+        }
+
+        try {
+            $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
+
+            if (!$defaultPassword) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Default password not found.'
+                ], 500);
+            }
+
+            $admin->password = $defaultPassword; 
+            $admin->must_change_password = true;
+            $admin->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password updated successfully.'
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to update password. Please try again.'
+            ], 500);
+        }
+    }
 }

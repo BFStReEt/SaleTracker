@@ -57,7 +57,7 @@ class CheckAndImportExcel extends Command
                 }
             }
 
-            sleep(10);
+            sleep(5);
         }
     }
 }

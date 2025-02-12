@@ -21,8 +21,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/profile/delete',[AdminController::class, 'delete']);
     
     //Reset Password
-    Route::post('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
-
+    Route::put('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
+    Route::patch('/password/update-password/{id}',[AdminController::class,'updatePasswordID']);
 });
 
 

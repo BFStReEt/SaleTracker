@@ -7,7 +7,7 @@ use App\Models\BusinessGroup;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
-
+use Gate;
 
 class BusinessGroupController extends Controller
 {
@@ -16,7 +16,7 @@ class BusinessGroupController extends Controller
     {
         $currentUser = auth('admin')->user(); 
        
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.index')) { 
             return response()->json([
                 'status' => false,
                 'message' => 'No permission',
@@ -64,6 +64,13 @@ class BusinessGroupController extends Controller
     
     public function store(Request $request)
     {
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:business_groups',
             'description' => 'nullable',
@@ -87,6 +94,12 @@ class BusinessGroupController extends Controller
      */
     public function show(string $id)
     {
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $businessGroup = BusinessGroup::find($id);
 
         if (!$businessGroup) {
@@ -117,6 +130,12 @@ class BusinessGroupController extends Controller
 
     public function update(Request $request, string $id)
     {
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.update')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $businessGroup = BusinessGroup::find($id);
 
         if (!$businessGroup) {
@@ -141,6 +160,13 @@ class BusinessGroupController extends Controller
 
     public function delete(Request $request)
     {
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
+
         try {
             $request->validate([
                 'ids' => 'required|array',
@@ -172,6 +198,12 @@ class BusinessGroupController extends Controller
 
     public function destroy(string $id)
     {
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         try {
             $businessGroup = BusinessGroup::find($id);
 

@@ -62,8 +62,8 @@ class SaleController extends Controller
             $salesQuery->where('user_name', $user->username);
         }
 
-        $sales = $salesQuery->orderBy('id', 'desc')->paginate(10);
-        //$sales = $salesQuery->orderBy('start_time', 'desc')->paginate(10); 
+        //$sales = $salesQuery->orderBy('id', 'desc')->paginate(10);
+        $sales = $salesQuery->orderBy('start_time', 'desc')->paginate(10); 
         $formattedSales = $sales->map(function ($sale) {
             if ($sale->start_time) {
                 $sale->start_time = \Carbon\Carbon::parse($sale->start_time)->format('d/m/Y g:i:s A');

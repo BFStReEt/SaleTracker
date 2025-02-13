@@ -15,6 +15,20 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
         $salesQuery = Sale::with('admin');
+        if ($request->has('id')) {
+            $employeeId = $request->input('id');
+
+            if ($user->is_manager && $user->business_group_id) {
+                $salesQuery->whereHas('admin', function ($query) use ($employeeId, $user) {
+                    $query->where('id', $employeeId)
+                        ->where('business_group_id', $user->business_group_id); 
+                });
+            } else {
+                $salesQuery->whereHas('admin', function ($query) use ($employeeId) {
+                    $query->where('id', $employeeId);
+                });
+            }
+        }
     
         if ($request->has('start_time') || $request->has('end_time')) {
             try {

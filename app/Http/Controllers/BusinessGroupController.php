@@ -198,7 +198,7 @@ class BusinessGroupController extends Controller
 
     public function destroy(string $id)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.destroy')) { 
             return response()->json([
                 'status' => false,
                 'message' => 'No permission',

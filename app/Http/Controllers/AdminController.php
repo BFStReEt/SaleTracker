@@ -594,19 +594,39 @@ class AdminController extends Controller
 
         $query = Admin::query();
 
-        if ($currentUser->is_default) { 
-            $employees = $query->get(['id', 'display_name']); 
-        } elseif ($currentUser->is_manager) { 
+        if ($currentUser->is_default) {
+            $employees = $query->with('businessGroup.manager')->get(['id', 'display_name']);
+        } elseif ($currentUser->is_manager) {
             $employees = $query->where('business_group_id', $currentUser->business_group_id)
                 ->where('id', '!=', $currentUser->id)
-                ->get(['id', 'display_name']); 
-        } else { 
+                ->with('businessGroup.manager')
+                ->get(['id', 'display_name']);
+
+            $manager = Admin::find($currentUser->id);
+            if ($manager) {
+                $employees->push($manager);
+            }
+        } else {
             $employees = [];
         }
+        $formattedEmployees = collect($employees)->map(function ($employee) {
+            $managerId = null;
+            $managerName = null;
+
+            if ($employee->businessGroup && $employee->businessGroup->manager) {
+                $managerId = $employee->businessGroup->manager->id;
+                $managerName = $employee->businessGroup->manager->display_name;
+            }
+
+            return [
+                'id' => $employee->id,
+                'display_name' => $employee->display_name,
+            ];
+        });
 
         return response()->json([
             'status' => true,
-            'data' => $employees,
+            'data' => $formattedEmployees->values()->all(), 
         ]);
     }
 }

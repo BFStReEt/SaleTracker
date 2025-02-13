@@ -32,6 +32,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/groups/delete',[BusinessGroupController::class,'delete']);
     Route::resource('group', BusinessGroupController::class);
     Route::get('groups/search', [BusinessGroupController::class, 'search']);
+
+    //Employee
+    Route::get('/listEmployee',[AdminController::class,'listEmployee']);
 });
 
 
@@ -50,3 +53,4 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
 
 //Upload
 Route::post('/upload', [FileUploadController::class, 'upload']);
+

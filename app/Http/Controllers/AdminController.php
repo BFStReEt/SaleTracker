@@ -583,4 +583,30 @@ class AdminController extends Controller
             ], 404); 
         }
     }
+
+    public function listEmployee(Request $request)
+    {
+        $currentUser = Auth::guard('admin')->user();
+
+        if (!$currentUser) {
+            return response()->json(['status' => false, 'message' => 'Unauthorized.'], 401);
+        }
+
+        $query = Admin::query();
+
+        if ($currentUser->is_default) { 
+            $employees = $query->get(['id', 'display_name']); 
+        } elseif ($currentUser->is_manager) { 
+            $employees = $query->where('business_group_id', $currentUser->business_group_id)
+                ->where('id', '!=', $currentUser->id)
+                ->get(['id', 'display_name']); 
+        } else { 
+            $employees = [];
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $employees,
+        ]);
+    }
 }

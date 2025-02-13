@@ -26,7 +26,7 @@ class AdminController extends Controller
 
         $query = Admin::with('businessGroup'); 
 
-        if ($currentUser->is_default === 1) {
+        if (Gate::allows('QUẢN LÍ TÀI KHOẢN.index')) {
         // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
         //     $query->where('business_group_id', $currentUser->business_group_id);
         // 
@@ -83,10 +83,10 @@ class AdminController extends Controller
     {
         $currentUser = Auth::guard('admin')->user();
 
-        if (!$currentUser->is_default) {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.store'))  {
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to create new admins.'
+                'message' => 'No permission'
             ], 403);
         }
 
@@ -179,10 +179,10 @@ class AdminController extends Controller
             ], 401);
         }
 
-        if (!$currentUser->is_default) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.show')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to view this admin.',
+                'message' => 'No permission',
             ], 403); 
         }
 
@@ -209,7 +209,6 @@ class AdminController extends Controller
     }
 
     public function getProfile(Request $request){
-        abort_if(!Gate::allows('ADMINS'), 403, "No permission");
         $user = auth('admin')->user(); 
         if (!$user) {
             return response()->json([
@@ -278,6 +277,12 @@ class AdminController extends Controller
 
     public function update(Request $request, string $id)
     {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.update')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $user = Admin::find($id);
 
         if (!$user) {

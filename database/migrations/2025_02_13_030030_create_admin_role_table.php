@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('admin_role', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('role_id');
             $table->timestamps();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+
+            $table->unique(['admin_id', 'role_id']); 
         });
     }
 

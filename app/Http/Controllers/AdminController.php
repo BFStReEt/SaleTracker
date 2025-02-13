@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
 use App\Models\BusinessGroup;
 use App\Models\DefaultPassword;
+use Gate;
 
 class AdminController extends Controller
 {
@@ -208,7 +209,7 @@ class AdminController extends Controller
     }
 
     public function getProfile(Request $request){
-
+        abort_if(!Gate::allows('ADMINS'), 403, "No permission");
         $user = auth('admin')->user(); 
         if (!$user) {
             return response()->json([

@@ -7,6 +7,7 @@ use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Admin;
+use Gate;
 
 class SaleController extends Controller
 {
@@ -53,11 +54,12 @@ class SaleController extends Controller
             });
         }
 
-        if ($user->is_default === 1 || $user->is_viewer === 1) { 
+        if (Gate::allows('QUẢN LÍ KHÁCH HÀNG.view')) { 
         } elseif ($user->is_manager && $user->business_group_id) {
             $salesQuery->whereHas('admin', function ($query) use ($user) {
                 $query->where('business_group_id', $user->business_group_id);
             });
+
         } else {
             $salesQuery->where('user_name', $user->username);
         }
@@ -98,10 +100,10 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
-        if ($user->is_default !== 1 && $user->is_manager !==1) { 
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to delete this data.',
+                'message' => 'No permission',
             ], 403);
         }
 
@@ -134,10 +136,10 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
-        if ($user->is_default !== 1 && $user->is_manager !==1) { 
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.delete')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to delete this data.',
+                'message' => 'No permission',
             ], 403);
         }
         try {

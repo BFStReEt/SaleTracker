@@ -16,10 +16,10 @@ class BusinessGroupController extends Controller
     {
         $currentUser = auth('admin')->user(); 
        
-        if (!$currentUser->is_default) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to view this admin.',
+                'message' => 'No permission',
             ], 403); 
         }
         $searchName = $request->query('data');

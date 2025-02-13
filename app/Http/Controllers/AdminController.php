@@ -372,6 +372,12 @@ class AdminController extends Controller
     
     public function delete(Request $request)
     {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.delete')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         try {
             $request->validate([
                 'ids' => 'required|array',
@@ -422,13 +428,17 @@ class AdminController extends Controller
             return response()->json([
                 'status' => false, 
                 'message' => 'Lỗi khi xóa dữ liệu'], 500);
-        }
-
-        
+        }  
     }
 
     public function destroy(string $id)
     {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.destroy')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $currentUser = Auth::guard('admin')->user();
 
         try {
@@ -477,6 +487,12 @@ class AdminController extends Controller
 
     public function updateDefaultPassword(Request $request)
     {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $newPassword = $request->input('default_password');
 
         $request->validate([
@@ -495,6 +511,12 @@ class AdminController extends Controller
    
     public function updatePasswordID(string $id)
     {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateUserPassword')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'No permission',
+            ], 403); 
+        }
         $admin = Admin::find($id);
 
         if (!$admin) {

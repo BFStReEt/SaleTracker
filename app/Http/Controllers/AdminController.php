@@ -31,7 +31,7 @@ class AdminController extends Controller
         //     $query->where('business_group_id', $currentUser->business_group_id);
         // 
         } else {
-            return response()->json(['status' => false, 'message' => 'No permission.'], 403);
+            return response()->json(['status' => false, 'message' => 'no permission.'], 403);
         }
 
         $searchUsername = $request->query('data');
@@ -86,7 +86,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.store'))  {
             return response()->json([
                 'status' => false,
-                'message' => 'No permission'
+                'message' => 'no permission'
             ], 403);
         }
 
@@ -182,7 +182,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.show')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
 
@@ -280,7 +280,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.update')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $user = Admin::find($id);
@@ -375,7 +375,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.delete')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         try {
@@ -436,7 +436,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.destroy')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $currentUser = Auth::guard('admin')->user();
@@ -490,7 +490,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $newPassword = $request->input('default_password');
@@ -514,7 +514,7 @@ class AdminController extends Controller
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateUserPassword')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $admin = Admin::find($id);
@@ -609,7 +609,9 @@ class AdminController extends Controller
         } else {
             $employees = [];
         }
-        $formattedEmployees = collect($employees)->map(function ($employee) {
+        
+        $formattedEmployees = collect($employees)
+        ->map(function ($employee) {
             $managerId = null;
             $managerName = null;
 

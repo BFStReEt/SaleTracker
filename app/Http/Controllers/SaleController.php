@@ -15,7 +15,7 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
         $salesQuery = Sale::with('admin');
-        if ($request->has('id')) {
+        if ($request->filled('id')) {
             $employeeId = $request->input('id');
 
             if ($user->is_manager && $user->business_group_id) {
@@ -117,7 +117,7 @@ class SaleController extends Controller
         if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403);
         }
 
@@ -153,7 +153,7 @@ class SaleController extends Controller
         if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.delete')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403);
         }
         try {

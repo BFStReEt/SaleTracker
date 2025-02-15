@@ -19,7 +19,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.index')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $searchName = $request->query('data');
@@ -67,7 +67,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
 
@@ -97,7 +97,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $businessGroup = BusinessGroup::find($id);
@@ -133,7 +133,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.update')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         $businessGroup = BusinessGroup::find($id);
@@ -163,7 +163,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
 
@@ -201,7 +201,7 @@ class BusinessGroupController extends Controller
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.destroy')) { 
             return response()->json([
                 'status' => false,
-                'message' => 'No permission',
+                'message' => 'no permission',
             ], 403); 
         }
         try {

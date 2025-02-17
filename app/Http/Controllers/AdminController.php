@@ -584,6 +584,43 @@ class AdminController extends Controller
         }
     }
 
+    public function getPassword(Request $request)
+    {
+        $currentUser = Auth::guard('admin')->user();
+
+        if (!$currentUser) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthorized.',
+            ], 401);
+        }
+
+        $adminId = $currentUser->id;
+
+        $admin = Admin::find($adminId);
+
+        if (!$admin) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Admin not found.'
+            ], 404);
+        }
+
+        try {
+            return response()->json([
+                'status' => true,
+                'password' => $admin->password,
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred while retrieving the password.'
+            ], 500);
+        }
+    }
+
     public function listEmployee(Request $request)
     {
         $currentUser = Auth::guard('admin')->user();
@@ -631,4 +668,6 @@ class AdminController extends Controller
             'data' => $formattedEmployees->values()->all(), 
         ]);
     }
+
+
 }

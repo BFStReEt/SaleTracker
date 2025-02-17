@@ -15,21 +15,48 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
         $salesQuery = Sale::with('admin');
-        if ($request->filled('id')) {
-            $employeeId = $request->input('id');
-
-            if ($user->is_manager && $user->business_group_id) {
-                $salesQuery->whereHas('admin', function ($query) use ($employeeId, $user) {
-                    $query->where('id', $employeeId)
-                        ->where('business_group_id', $user->business_group_id); 
-                });
-            } else {
-                $salesQuery->whereHas('admin', function ($query) use ($employeeId) {
-                    $query->where('id', $employeeId);
-                });
-            }
+        if ($request->filled('id') || $request->has('data')) {
+            $salesQuery->where(function($query) use ($request, $user) {
+                // ID filter
+                if ($request->filled('id')) {
+                    $employeeId = $request->input('id');
+                    
+                    if ($user->is_manager && $user->business_group_id) {
+                        $query->whereHas('admin', function ($subQuery) use ($employeeId, $user) {
+                            $subQuery->where('id', $employeeId)
+                                ->where('business_group_id', $user->business_group_id);
+                        });
+                    } else {
+                        $query->whereHas('admin', function ($subQuery) use ($employeeId) {
+                            $subQuery->where('id', $employeeId);
+                        });
+                    }
+                }
+                
+                // Data search filter
+                if ($request->has('data')) {
+                    $searchTerm = $request->data;
+                    if ($request->filled('id')) {
+                        $query->where(function($subQuery) use ($searchTerm) {
+                            $subQuery->where('customer_name', 'like', "%$searchTerm%")
+                                ->orWhereHas('admin', function ($adminQuery) use ($searchTerm) {
+                                    $adminQuery->where('business_name', 'like', "%$searchTerm%");
+                                })
+                                ->orWhere('item', 'like', "%$searchTerm%")
+                                ->orWhere('sales_result', 'like', "%$searchTerm%");
+                        });
+                    } else {
+                        $query->where('customer_name', 'like', "%$searchTerm%")
+                            ->orWhereHas('admin', function ($adminQuery) use ($searchTerm) {
+                                $adminQuery->where('business_name', 'like', "%$searchTerm%");
+                            })
+                            ->orWhere('item', 'like', "%$searchTerm%")
+                            ->orWhere('sales_result', 'like', "%$searchTerm%");
+                    }
+                }
+            });
         }
-    
+        
         if ($request->has('start_time') || $request->has('end_time')) {
             try {
                 $startTime = $request->input('start_time');
@@ -50,22 +77,6 @@ class SaleController extends Controller
             } catch (\Exception $e) {
                 return response()->json(['status' => false, 'message' => 'Invalid date format for filtering'], 400);
             }
-        }
-
-        if ($request->has('data')) {
-            $searchTerm = $request->data;
-            $salesQuery->where(function ($query) use ($searchTerm) {
-                $query->where('customer_name', 'like', "%$searchTerm%") 
-                      ->orWhereHas('admin', function ($adminQuery) use ($searchTerm) {
-                          $adminQuery->where('business_name', 'like', "%$searchTerm%");
-                      })
-                      ->orWhere(function($query) use ($searchTerm) { 
-                            $query->where('item', 'like', "%$searchTerm%"); 
-                      })
-                      ->orWhere(function($query) use ($searchTerm){
-                            $query->where('sales_result','like',"%$searchTerm%");
-                      });
-            });
         }
 
         if (Gate::allows('QUẢN LÍ KHÁCH HÀNG.view')) { 

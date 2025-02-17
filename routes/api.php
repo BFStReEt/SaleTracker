@@ -24,6 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
     Route::patch('/password/update-password/{id}',[AdminController::class,'updatePasswordID']);
     Route::patch('/password/change-password',[AdminController::class,'changePassword']);
+    Route::get('/password/get-password',[AdminController::class,'getPassword']);
 });
 
 

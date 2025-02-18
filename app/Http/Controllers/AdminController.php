@@ -27,6 +27,14 @@ class AdminController extends Controller
         $query = Admin::with('businessGroup'); 
 
         if (Gate::allows('QUẢN LÍ TÀI KHOẢN.index')) {
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'index admin',
+            'cat' => 'admin',
+            ]);
         // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
         //     $query->where('business_group_id', $currentUser->business_group_id);
         // 
@@ -89,6 +97,15 @@ class AdminController extends Controller
                 'message' => 'no permission'
             ], 403);
         }
+
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'add a admin',
+        'cat' => 'admin',
+        ]);
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:admins',
@@ -499,9 +516,7 @@ class AdminController extends Controller
             'default_password' => 'required',
         ]);
 
-        $hashedPassword = Hash::make($newPassword);
-
-        DefaultPassword::where('key', 'default_password')->update(['value' => $hashedPassword]);
+        DefaultPassword::where('key', 'default_password')->update(['value' => $newPassword]);
 
         return response()->json([
             'status' => true,
@@ -511,12 +526,13 @@ class AdminController extends Controller
    
     public function updatePasswordID(string $id)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateUserPassword')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateUserPassword')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
+
         $admin = Admin::find($id);
 
         if (!$admin) {
@@ -527,7 +543,7 @@ class AdminController extends Controller
         }
 
         $currentUser = Auth::guard('admin')->user();
-        if (!$currentUser->is_default) { 
+        if (!$currentUser->is_default) {
             return response()->json([
                 'status' => false,
                 'message' => 'You do not have permission to update this admin\'s password.'
@@ -536,6 +552,7 @@ class AdminController extends Controller
 
         try {
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
+
             if (!$defaultPassword) {
                 return response()->json([
                     'status' => false,
@@ -543,9 +560,11 @@ class AdminController extends Controller
                 ], 500);
             }
 
-            $admin->password = $defaultPassword; 
+            $hashedPassword = Hash::make($defaultPassword); 
+
+            $admin->password = $hashedPassword; 
             $admin->save();
-           
+
             return response()->json([
                 'status' => true,
                 'message' => 'Password updated successfully.'
@@ -586,9 +605,35 @@ class AdminController extends Controller
 
     public function getDefaultPassword(Request $request)
     {
-        
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.getDefaultPassword')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'no permission',
+            ], 403); 
+        }
+        try {
+            $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
+
+            if (!$defaultPassword) {
+                 return response()->json([
+                    'status' => false,
+                    'message' => 'Default password not found.'
+                ], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'default_password' => $defaultPassword, 
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error($e);
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred while retrieving the default password.'
+            ], 500);
+        }
     }
-    
 
     public function listEmployee(Request $request)
     {
@@ -600,7 +645,7 @@ class AdminController extends Controller
 
         $query = Admin::query();
 
-        if ($currentUser->is_default) {
+        if (Gate::allows('QUẢN LÍ DATA.viewall')) {
             $employees = $query->with('businessGroup.manager')->get(['id', 'display_name']);
         } elseif ($currentUser->is_manager) {
             $employees = $query->where('business_group_id', $currentUser->business_group_id)

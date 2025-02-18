@@ -9,7 +9,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\BusinessGroupController;
 
 Route::match(['get','post'],'/login', [AuthController::class, 'login'])->name('admin-login');;
-Route::middleware('admin')->post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::post('/admin',[AdminController::class,'store']);
 
@@ -24,7 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
     Route::patch('/password/update-password/{id}',[AdminController::class,'updatePasswordID']);
     Route::patch('/password/change-password',[AdminController::class,'changePassword']);
-    Route::get('/password/get-password',[AdminController::class,'getPassword']);
+    Route::get('/password/get-default-password',[AdminController::class,'getDefaultPassword']);
 });
 
 

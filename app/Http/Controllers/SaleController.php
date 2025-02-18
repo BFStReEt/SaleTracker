@@ -17,23 +17,26 @@ class SaleController extends Controller
         $salesQuery = Sale::with('admin');
         if ($request->filled('id') || $request->has('data')) {
             $salesQuery->where(function($query) use ($request, $user) {
-                // ID filter
                 if ($request->filled('id')) {
-                    $employeeId = $request->input('id');
-                    
-                    if ($user->is_manager && $user->business_group_id) {
-                        $query->whereHas('admin', function ($subQuery) use ($employeeId, $user) {
-                            $subQuery->where('id', $employeeId)
-                                ->where('business_group_id', $user->business_group_id);
-                        });
-                    } else {
-                        $query->whereHas('admin', function ($subQuery) use ($employeeId) {
-                            $subQuery->where('id', $employeeId);
-                        });
-                    }
+                $employeeId = $request->input('id');
+
+                if (Gate::allows('QUẢN LÍ DATA.viewall')) {
+                    $query->whereHas('admin', function ($subQuery) use ($employeeId) {
+                        $subQuery->where('id', $employeeId);
+                    });
+                } 
+                elseif ($user->is_manager && $user->business_group_id) {
+                    $query->whereHas('admin', function ($subQuery) use ($employeeId, $user) {
+                        $subQuery->where('id', $employeeId)
+                            ->where('business_group_id', $user->business_group_id);
+                    });
+                } 
+                else {
+                    $query->whereHas('admin', function ($subQuery) use ($employeeId) {
+                        $subQuery->where('id', $employeeId);
+                    });
                 }
-                
-                // Data search filter
+            }
                 if ($request->has('data')) {
                     $searchTerm = $request->data;
                     if ($request->filled('id')) {

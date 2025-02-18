@@ -22,6 +22,16 @@ class BusinessGroupController extends Controller
                 'message' => 'no permission',
             ], 403); 
         }
+
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'index business group',
+        'cat' => 'admin',
+        ]);
+
         $searchName = $request->query('data');
 
         $query = BusinessGroup::with('manager:id,display_name');
@@ -82,6 +92,15 @@ class BusinessGroupController extends Controller
                 'status' => false, 
                 'errors' => $validator->errors()], 400);
         }
+
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'store business group',
+        'cat' => 'admin',
+        ]);
 
         $businessGroup = BusinessGroup::create($request->all());
         return response()->json([

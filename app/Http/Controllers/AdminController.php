@@ -203,6 +203,15 @@ class AdminController extends Controller
             ], 403); 
         }
 
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'show a admin',
+        'cat' => 'admin',
+        ]);
+
         $user = Admin::find($id);
 
         if (!$user) {
@@ -266,7 +275,7 @@ class AdminController extends Controller
         if (!$user) {
             return response()->json([
                 'status' => false,
-                'message' => 'Admin not found'
+                'message' => 'User not found'
             ], 404);
         }
 
@@ -300,6 +309,16 @@ class AdminController extends Controller
                 'message' => 'no permission',
             ], 403); 
         }
+
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'update a admin',
+        'cat' => 'admin',
+        ]);
+
         $user = Admin::find($id);
 
         if (!$user) {
@@ -396,6 +415,16 @@ class AdminController extends Controller
             ], 403); 
         }
         try {
+
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'delete a admin',
+            'cat' => 'admin',
+            ]);
+
             $request->validate([
                 'ids' => 'required|array',
                 'ids.*' => 'exists:admins,id',
@@ -459,6 +488,15 @@ class AdminController extends Controller
         $currentUser = Auth::guard('admin')->user();
 
         try {
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'destroy a admin',
+            'cat' => 'admin',
+            ]);
+
             $userToDelete = Admin::findOrFail($id);
 
             if ($userToDelete->id === $currentUser->id) {
@@ -516,6 +554,15 @@ class AdminController extends Controller
             'default_password' => 'required',
         ]);
 
+        $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update default password',
+            'cat' => 'admin',
+            ]);
+
         DefaultPassword::where('key', 'default_password')->update(['value' => $newPassword]);
 
         return response()->json([
@@ -551,6 +598,16 @@ class AdminController extends Controller
         }
 
         try {
+
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update user password',
+            'cat' => 'admin',
+            ]);
+
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
 
             if (!$defaultPassword) {
@@ -590,6 +647,15 @@ class AdminController extends Controller
         if (Hash::check($request->current_password, $currentUser->password)) {
             $currentUser->password = Hash::make($request->new_password);
             $currentUser->save();
+
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'user change password',
+            'cat' => 'user',
+            ]);
 
             return response()->json([
                 'status' => true,

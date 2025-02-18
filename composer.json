@@ -68,5 +68,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "google-generative-ai": {
+            "type": "vcs",
+            "url": "https://github.com/google/generative-ai-php"
+        }
+    }
 }

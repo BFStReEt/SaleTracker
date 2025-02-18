@@ -7,11 +7,15 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\BusinessGroupController;
+use App\Http\Controllers\AdminlogsController;
+
 
 Route::match(['get','post'],'/login', [AuthController::class, 'login'])->name('admin-login');;
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::post('/admin',[AdminController::class,'store']);
+
+Route::get('/adminlog',[AdminlogsController::class,'index']);
 
 //Admin
 Route::group(['middleware' => 'admin'], function () {

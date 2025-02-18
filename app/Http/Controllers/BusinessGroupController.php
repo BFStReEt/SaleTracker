@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 use Gate;
 
 class BusinessGroupController extends Controller

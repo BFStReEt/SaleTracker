@@ -1,5 +1,15 @@
-Câu hỏi 1: "Tóm tắt bài viết trên."
-Câu hỏi 2: "Ai là nhân vật chính trong câu chuyện?"
-Câu hỏi 3: "Mối quan hệ giữa các nhân vật trong tác phẩm là gì?"
-Câu hỏi 4: "Tác giả của bài viết là ai?"
-Câu hỏi 5: "Tóm tắt các sự kiện chính trong câu chuyện?"
+Câu hỏi 1: "Dựa vào files data sau hãy phân tích cấu trúc của chúng, lượt bỏ các thông tin không  có giá trị vd : hình ảnh, chát thoại , icon ... và đưa ra kết quả phân tích : 
+1/ thông tin sản phẩm khách hàng yêu cầu : 
+2/ thông tin sản phẩm sale cung cấp :
+3/ giá cuối cùng của sản phẩm 
+4/ tình trạng cuối cùng 
+5/ thời gian"
+
+Câu hỏi 2: "Hãy trả ra dưới dạng json và theo mẫu:
+{
+  Thông tin sản phẩm khách hàng: ""
+  Thông tin sản phẩm sale cung cấp: ""
+  Giá cuối cùng của sản phẩm: ""
+  Tình trạng cuối cùng: ""
+  Thời gian: ""
+}

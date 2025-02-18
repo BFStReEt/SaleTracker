@@ -11,6 +11,8 @@ use App\Models\Admin;
 use App\Models\Sale;
 use Gate;
 
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 class SaleController extends Controller
 {
     public function index(Request $request)

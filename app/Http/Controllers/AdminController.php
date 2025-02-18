@@ -14,6 +14,8 @@ use App\Models\BusinessGroup;
 use App\Models\DefaultPassword;
 use Gate;
 
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 class AdminController extends Controller
 {
     public function index(Request $request)

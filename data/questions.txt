@@ -1,0 +1,5 @@
+Câu hỏi 1: "Tóm tắt bài viết trên."
+Câu hỏi 2: "Ai là nhân vật chính trong câu chuyện?"
+Câu hỏi 3: "Mối quan hệ giữa các nhân vật trong tác phẩm là gì?"
+Câu hỏi 4: "Tác giả của bài viết là ai?"
+Câu hỏi 5: "Tóm tắt các sự kiện chính trong câu chuyện?"

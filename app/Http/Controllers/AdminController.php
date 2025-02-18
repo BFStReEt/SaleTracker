@@ -27,7 +27,8 @@ class AdminController extends Controller
         $query = Admin::with('businessGroup'); 
 
         if (Gate::allows('QUẢN LÍ TÀI KHOẢN.index')) {
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -98,7 +99,8 @@ class AdminController extends Controller
             ], 403);
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -203,7 +205,8 @@ class AdminController extends Controller
             ], 403); 
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -310,7 +313,8 @@ class AdminController extends Controller
             ], 403); 
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -416,7 +420,8 @@ class AdminController extends Controller
         }
         try {
 
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -488,7 +493,8 @@ class AdminController extends Controller
         $currentUser = Auth::guard('admin')->user();
 
         try {
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -554,14 +560,15 @@ class AdminController extends Controller
             'default_password' => 'required',
         ]);
 
-        $now = now()->timestamp;
-            DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'update default password',
-            'cat' => 'admin',
-            ]);
+       $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'update default password',
+        'cat' => 'admin',
+        ]);
 
         DefaultPassword::where('key', 'default_password')->update(['value' => $newPassword]);
 
@@ -598,8 +605,8 @@ class AdminController extends Controller
         }
 
         try {
-
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -648,7 +655,8 @@ class AdminController extends Controller
             $currentUser->password = Hash::make($request->new_password);
             $currentUser->save();
 
-            $now = now()->timestamp;
+           $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,

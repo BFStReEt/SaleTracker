@@ -24,7 +24,8 @@ class BusinessGroupController extends Controller
             ], 403); 
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -92,7 +93,8 @@ class BusinessGroupController extends Controller
                 'errors' => $validator->errors()], 400);
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -127,7 +129,8 @@ class BusinessGroupController extends Controller
             ], 404);
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -181,7 +184,8 @@ class BusinessGroupController extends Controller
         $businessGroup->fill($request->only(['name', 'description'])); 
         $businessGroup->save();
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -221,7 +225,8 @@ class BusinessGroupController extends Controller
                 BusinessGroup::whereIn('id', $idsArray)->delete();
             }
     
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -261,7 +266,8 @@ class BusinessGroupController extends Controller
 
             $businessGroup->delete();
 
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,

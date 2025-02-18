@@ -96,7 +96,8 @@ class SaleController extends Controller
 
         $sales = $salesQuery->orderBy('id', 'desc')->paginate(10);
         //$sales = $salesQuery->orderBy('start_time', 'desc')->paginate(10); 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -147,7 +148,8 @@ class SaleController extends Controller
         }
 
         try {
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -215,7 +217,8 @@ class SaleController extends Controller
 
                 $sale->delete();
             }
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,
@@ -247,7 +250,8 @@ class SaleController extends Controller
             ], 404);
         }
 
-        $now = now()->timestamp;
+        $nows = now()->timestamp;
+        $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
         'admin_id' => Auth::guard('admin')->user()->id,
         'time' => $now,
@@ -286,7 +290,8 @@ class SaleController extends Controller
             $sale->note = $request->input('note');
             $sale->save();
 
-            $now = now()->timestamp;
+            $nows = now()->timestamp;
+            $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
             'admin_id' => Auth::guard('admin')->user()->id,
             'time' => $now,

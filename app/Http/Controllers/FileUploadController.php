@@ -23,7 +23,8 @@ class FileUploadController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('data'), $fileName);
 
-                $now = now()->timestamp;
+                $nows = now()->timestamp;
+                $now = date('d-m-Y, g:i:s A', $nows);
                 DB::table('adminlogs')->insert([
                 'admin_id' => Auth::guard('admin')->user()->id,
                 'time' => $now,

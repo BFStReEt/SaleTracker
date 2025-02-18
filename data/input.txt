@@ -1,0 +1,37 @@
+[raw: 1700454301971] [ts: 2023-11-20 11:25:01:971] Them: Ok e
+[raw: 1700453230839] [ts: 2023-11-20 11:07:10:839] Me: a đợi e check và nhắn sale báo a ạ
+[raw: 1700450688277] [ts: 2023-11-20 10:24:48:277] Them: Uh
+[raw: 1700450674089] [ts: 2023-11-20 10:24:34:089] Me: cấu hình tương đương mã này ram 16gb à a
+[raw: 1700450567535] [ts: 2023-11-20 10:22:47:535] Them: Mã spectra ko đủ dự toán
+[raw: 1700450556393] [ts: 2023-11-20 10:22:36:393] Them: A hỏi chút ko còn mã nào ram 16gb ah e
+[raw: 1700450534076] [ts: 2023-11-20 10:22:14:076] Them: {"thumb":"","description":"Cuộc gọi","action":"recommened.misscall","childnumber":0,"href":"","title":"sendBubbleMessage","params":"{\"duration\":0,\"reason\":2,\"isCaller\":0,\"isEnableCallback\":1,\"calltype\":0}"}
+[raw: 1700195165866] [ts: 2023-11-17 11:26:05:866] Me: à dạ
+[raw: 1700195112748] [ts: 2023-11-17 11:25:12:748] Me: giá 28,500,000 full vat
+[raw: 1700195097086] [ts: 2023-11-17 11:24:57:086] Them: :D
+[raw: 1700195096154] [ts: 2023-11-17 11:24:56:154] Them: ko đủ dự toán
+[raw: 1700195093198] [ts: 2023-11-17 11:24:53:198] Them: toác
+[raw: 1700195084821] [ts: 2023-11-17 11:24:44:821] Me: giá 34,350,000 full vat a
+[raw: 1700195029101] [ts: 2023-11-17 11:23:49:101] Them: dòng khách cần Emvy
+[raw: 1700195011486] [ts: 2023-11-17 11:23:31:486] Them: với mã này khác nhau gì nhỉ
+[raw: 1700195006146] [ts: 2023-11-17 11:23:26:146] Them: {"thumb":"https://t-f22-zpc.zdn.vn/7432539081331084520/29fc2b487ccdaa93f3dc.jpg","description":"","action":"","childnumber":0,"href":"https://f22-zpc.zdn.vn/7432539081331084520/29fc2b487ccdaa93f3dc.jpg","title":"","params":"{\"sendSource\":1,\"rawUrl\":\"https:\\/\\/f22-zpc.zdn.vn\\/7432539081331084520\\/29fc2b487ccdaa93f3dc.jpg\",\"id_in_group\":0,\"is_group_layout\":1,\"fileSize\":17030,\"thumbSize\":7313,\"width\":488,\"hd\":\"https:\\/\\/f22-zpc.zdn.vn\\/7432539081331084520\\/29fc2b487ccdaa93f3dc.jpg\",\"hdSize\":17030,\"group_layout_id\":1700195004920,\"height\":183,\"total_item_in_group\":1}","type":""}
+[raw: 1700194948717] [ts: 2023-11-17 11:22:28:717] Them: sẵn 2 ko
+[raw: 1700194946720] [ts: 2023-11-17 11:22:26:720] Them: cho A giá nhé
+[raw: 1700194922382] [ts: 2023-11-17 11:22:02:382] Me: cấu hình cao hơn tí
+[raw: 1700194902457] [ts: 2023-11-17 11:21:42:457] Them: or khi nào về
+[raw: 1700194901655] [ts: 2023-11-17 11:21:41:655] Me: MÁY TÍNH XÁCH TAY HP SPECTRE X360 14-EF0030TU,CORE I7-1255U/ 16GB RAM/ 1TB SSD/ INTEL GRAPHICS/ 13.5INCH 3K2K TOUCH / WEBCAM/ 4 CELL/ WLAN AX+BT/ WIN11 HOME 64/ NOCTURNE BLUE_(6K773PA)* - 01Y
+[raw: 1700194900490] [ts: 2023-11-17 11:21:40:490] Me: 16Gb thì e còn mã này
+[raw: 1700194898852] [ts: 2023-11-17 11:21:38:852] Them: có mã khác ko
+[raw: 1700194869384] [ts: 2023-11-17 11:21:09:384] Me: mã này e mới hết ạ
+[raw: 1700194847580] [ts: 2023-11-17 11:20:47:580] Me: à ok a
+[raw: 1700194839303] [ts: 2023-11-17 11:20:39:303] Them: chuẩn đúng mã
+[raw: 1700194831684] [ts: 2023-11-17 11:20:31:684] Me: kh cần đúng mã hả a
+[raw: 1700194824773] [ts: 2023-11-17 11:20:24:773] Them: Ram 8 ah
+[raw: 1700194820721] [ts: 2023-11-17 11:20:20:721] Them: ko được rồi
+[raw: 1700194795184] [ts: 2023-11-17 11:19:55:184] Me: e có mã này cuối tháng 11 về a ạ
+[raw: 1700194785325] [ts: 2023-11-17 11:19:45:325] Me: 76V59PA	Máy tính xách tay HP ENVY x360 13-bf0092TU,Core i7-1250U,8GB RAM,512GB SSD,Intel Graphics,13.3"2.8K Touch,Webcam,4 Cell,Wlan ax+BT,Pen,Win11 Home 64,Space Blue,1Y WTY_76V59PA
+[raw: 1700194727416] [ts: 2023-11-17 11:18:47:416] Them: 2 máy nhé
+[raw: 1700194723418] [ts: 2023-11-17 11:18:43:418] Them: {"thumb":"","description":"","action":"msginfo.actionlist","childnumber":0,"href":"","title":"Bạn vừa kết bạn với Nguyen Nhu Thang","params":"{\"msg\":{\"vi\":\"%1$s đã đồng ý kết bạn\",\"en\":\"%1$s is now your friend\",\"my\":\"%1$s is now your friend\"},\"avatarUrl\":[\"https://s160-ava-talk.zadn.vn/a/0/c/e/34/160/9322e0ca67edd52f0f7f9d2e0fee0ad3.jpg\"],\"simpleInfos\":[{\"uid\":3563553991535394339,\"dpn\":\"Nguyen Nhu Thang\",\"avt\":\"https://s160-ava-talk.zadn.vn/a/0/c/e/34/160/9322e0ca67edd52f0f7f9d2e0fee0ad3.jpg\"}],\"highLightsV2\":[{\"uid\":3563553991535394339,\"dpn\":\"Nguyen Nhu Thang\",\"ignoreNickname\":0,\"type\":0,\"ts\":0}],\"totalUpdateMem\":0}","type":""}
+[raw: 1700194721462] [ts: 2023-11-17 11:18:41:462] Them: báo a mã đó
+[raw: 1700194718533] [ts: 2023-11-17 11:18:38:533] Them: ơ kìa
+[raw: 1700194672869] [ts: 2023-11-17 11:17:52:869] Me: em Chương bên Nguyên Kim
+[raw: 1700194667168] [ts: 2023-11-17 11:17:47:168] Me: Chào Anh

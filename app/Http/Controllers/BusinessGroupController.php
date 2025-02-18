@@ -7,6 +7,7 @@ use App\Models\BusinessGroup;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Gate;
 
 class BusinessGroupController extends Controller
@@ -68,10 +69,8 @@ class BusinessGroupController extends Controller
 
     public function create()
     {
-       
     }
 
-    
     public function store(Request $request)
     {
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) { 
@@ -128,6 +127,15 @@ class BusinessGroupController extends Controller
             ], 404);
         }
 
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'show business group',
+        'cat' => 'admin',
+        ]);
+
         $manager = $businessGroup->manager; 
 
         return response()->json([
@@ -173,6 +181,15 @@ class BusinessGroupController extends Controller
         $businessGroup->fill($request->only(['name', 'description'])); 
         $businessGroup->save();
 
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'update business group',
+        'cat' => 'admin',
+        ]);
+
         return response()->json(['status' => true, 'message' => 'Business group updated successfully', 'data' => $businessGroup], 200);
     }
 
@@ -204,6 +221,15 @@ class BusinessGroupController extends Controller
                 BusinessGroup::whereIn('id', $idsArray)->delete();
             }
     
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'delete business group',
+            'cat' => 'admin',
+            ]);
+
             return response()->json([
                 'status' => true,
                 'message' => 'success'
@@ -234,6 +260,15 @@ class BusinessGroupController extends Controller
             }
 
             $businessGroup->delete();
+
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'destroy business group',
+            'cat' => 'admin',
+            ]);
 
             return response()->json([
                 'status' => true,

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Carbon\Carbon;
 use App\Models\Admin;
+use App\Models\Sale;
 use Gate;
 
 class SaleController extends Controller
@@ -94,6 +96,15 @@ class SaleController extends Controller
 
         $sales = $salesQuery->orderBy('id', 'desc')->paginate(10);
         //$sales = $salesQuery->orderBy('start_time', 'desc')->paginate(10); 
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'index data',
+        'cat' => 'admin',
+        ]);
+
         $formattedSales = $sales->map(function ($sale) {
             if ($sale->start_time) {
                 $sale->start_time = \Carbon\Carbon::parse($sale->start_time)->format('d/m/Y g:i:s A');
@@ -136,6 +147,14 @@ class SaleController extends Controller
         }
 
         try {
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'destroy data',
+            'cat' => 'admin',
+            ]);
             $sale = Sale::findOrFail($id);
 
             $sale->delete();
@@ -196,6 +215,14 @@ class SaleController extends Controller
 
                 $sale->delete();
             }
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'delete data',
+            'cat' => 'admin',
+            ]);
     
             return response()->json([
                 'status' => true,
@@ -219,6 +246,16 @@ class SaleController extends Controller
                 'message' => 'Data id not found'
             ], 404);
         }
+
+        $now = now()->timestamp;
+        DB::table('adminlogs')->insert([
+        'admin_id' => Auth::guard('admin')->user()->id,
+        'time' => $now,
+        'ip' => $request->ip() ?? null,
+        'action' => 'edit data',
+        'cat' => 'admin',
+        ]);
+
         return response()->json([
             'status' => true,
             'data' => [
@@ -248,6 +285,15 @@ class SaleController extends Controller
         try {
             $sale->note = $request->input('note');
             $sale->save();
+
+            $now = now()->timestamp;
+            DB::table('adminlogs')->insert([
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update note',
+            'cat' => 'admin',
+            ]);
 
             return response()->json([
                 'status' => true,

@@ -23,6 +23,15 @@ class FileUploadController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('data'), $fileName);
 
+                $now = now()->timestamp;
+                DB::table('adminlogs')->insert([
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'upload file',
+                'cat' => 'admin',
+                ]);
+
                 return response()->json(['message' => 'Success']);
             }
 

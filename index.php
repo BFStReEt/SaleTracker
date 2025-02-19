@@ -25,7 +25,7 @@ if (!file_exists($filePath) || !file_exists($questionsFilePath)) {
 $inputContent = file_get_contents($filePath);
 $questions = file($questionsFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-// Tạo prompt để gửi đến API
+// Tạo prompt để gửi đến API Copilot
 $prompt = "Dưới đây là nội dung:\n" . $inputContent . "\n\n";
 $prompt .= "Trả lời các câu hỏi sau:\n";
 
@@ -34,7 +34,7 @@ foreach ($questions as $index => $question) {
 }
 
 // Cấu hình request cho cURL
-$url = "https://api.deepseek.com/v1/answers";
+$url = "https://api.copilot.com/v1/answers";
 
 $data = [
     "prompt" => $prompt,
@@ -101,7 +101,7 @@ curl_close($ch);
 // Kiểm tra nếu đã nhận được kết quả hợp lệ
 if ($isResponseValid) {
     $answerText = $responseData['answers'][0]['text'];
-    echo "=== Câu trả lời từ DeepSeek ===\n";
+    echo "=== Câu trả lời từ Copilot ===\n";
     echo $answerText . "\n";
 
     // Xác định số thứ tự file mới

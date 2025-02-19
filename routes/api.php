@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\BusinessGroupController;
 use App\Http\Controllers\AdminlogsController;
+use App\Http\Controllers\CopilotController;
 
 
 Route::match(['get','post'],'/login', [AuthController::class, 'login'])->name('admin-login');;
@@ -58,4 +59,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
 
 //Upload
 Route::post('/upload', [FileUploadController::class, 'upload']);
+
+Route::post('/copilot', [CopilotController::class, 'index']);
 

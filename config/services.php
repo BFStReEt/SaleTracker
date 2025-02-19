@@ -13,6 +13,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'copilot' => [
+        'api_key' => env('COPILOT_API_KEY'),
+        'base_url' => env('COPILOT_API_URL'),
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

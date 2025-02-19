@@ -1,11 +1,1 @@
-Câu hỏi 1: 
-Dựa vào dữ liệu vừa có, nội dung chat từ dưới lên, mới nhất ở trên cùng, bỏ đi các đoạn chat 
-Hãy tổng hợp bảng với các cột như sau:
-Thời gian bắt đầu: thời gian bắt đầu hội thoại, lấy ngày tháng năm và giờ phút 
-Thời gian kết thúc: thời gian kết thúc hội thoại, lấy ngày tháng năm và giờ phút
-Tên kinh doanh: lấy từ nội dung trao đổi
-Tên khách hàng: lấy từ nội dung trao đổi
-Mặt hàng: lấy từ thông tin trao đổi giữa kinh doanh và khách hàng. Khách hàng  có thể mua nhiều mặt hàng, nên tránh thiếu mặt hàng bằng cách liệt kê đầy đủ cẩn thận. Nếu không rõ mặt hàng thì ghi “không rõ”.
-Số Lượng = số lượng trong nội dung trao đổi giữa kinh doanh và khách hàng. Nếu có mặt hàng và có giá mà không xác định số lượng thì 1. Còn lại là không rõ
-Giá = giá lấy được trong nội dung trao đổi giữa kinh doanh và khách hàng. Nếu không thấy giá điền vào không có giá. 
-Kết quả bán hàng: hãy so trùng trong đoạn chat nếu có cụm từ  "xác nhận chốt đơn" hoặc “xac nhan chot don” thì ghi là “đã chốt" ngược lại ghi “chưa chốt”.
+bạn là ai

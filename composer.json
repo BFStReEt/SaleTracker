@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.1",
         "alireaza/laravel-form-data": "^1.5",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^10.10",
         "laravel/passport": "^12.4",
         "laravel/sanctum": "^3.3",

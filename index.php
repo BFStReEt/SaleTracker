@@ -28,12 +28,16 @@ foreach ($questions as $index => $question) {
     $prompt .= ($index + 1) . ". " . $question . "\n";
 }
 
-$url = "https://api.copilot.com/v1/answers";
+$url = "https://api.copilot.com/v1/" ;
 
 $data = [
-    "prompt" => $prompt,
-    "max_tokens" => 1500,
-    "temperature" => 0.7
+    "contents" => [
+        [
+            "parts" => [
+                ["text" => $prompt]
+            ]
+        ]
+    ]
 ];
 
 $jsonData = json_encode($data);
@@ -43,7 +47,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "Authorization: Bearer " . $apiKey
+    "Authorization: Bearer $apiKey"
 ]);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
@@ -64,7 +68,7 @@ while (!$isResponseValid && $retryCount < $maxRetries) {
 
     $responseData = json_decode($response, true);
 
-    if (isset($responseData['answers'][0]['text'])) {
+    if (isset($responseData['choices'][0]['message']['content'])) {
         $isResponseValid = true;
     } else {
         echo "Không có dữ liệu hợp lệ từ API, thử lại...\n";
@@ -85,8 +89,8 @@ while (!$isResponseValid && $retryCount < $maxRetries) {
 curl_close($ch);
 
 if ($isResponseValid) {
-    $answerText = $responseData['answers'][0]['text'];
-    echo "=== Câu trả lời từ Copilot ===\n";
+    $answerText = $responseData['choices'][0]['message']['content'];
+    echo "=== Câu trả lời từ Copilot Enterprise ===\n";
     echo $answerText . "\n";
 
     $count = 1;
@@ -98,6 +102,8 @@ if ($isResponseValid) {
     file_put_contents($answerFile, $answerText);
 
     echo "✅ Câu trả lời đã được lưu vào: $answerFile\n";
+    echo "=== Nội dung của answer ===\n";
+    echo file_get_contents($answerFile);
 } else {
     echo "Không thể lấy dữ liệu hợp lệ từ API sau $maxRetries lần thử.\n";
 }

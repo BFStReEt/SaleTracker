@@ -1,6 +1,11 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 // API key của bạn
-$apiKey = "AIzaSyDpWYzQHHUshzuZ28ZW-pq6K2tVYfi-aA4";  // Thay bằng API Key thật của bạn
+$apiKey = $_ENV['API_KEY'];  // Lấy API Key từ biến môi trường
 
 // Đọc file dữ liệu
 $filePath = __DIR__ . "/data/input.txt";
@@ -20,7 +25,7 @@ if (!file_exists($filePath) || !file_exists($questionsFilePath)) {
 $inputContent = file_get_contents($filePath);
 $questions = file($questionsFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-// Tạo prompt để gửi đến API Gemini
+// Tạo prompt để gửi đến API
 $prompt = "Dưới đây là nội dung:\n" . $inputContent . "\n\n";
 $prompt .= "Trả lời các câu hỏi sau:\n";
 
@@ -29,12 +34,12 @@ foreach ($questions as $index => $question) {
 }
 
 // Cấu hình request cho cURL
-$url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$apiKey";
+$url = "https://api.deepseek.com/v1/answers";
 
 $data = [
-    "contents" => [
-        ["parts" => [["text" => $prompt]]]
-    ]
+    "prompt" => $prompt,
+    "max_tokens" => 1500,
+    "temperature" => 0.7
 ];
 
 $jsonData = json_encode($data);
@@ -44,7 +49,8 @@ $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Content-Type: application/json"
+    "Content-Type: application/json",
+    "Authorization: Bearer " . $apiKey // Đảm bảo API key được gửi đúng cách
 ]);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
@@ -62,6 +68,7 @@ while (!$isResponseValid && $retryCount < $maxRetries) {
     // Kiểm tra lỗi
     if (!$response) {
         echo "Lỗi khi gọi API, thử lại...\n";
+        echo "cURL Error: " . curl_error($ch) . "\n"; // Thêm thông tin lỗi cURL
         continue; // Tiếp tục vòng lặp nếu có lỗi
     }
 
@@ -69,10 +76,23 @@ while (!$isResponseValid && $retryCount < $maxRetries) {
     $responseData = json_decode($response, true);
 
     // Kiểm tra nếu dữ liệu hợp lệ
-    if (isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+    if (isset($responseData['answers'][0]['text'])) {
         $isResponseValid = true;
     } else {
         echo "Không có dữ liệu hợp lệ từ API, thử lại...\n";
+        echo "Response: " . $response . "\n"; // Thêm thông tin phản hồi từ API
+
+        // Kiểm tra lỗi hạn mức
+        if (isset($responseData['error']['code']) && $responseData['error']['code'] == 'insufficient_quota') {
+            echo "Bạn đã vượt quá hạn mức sử dụng API. Vui lòng kiểm tra kế hoạch và chi tiết thanh toán của bạn.\n";
+            break; // Thoát khỏi vòng lặp nếu vượt quá hạn mức
+        }
+
+        // Thêm thông tin chi tiết lỗi
+        if (isset($responseData['error'])) {
+            echo "Error Type: " . $responseData['error']['type'] . "\n";
+            echo "Error Message: " . $responseData['error']['message'] . "\n";
+        }
     }
 }
 
@@ -80,8 +100,8 @@ curl_close($ch);
 
 // Kiểm tra nếu đã nhận được kết quả hợp lệ
 if ($isResponseValid) {
-    $answerText = $responseData['candidates'][0]['content']['parts'][0]['text'];
-    echo "=== Câu trả lời từ Gemini ===\n";
+    $answerText = $responseData['answers'][0]['text'];
+    echo "=== Câu trả lời từ DeepSeek ===\n";
     echo $answerText . "\n";
 
     // Xác định số thứ tự file mới

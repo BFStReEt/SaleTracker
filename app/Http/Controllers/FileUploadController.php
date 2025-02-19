@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
-//
+
 class FileUploadController extends Controller
 {
     public function upload(Request $request)
@@ -22,16 +22,6 @@ class FileUploadController extends Controller
                 $file = $request->file('file');
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('data'), $fileName);
-
-                $nows = now()->timestamp;
-                $now = date('d-m-Y, g:i:s A', $nows);
-                DB::table('adminlogs')->insert([
-                'admin_id' => Auth::guard('admin')->user()->id,
-                'time' => $now,
-                'ip' => $request->ip() ?? null,
-                'action' => 'upload file',
-                'cat' => 'admin',
-                ]);
 
                 return response()->json(['message' => 'Success']);
             }

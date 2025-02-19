@@ -1,37 +1,233 @@
-[raw: 1700454301971] [ts: 2023-11-20 11:25:01:971] Them: Ok e
-[raw: 1700453230839] [ts: 2023-11-20 11:07:10:839] Me: a đợi e check và nhắn sale báo a ạ
-[raw: 1700450688277] [ts: 2023-11-20 10:24:48:277] Them: Uh
-[raw: 1700450674089] [ts: 2023-11-20 10:24:34:089] Me: cấu hình tương đương mã này ram 16gb à a
-[raw: 1700450567535] [ts: 2023-11-20 10:22:47:535] Them: Mã spectra ko đủ dự toán
-[raw: 1700450556393] [ts: 2023-11-20 10:22:36:393] Them: A hỏi chút ko còn mã nào ram 16gb ah e
-[raw: 1700450534076] [ts: 2023-11-20 10:22:14:076] Them: {"thumb":"","description":"Cuộc gọi","action":"recommened.misscall","childnumber":0,"href":"","title":"sendBubbleMessage","params":"{\"duration\":0,\"reason\":2,\"isCaller\":0,\"isEnableCallback\":1,\"calltype\":0}"}
-[raw: 1700195165866] [ts: 2023-11-17 11:26:05:866] Me: à dạ
-[raw: 1700195112748] [ts: 2023-11-17 11:25:12:748] Me: giá 28,500,000 full vat
-[raw: 1700195097086] [ts: 2023-11-17 11:24:57:086] Them: :D
-[raw: 1700195096154] [ts: 2023-11-17 11:24:56:154] Them: ko đủ dự toán
-[raw: 1700195093198] [ts: 2023-11-17 11:24:53:198] Them: toác
-[raw: 1700195084821] [ts: 2023-11-17 11:24:44:821] Me: giá 34,350,000 full vat a
-[raw: 1700195029101] [ts: 2023-11-17 11:23:49:101] Them: dòng khách cần Emvy
-[raw: 1700195011486] [ts: 2023-11-17 11:23:31:486] Them: với mã này khác nhau gì nhỉ
-[raw: 1700195006146] [ts: 2023-11-17 11:23:26:146] Them: {"thumb":"https://t-f22-zpc.zdn.vn/7432539081331084520/29fc2b487ccdaa93f3dc.jpg","description":"","action":"","childnumber":0,"href":"https://f22-zpc.zdn.vn/7432539081331084520/29fc2b487ccdaa93f3dc.jpg","title":"","params":"{\"sendSource\":1,\"rawUrl\":\"https:\\/\\/f22-zpc.zdn.vn\\/7432539081331084520\\/29fc2b487ccdaa93f3dc.jpg\",\"id_in_group\":0,\"is_group_layout\":1,\"fileSize\":17030,\"thumbSize\":7313,\"width\":488,\"hd\":\"https:\\/\\/f22-zpc.zdn.vn\\/7432539081331084520\\/29fc2b487ccdaa93f3dc.jpg\",\"hdSize\":17030,\"group_layout_id\":1700195004920,\"height\":183,\"total_item_in_group\":1}","type":""}
-[raw: 1700194948717] [ts: 2023-11-17 11:22:28:717] Them: sẵn 2 ko
-[raw: 1700194946720] [ts: 2023-11-17 11:22:26:720] Them: cho A giá nhé
-[raw: 1700194922382] [ts: 2023-11-17 11:22:02:382] Me: cấu hình cao hơn tí
-[raw: 1700194902457] [ts: 2023-11-17 11:21:42:457] Them: or khi nào về
-[raw: 1700194901655] [ts: 2023-11-17 11:21:41:655] Me: MÁY TÍNH XÁCH TAY HP SPECTRE X360 14-EF0030TU,CORE I7-1255U/ 16GB RAM/ 1TB SSD/ INTEL GRAPHICS/ 13.5INCH 3K2K TOUCH / WEBCAM/ 4 CELL/ WLAN AX+BT/ WIN11 HOME 64/ NOCTURNE BLUE_(6K773PA)* - 01Y
-[raw: 1700194900490] [ts: 2023-11-17 11:21:40:490] Me: 16Gb thì e còn mã này
-[raw: 1700194898852] [ts: 2023-11-17 11:21:38:852] Them: có mã khác ko
-[raw: 1700194869384] [ts: 2023-11-17 11:21:09:384] Me: mã này e mới hết ạ
-[raw: 1700194847580] [ts: 2023-11-17 11:20:47:580] Me: à ok a
-[raw: 1700194839303] [ts: 2023-11-17 11:20:39:303] Them: chuẩn đúng mã
-[raw: 1700194831684] [ts: 2023-11-17 11:20:31:684] Me: kh cần đúng mã hả a
-[raw: 1700194824773] [ts: 2023-11-17 11:20:24:773] Them: Ram 8 ah
-[raw: 1700194820721] [ts: 2023-11-17 11:20:20:721] Them: ko được rồi
-[raw: 1700194795184] [ts: 2023-11-17 11:19:55:184] Me: e có mã này cuối tháng 11 về a ạ
-[raw: 1700194785325] [ts: 2023-11-17 11:19:45:325] Me: 76V59PA	Máy tính xách tay HP ENVY x360 13-bf0092TU,Core i7-1250U,8GB RAM,512GB SSD,Intel Graphics,13.3"2.8K Touch,Webcam,4 Cell,Wlan ax+BT,Pen,Win11 Home 64,Space Blue,1Y WTY_76V59PA
-[raw: 1700194727416] [ts: 2023-11-17 11:18:47:416] Them: 2 máy nhé
-[raw: 1700194723418] [ts: 2023-11-17 11:18:43:418] Them: {"thumb":"","description":"","action":"msginfo.actionlist","childnumber":0,"href":"","title":"Bạn vừa kết bạn với Nguyen Nhu Thang","params":"{\"msg\":{\"vi\":\"%1$s đã đồng ý kết bạn\",\"en\":\"%1$s is now your friend\",\"my\":\"%1$s is now your friend\"},\"avatarUrl\":[\"https://s160-ava-talk.zadn.vn/a/0/c/e/34/160/9322e0ca67edd52f0f7f9d2e0fee0ad3.jpg\"],\"simpleInfos\":[{\"uid\":3563553991535394339,\"dpn\":\"Nguyen Nhu Thang\",\"avt\":\"https://s160-ava-talk.zadn.vn/a/0/c/e/34/160/9322e0ca67edd52f0f7f9d2e0fee0ad3.jpg\"}],\"highLightsV2\":[{\"uid\":3563553991535394339,\"dpn\":\"Nguyen Nhu Thang\",\"ignoreNickname\":0,\"type\":0,\"ts\":0}],\"totalUpdateMem\":0}","type":""}
-[raw: 1700194721462] [ts: 2023-11-17 11:18:41:462] Them: báo a mã đó
-[raw: 1700194718533] [ts: 2023-11-17 11:18:38:533] Them: ơ kìa
-[raw: 1700194672869] [ts: 2023-11-17 11:17:52:869] Me: em Chương bên Nguyên Kim
-[raw: 1700194667168] [ts: 2023-11-17 11:17:47:168] Me: Chào Anh
+
+======
+[2025-02-18 16:52:01:242] PC KHÁNH. ĐÀM VĂN 0933808892: EU : BOSTON VIETNAM PHARMACEUTICAL JOINT STOCK COMPANY 
+Address: No. 43, Road No. 8, Vietnam - Singapore Industrial Park, Binh Hoa Ward, City. Thuan An, Binh Duong Province 
+
+Partner : A.T.I CO., LTD.
+Address 48-50 Do Quang, Block 4, Thao Dien Ward, Thu Duc City, HCM City.
+[2025-02-18 16:51:45:023] PC KHÁNH. ĐÀM VĂN 0933808892: dạ anh
+[2025-02-18 16:51:14:237] Minh Nhật HQS_Q02_SM_ATI: em xin CQ tiếp giúp anh LCD này nha
+[2025-02-18 16:29:03:369] PC KHÁNH. ĐÀM VĂN 0933808892: dạ hiện tại có dòng này hỗ trợ cổng Thunderbolt xuất hình qua cổng C thôi anh ạ
+[2025-02-18 16:20:55:505] Minh Nhật HQS_Q02_SM_ATI: em có model nào k
+[2025-02-18 16:17:48:319] PC KHÁNH. ĐÀM VĂN 0933808892: hỗ trợ xuất hàng hình laptop phải có cổng C hỗ trợ Thunderbolt anh nhé.
+[2025-02-18 16:13:24:361] Minh Nhật HQS_Q02_SM_ATI: cần sử dụng cáp type C kết nối laptop để xuất hình
+[2025-02-18 16:12:13:535] PC KHÁNH. ĐÀM VĂN 0933808892: nếu xuất hình thì không được rồi anh
+[2025-02-18 16:10:57:688] Minh Nhật HQS_Q02_SM_ATI: cần sử dụng cáp type C kết nối laptop để xuất hình
+[2025-02-18 16:10:35:803] Minh Nhật HQS_Q02_SM_ATI: là xuất hình bằng type C luôn ha em
+[2025-02-18 16:10:13:943] PC KHÁNH. ĐÀM VĂN 0933808892: Màn hình máy tính Dell P2725H 27.0 inches, FHD (1920 x 1080), IPS, 16:9, 5ms,  VGA, HDMI, Display Port, 3xUSB 3.2 Gen 1 Type A (downstream), 1xUSB 3.2 Gen 1 Type B (upstream), 1xUSB 3.2 Gen 1 Type C (downstream, 15W PD), 03Years.	 5,250,000 fv 
+
+dạ có mã này 1 cổng C anh nhé.
+[2025-02-18 16:08:09:272] Minh Nhật HQS_Q02_SM_ATI: có loại nào rẻ hơn k em
+[2025-02-18 16:08:01:320] PC KHÁNH. ĐÀM VĂN 0933808892: em có mã này anh nhé, 4 cổng type C ạ
+[2025-02-18 16:07:16:181] PC KHÁNH. ĐÀM VĂN 0933808892: Màn hình máy tính Dell U2724DE 27" QHD LED 2560x1440, 120Hz, 5m, s IPS, 2xDP 1.4 (In-Out) With MST , 1xHDMI 1.4, 1xRJ45 port , 4xUSB Type C (Thunderbolt 4 Video + data + Charging 15W),  4xUSB 10Gpbs, 1x Analog 2.0 Audio Line out, 1xRJ45 Port. (Tính năng kết nối 2 PC vào 1 màn hình)	 10,750,000 fv
+[2025-02-18 16:05:07:055] Minh Nhật HQS_Q02_SM_ATI: em cho anh xin giá LCD 27" chạy kết nối type C với nha
+
+======
+[2025-02-18 16:51:33:596] PC KHÁNH. ĐÀM VĂN 0933808892: em gửi anh nhé
+[2025-02-18 16:51:31:225] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn HP Pavilion M01-F2029d, Core i3-12100, 8GB RAM, 256GB SSD, Intel Graphics, Wlan+BT, USB Keyboard & Mouse, Win11 64, Dark Black,1Year, China_77B55PA	 8,600,000fv
+[2025-02-18 16:51:12:154] MR PHÍ MDO_DNA_SM_THIENVINHPHAT: e báo giá cho a con này nha
+[2025-02-18 16:51:07:294] MR PHÍ MDO_DNA_SM_THIENVINHPHAT: {"thumb":"https://f55-zpg-r.zdn.vn/8183055153348246632/48cf7d5e4f77f129a866.jpg","description":"Mua PC HP M01-F2029d 77B55PA Chính hãng - Giá rẻ - Giảm giá sốc khi mua online - Giao hàng tận nơi trên toàn quốc","action":"recommened.link","childnumber":0,"href":"https://phongvu.vn/pc-hp-m01-f2029d-intel-core-i3-12100--s220920238","title":"https://phongvu.vn/pc-hp-m01-f2029d-intel-core-i3-12100--s220920238","params":"{\"streamUrl\":\"\",\"stream_icon\":\"\",\"mediaTitle\":\"PC HP M01-F2029d 77B55PA | Chính hãng | Phong Vũ\",\"artist\":\"\",\"src\":\"phongvu.vn\",\"count\":\"\",\"width\":512,\"type\":0,\"height\":512}","type":""}
+
+======
+[2025-02-18 16:47:55:240] PC KHÁNH. ĐÀM VĂN 0933808892: anh mới nhắn thêm chị Dương
+[2025-02-18 16:47:49:764] PC KHÁNH. ĐÀM VĂN 0933808892: ok em sáng anh nhắn chị Yến OK ,mà tới giờ chưa thấy gì
+[2025-02-18 16:47:03:827] Hân KTCN 103 KH SỐ: qmtek tiền vào rồi nha
+[2025-02-18 16:46:59:139] Hân KTCN 103 KH SỐ: {"globalMsgId":6329414888102,"destId":0,"srcId":1396752935651803846,"deleteMsg":0,"cliMsgId":1739872009974}
+[2025-02-18 16:46:51:220] Hân KTCN 103 KH SỐ: qmtek tiền chưa vào nha
+[2025-02-18 16:46:38:289] Hân KTCN 103 KH SỐ: anh push thêm chị ấy 1 tin nhắn nhắn nha anh
+[2025-02-18 16:46:27:862] Hân KTCN 103 KH SỐ: em báo chi Dương ck mà ko thấy phản hồi gì
+
+======
+[2025-02-18 16:47:25:970] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"https://f27-zpc.zdn.vn/jpg/7617016034625457245/407fc4610c48b216eb59.jpg","description":"","action":"","childnumber":0,"href":"https://f27-zpc.zdn.vn/jpg/7617016034625457245/407fc4610c48b216eb59.jpg","title":"chị ơi có gì CK giúp em đơn này nha, em nói chị Yến chị OK rồi mà tới giờ chưa thấy có tiền vào á.","params":"{\"rawUrl\":\"https:\\/\\/f27-zpc.zdn.vn\\/jpg\\/7617016034625457245\\/407fc4610c48b216eb59.jpg\",\"width\":533,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f27-zpc.zdn.vn\\/jpg\\/7617016034625457245\\/407fc4610c48b216eb59.jpg\",\"hdSize\":86495,\"height\":576}","type":""}
+
+======
+[2025-02-18 16:44:37:327] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"","description":"","action":"","childnumber":0,"href":"https://do39.dlfl.me/e77e5aad73efd2b18bfe/4365487333832302693?e2esession=AzMo2mcIrikwmSkSIQU3/DuNuwCq89HO19lpGtuDUS7U6QEDRqgjvFS4M6+VfhohBUovfeyELdYONixnrFzQpoBPZK7FXzU+YVbyq2CY6U5OIpMBMwohBdxlzDKF9QyBy3AkbzJGG+0PhXdtVFbkR/FLuOI6N5FbEMcHGAAiYDSNm339xOqZgq2pntenc63Lc1Oc7J4sfAn2viOIgMjP+xP5XiqF4AKxfV68ucVuzQZDjCm7FQbDIpKH8cQCd/NgUfOI0Ch9/04NMCsGpjnUVxQoqllvbtlX3G5ybr+RWsiq+WIo9pan","title":"AzMo2mcIrikwmSkSIQU3/DuNuwCq89HO19lpGtuDUS7U6QEDRqgjvFS4M6+VfhohBUovfeyELdYONixnrFzQpoBPZK7FXzU+YVbyq2CY6U5OIlMzCiEF3GXMMoX1DIHLcCRvMkYb7Q+Fd21UVuRH8Uu44jo3kVsQyQcYACIgdrw3BzRrb/Fimf3/2hCQkPpJyHvzBq3x1Cjtn8L18OI+Two+thuMOg==","params":"AzMo2mcIrikwmSkSIQU3/DuNuwCq89HO19lpGtuDUS7U6QEDRqgjvFS4M6+VfhohBUovfeyELdYONixnrFzQpoBPZK7FXzU+YVbyq2CY6U5OIrQBMwohBdxlzDKF9QyBy3AkbzJGG+0PhXdtVFbkR/FLuOI6N5FbEMgHGAAigAHTiCKCm3EEgyWQIMOEDFFElntASYNEO6bxM9b6NNHZ45ux0+vBiLyGZ/JhyggczUe6A659PsOR4KYtbBDrkIBK+Vp/qppZvGy8zbm8Jp6RdYNNmp+nOXPQCbjmOe/CTU0VZYTkGhkzqXTQIzSyCE4PNCI/5klJjtQ7WIrvnpZ2ocpIRkziSUUo","type":""}
+
+======
+[2025-02-18 16:24:02:845] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"https://f8-zpc.zdn.vn/jpg/4663091558941241276/d42d8e37a71e1940400f.jpg","description":"","action":"","childnumber":0,"href":"https://f8-zpc.zdn.vn/jpg/4663091558941241276/d42d8e37a71e1940400f.jpg","title":"em gửi anh phiếu xuất ạ.","params":"{\"rawUrl\":\"https:\\/\\/f8-zpc.zdn.vn\\/jpg\\/4663091558941241276\\/d42d8e37a71e1940400f.jpg\",\"width\":541,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f8-zpc.zdn.vn\\/jpg\\/4663091558941241276\\/d42d8e37a71e1940400f.jpg\",\"hdSize\":107566,\"height\":576}","type":""}
+[2025-02-18 16:05:32:188] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn Dell OptiPlex 7020 SFF, i3-12100, 8GB, 512GB SSD, Intel UHD Graphics 730,  USB Keyboard & Mouse, Win 11 Home, 01Year	 11,200,000 fv
+
+Màn hình máy tính Dell S2425H 23.8inch, 1920x1080@100Hz, Speakers, 2xHDMI, LED, IPS, BẠC, 03 Year,	 3,050,000  fv
+
+chốt 2PC + 5LCD anh ha.
+[2025-02-18 16:04:47:184] MR KHOA MDO_DNA_SM_TINVIETTIEN: ah 2 cái luôn
+[2025-02-18 16:04:24:460] PC KHÁNH. ĐÀM VĂN 0933808892: lấy PC luôn không anh em xuất giao chung luôn
+[2025-02-18 16:04:07:683] PC KHÁNH. ĐÀM VĂN 0933808892: dạ anh.
+[2025-02-18 16:04:02:738] MR KHOA MDO_DNA_SM_TINVIETTIEN: cho giao chúQuang giúp anh nhé
+[2025-02-18 16:03:52:751] PC KHÁNH. ĐÀM VĂN 0933808892: dạ chưa anh ạ.
+[2025-02-18 16:02:33:247] MR KHOA MDO_DNA_SM_TINVIETTIEN: anh báo xuất này chưa Khánh
+[2025-02-18 14:56:16:951] PC KHÁNH. ĐÀM VĂN 0933808892: dạ vâng anh
+[2025-02-18 14:56:10:039] MR KHOA MDO_DNA_SM_TINVIETTIEN: để anh lên đơn cho KT duyệt đã nhé
+[2025-02-18 14:55:57:341] PC KHÁNH. ĐÀM VĂN 0933808892: xuất nhắn em anh nhé
+[2025-02-18 14:52:04:166] PC KHÁNH. ĐÀM VĂN 0933808892: ok chốt  11,200,000fv   anh nhé
+[2025-02-18 14:50:03:704] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn Dell OptiPlex 7020 SFF, i3-12100, 8GB, 512GB SSD, Intel UHD Graphics 730,  USB Keyboard & Mouse, Win 11 Home, 01Year	 11,300,000 fv 
+
+đợi em 2p anh nhé
+[2025-02-18 14:48:22:835] MR KHOA MDO_DNA_SM_TINVIETTIEN: PC Dell OptiPlex 7020 SFF, i3-12100, 8GB,512GB SSD, Intel UHD Graphics 730, KB, M, Win 11 Home, 1Y WTY_71050730  : 2  x  11.200k Em làm dc ko = KTB
+[2025-02-18 14:12:55:469] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn HP Pro Tower 400 G9 i5-12500(6*3.0), 8GB RAM, 512GB SSD, Intel Graphics, Wlan+BT, USB Keyboard & Mouse, Win11 64, 01 Year_9E823PT	 14,000,000 fv 
+
+em có mã Tower anh chào khách thử nhé .Hàng còn ít check lại trước khi chốt PO ạ
+[2025-02-18 14:12:29:686] PC KHÁNH. ĐÀM VĂN 0933808892: dạ không có rồi anh ạ
+[2025-02-18 14:12:04:780] MR KHOA MDO_DNA_SM_TINVIETTIEN: có hàng ha Khánh
+[2025-02-18 14:12:01:858] MR KHOA MDO_DNA_SM_TINVIETTIEN: Máy tính để bàn HP Pro SFF 400 G9 i5-13500/8GB/256GB/Win11 H/1_(8U8H6PA)
+
+======
+[2025-02-18 16:20:11:602] PC KHÁNH. ĐÀM VĂN 0933808892: để em check lại ạ
+[2025-02-18 16:17:08:930] Ms Trinh 0908630917 HQC_PNH_GP_MANGTRUCTUYEN: con này chưa có trong CQ e cấp lại con này giúp chị nha
+[2025-02-18 16:16:51:626] Ms Trinh 0908630917 HQC_PNH_GP_MANGTRUCTUYEN: {"thumb":"https://f18-zpc.zdn.vn/jpg/1808586110047523552/e75ae9520c70b22eeb61.jpg","description":"","action":"","childnumber":0,"href":"https://f18-zpc.zdn.vn/jpg/1808586110047523552/e75ae9520c70b22eeb61.jpg","title":"","params":"{\"width\":961,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f18-zpc.zdn.vn\\/jpg\\/1808586110047523552\\/e75ae9520c70b22eeb61.jpg\",\"hdSize\":102754,\"height\":1280}","type":""}
+[2025-02-18 16:16:38:293] Ms Trinh 0908630917 HQC_PNH_GP_MANGTRUCTUYEN: {"thumb":"https://f28-zpc.zdn.vn/jpg/1131224770442339721/f2f4bfd9f4f04aae13e1.jpg","description":"","action":"","childnumber":0,"href":"https://f28-zpc.zdn.vn/jpg/1131224770442339721/f2f4bfd9f4f04aae13e1.jpg","title":"","params":"{\"id_in_group\":1,\"is_group_layout\":1,\"width\":874,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f28-zpc.zdn.vn\\/jpg\\/1131224770442339721\\/f2f4bfd9f4f04aae13e1.jpg\",\"hdSize\":157547,\"group_layout_id\":1739870197161,\"height\":818,\"total_item_in_group\":2}","type":""}
+[2025-02-18 16:16:38:189] Ms Trinh 0908630917 HQC_PNH_GP_MANGTRUCTUYEN: {"thumb":"https://f22-zpc.zdn.vn/jpg/5416094869791355509/0e5500784b51f50fac40.jpg","description":"","action":"","childnumber":0,"href":"https://f22-zpc.zdn.vn/jpg/5416094869791355509/0e5500784b51f50fac40.jpg","title":"","params":"{\"id_in_group\":0,\"is_group_layout\":1,\"width\":1188,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f22-zpc.zdn.vn\\/jpg\\/5416094869791355509\\/0e5500784b51f50fac40.jpg\",\"hdSize\":98892,\"group_layout_id\":1739870197161,\"height\":906,\"total_item_in_group\":2}","type":""}
+
+======
+[2025-02-18 16:19:16:312] Mr Hải HQC_TBI_SM_NAMHI: Tks e nha
+[2025-02-18 15:58:56:632] PC KHÁNH. ĐÀM VĂN 0933808892: em gửi anh
+[2025-02-18 15:58:53:140] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"","description":"","action":"","childnumber":0,"href":"https://do39.dlfl.me/a812eccad28873d62a99/3149254494742115201","title":"PO18-02 - Copy.xlsx","params":"{\"fileSize\":\"300697\", \"checksum\":\"571a790f1888c805cc40b3513c6c7c8e\", \"checksumSha\":\"null\", \"fileExt\":\"xlsx\", \"fdata\":\"{}\", \"fType\":1}","type":""}
+[2025-02-18 15:42:01:683] Mr Hải HQC_TBI_SM_NAMHI: Vây e lam san Po giúp a
+[2025-02-18 15:40:48:233] Mr Hải HQC_TBI_SM_NAMHI: a hieu roi, cam on e
+[2025-02-18 15:39:34:388] PC KHÁNH. ĐÀM VĂN 0933808892: dạ đúng rồi anh
+[2025-02-18 15:37:20:913] Mr Hải HQC_TBI_SM_NAMHI: Tức là chờ khi nào về hàng, thì mới biết nội dung đúng ko e?
+[2025-02-18 15:32:00:264] PC KHÁNH. ĐÀM VĂN 0933808892: Bản quyền phần mềm Microsoft Windows Svr Std 2022 64Bit English 1pk DSP OEI DVD 16 Core_P73-08328	  Bộ    
+
+em gửi anh tên xuất hóa đơn.
+[2025-02-18 15:31:12:702] PC KHÁNH. ĐÀM VĂN 0933808892: cái hàng là hàng nhập nên không có tên xuất hóa đơn trước anh ạ.
+[2025-02-18 15:30:48:305] PC KHÁNH. ĐÀM VĂN 0933808892: cái này thông tin hóa đơn thi em có sẵn sẵn anh ạ để em gửi anh
+[2025-02-18 15:30:32:173] Mr Hải HQC_TBI_SM_NAMHI: Để anh copy vào HĐ gửi cho KH luôn, làm song song, khi nào họ cung cấp thông tin , anh sẽ gửi lại em
+[2025-02-18 15:30:13:615] Mr Hải HQC_TBI_SM_NAMHI: em có thể cho anh xin trước nội dung xuất hóa đơn của 2 mục bên em được ko?
+[2025-02-18 15:29:59:373] Mr Hải HQC_TBI_SM_NAMHI: các thông tin cho mục số 2
+[2025-02-18 15:29:48:063] Mr Hải HQC_TBI_SM_NAMHI: Hi em, hiện Eu vẫn chưa cung cấp
+
+======
+[2025-02-18 15:54:20:530] PC KHÁNH. ĐÀM VĂN 0933808892: nhắn anh Phúc giúp em để anh gửi giá cho chị nhé
+[2025-02-18 15:53:51:371] MS SEN MDO_VTA_CH_DICHVUKYLONG: báo giá vga nha e
+[2025-02-18 15:51:25:909] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn HP Z4 G5 Workstation, W3-2435 (8C, 3.1Ghz, 22.5Mb),  32GB (2x16GB DDR5 4800 ECC), 512GB SSD M.2  / USB Keyboard & Mouse,Linux,3Y Onsite_ 57K36AV	 61,000,000 fv 
+
+chip xeon em có mã này , chị có thể gắn thêm card và SSD ạ.
+[2025-02-18 15:49:43:561] PC KHÁNH. ĐÀM VĂN 0933808892: sẵn chị nhé
+[2025-02-18 15:49:35:395] MS SEN MDO_VTA_CH_DICHVUKYLONG: máy này có sẵn đúng ko e
+[2025-02-18 15:49:11:810] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính trạm Dell Precision 3680 Tower, i7-14700K, 16GB, 256GB SSD, 1TB SSD, Intel UHD Graphics 770, KB, M, 1000W PSU, Ubuntu, 3Y WTY	 39,900,000 fv 
+
+có mã này chị gắn thêm card T1000  8GB nhé
+[2025-02-18 15:48:38:229] PC KHÁNH. ĐÀM VĂN 0933808892: máy trạm thì có chị nha mà em có i7 .
+[2025-02-18 15:48:04:240] MS SEN MDO_VTA_CH_DICHVUKYLONG: có cấu hình nào zầy ko e
+[2025-02-18 15:47:53:939] MS SEN MDO_VTA_CH_DICHVUKYLONG: Vậy mình mua 2 máy trạm cấu hình: CPU: Intel Xeon W-2223 (3.6 GHz - 3.9 GHz/8.25MB/4 nhân, 8 luồng)
+- RAM: 2 x 8GB DDR4 2933MHz (8 Khe cắm, Hỗ trợ tối đa 512GB)
+- Đồ họa: / Quadro T1000 8GB
+- Lưu trữ: 256GB M.2 NVMe SSD/1TB HDD 7200RPM
+[2025-02-18 15:47:20:558] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn Dell Inspiron 3030T Core(TM) i7-14700F processor(20-Core, 33M Cache, Up to 5.4GHz), 1 x 16Gb DDR5 5600MT/s up to 64Gb, SSD 1TB PCIe NVMe, VGA Nvidia RTX 3050 8Gb DDR6, No DVD, Wifi 6 + BT 5.2,  Win11 SL, 180W PSU 1 year warranty.	 30,400,000 fv
+[2025-02-18 15:47:14:261] PC KHÁNH. ĐÀM VĂN 0933808892: có cấu hình dell i7 mà giá khá cao.
+[2025-02-18 15:46:59:298] PC KHÁNH. ĐÀM VĂN 0933808892: dạ không có rồi chị ạ.
+[2025-02-18 15:46:30:631] MS SEN MDO_VTA_CH_DICHVUKYLONG: có con nào xài SSD 1TB luôn ko em
+[2025-02-18 15:46:13:724] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn HP Pro Tower 280 G9 PCI, Core i5-14500,16GB DDR5,512GB SSD,Intel Graphics,Wlan ax+BT,Keyboard,Mouse,Win 11 Home 64,01Year_AY1Y3PT	 15,300,000 fv
+[2025-02-18 15:45:59:272] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn Dell Inspiron 3030S Core i5 - 14400 (10 core, 20M cache,  Up to 4.6 Ghz ), 1x16Gb DDR5 4400MT/s up to 64Gb, SSD 512Gb, Wifi + BT,  Win11 SL,  Non DVDRW, 180W PSU, 1 year warranty.	 15,400,000 fv 
+
+em có mã 16GB ssd 512GB thôi chị nhé
+[2025-02-18 15:44:07:794] MS SEN MDO_VTA_CH_DICHVUKYLONG: khách yêu cầu này rồi
+[2025-02-18 15:44:01:693] MS SEN MDO_VTA_CH_DICHVUKYLONG: RAM 16GB, SSD 1TB)
+[2025-02-18 15:43:39:750] MS SEN MDO_VTA_CH_DICHVUKYLONG: màn hình hp em
+[2025-02-18 15:42:25:222] PC KHÁNH. ĐÀM VĂN 0933808892: dạ em gửi hcij
+[2025-02-18 15:42:19:334] PC KHÁNH. ĐÀM VĂN 0933808892: Màn hình máy tính Dell SE2425H 23.8INCH, 1920x1080@75Hz, VGA, HDMI, LED, 03Years_K0FG9	 2,480,000 fv
+
+======
+[2025-02-18 15:49:19:247] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: dạ e cảm ơn anh
+[2025-02-18 15:47:42:118] PC KHÁNH. ĐÀM VĂN 0933808892: khách CK rồi á em
+[2025-02-18 15:44:38:588] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: {"thumb":"https://f10-zpc.zdn.vn/jpg/8216461100518664295/f9db2bbbd4956acb3384.jpg","description":"","action":"","childnumber":0,"href":"https://f10-zpc.zdn.vn/jpg/8216461100518664295/f9db2bbbd4956acb3384.jpg","title":"","params":"{\"rawUrl\":\"https:\\/\\/f10-zpc.zdn.vn\\/jpg\\/8216461100518664295\\/f9db2bbbd4956acb3384.jpg\",\"width\":598,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f10-zpc.zdn.vn\\/jpg\\/8216461100518664295\\/f9db2bbbd4956acb3384.jpg\",\"hdSize\":23978,\"height\":561}","type":""}
+[2025-02-18 15:44:13:729] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: chiều nay về
+[2025-02-18 15:44:07:171] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: dạ
+[2025-02-18 15:43:45:918] PC KHÁNH. ĐÀM VĂN 0933808892: hàng em nhập về hả
+[2025-02-18 15:40:25:597] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: T520W  : 3.590.000 full ah
+[2025-02-18 15:40:03:034] PC KHÁNH. ĐÀM VĂN 0933808892: để anh tổng cho khách CK
+[2025-02-18 15:39:53:166] PC KHÁNH. ĐÀM VĂN 0933808892: đơn em bao nhiều
+[2025-02-18 15:39:50:158] PC KHÁNH. ĐÀM VĂN 0933808892: chưa em
+[2025-02-18 15:38:32:900] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: anh Khánh xuất hàng chưa ah
+[2025-02-18 15:38:16:126] Ms Kim Ngân - Máy In Mực In - Nguyên Kim: {"thumb":"https://f26-zpc.zdn.vn/jpg/5473150639665567900/04400a9819b6a7e8fea7.jpg","description":"","action":"","childnumber":0,"href":"https://f26-zpc.zdn.vn/jpg/5473150639665567900/04400a9819b6a7e8fea7.jpg","title":"","params":"{\"rawUrl\":\"https:\\/\\/f26-zpc.zdn.vn\\/jpg\\/5473150639665567900\\/04400a9819b6a7e8fea7.jpg\",\"width\":605,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f26-zpc.zdn.vn\\/jpg\\/5473150639665567900\\/04400a9819b6a7e8fea7.jpg\",\"hdSize\":21855,\"height\":593}","type":""}
+
+======
+[2025-02-18 15:47:35:516] PC KHÁNH. ĐÀM VĂN 0933808892: dạ em cám ơn anh
+[2025-02-18 15:47:25:489] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: {"thumb":"https://f18-zpc.zdn.vn/jpg/1363160595395607714/8c9b74bebf9001ce5881.jpg","description":"","action":"","childnumber":0,"href":"https://f18-zpc.zdn.vn/jpg/1363160595395607714/8c9b74bebf9001ce5881.jpg","title":"","params":"{\"width\":1080,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f18-zpc.zdn.vn\\/jpg\\/1363160595395607714\\/8c9b74bebf9001ce5881.jpg\",\"height\":1868}","type":""}
+[2025-02-18 15:45:28:204] PC KHÁNH. ĐÀM VĂN 0933808892: em gửi anh
+[2025-02-18 15:45:25:158] PC KHÁNH. ĐÀM VĂN 0933808892: 12893229	VND	Ngân hàng TMCP Á Châu	ACB
+[2025-02-18 15:45:15:525] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: gởi anh cái ACB
+[2025-02-18 15:45:04:613] PC KHÁNH. ĐÀM VĂN 0933808892: em gửi anh
+[2025-02-18 15:45:01:869] PC KHÁNH. ĐÀM VĂN 0933808892: 1013279894	 VND	Ngân hàng TMCP Ngoại Thương Việt Nam – Chi nhánh Gia định 	VIETCOMBANK
+[2025-02-18 15:43:42:755] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: gởi số tk anh chuyển luôn
+[2025-02-18 15:43:36:613] PC KHÁNH. ĐÀM VĂN 0933808892: anh CK giúp em nhé.
+[2025-02-18 15:43:19:635] PC KHÁNH. ĐÀM VĂN 0933808892: T520W  : 3.590.000 full    +   Dell E2423H   2,400,000fv  = 5,990,000fv
+[2025-02-18 15:41:15:416] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: ok em
+[2025-02-18 15:41:08:681] PC KHÁNH. ĐÀM VĂN 0933808892: Màn hình máy tính Dell E2423H 23.8" Full HD LED, 1920x1080, VGA, Display Port, 03 Years.	 2,400,000 fv 
+
+vậy chốt 1c này anh ha
+[2025-02-18 15:40:35:472] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: đồng bộ với cổng dp với pc
+[2025-02-18 15:40:20:169] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: đổi qua dòng này dùm anh
+[2025-02-18 15:40:10:059] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: Màn hình máy tính Dell E2423H 23.8" Full HD LED, 1920x1080, VGA, Display Port, 03 Years
+[2025-02-18 15:39:13:403] PC KHÁNH. ĐÀM VĂN 0933808892: hàng giao về ĐV này anh ha
+[2025-02-18 15:39:06:401] PC KHÁNH. ĐÀM VĂN 0933808892: 220 phan văn hân, P.17, Q. Bình Thạnh
+[2025-02-18 15:37:15:118] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: chiều nay hoặc sáng mai cũng được
+[2025-02-18 15:36:56:786] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: giao chung với máy in bên Ngân dùm anh luôn
+[2025-02-18 15:36:44:822] Mr Hoàng 0908080553 HQC_TDU_SM_HONGUYEN: cho anh 1 cái này
+
+======
+[2025-02-18 15:28:25:648] PC KHÁNH. ĐÀM VĂN 0933808892: Win Pro 11 64Bit Eng Intl 1pk DSP OEI DVD ( FQC-10528)	2,750,000
+
+em gửi chị nhé ,giá hỗ trợ SL về  2,740,000  , hàng hóa khi nào chốt báo em check lại tình trạng hàng và giá chị nha, vì giờ tới tháng 4 còn khá lâu ạ.
+[2025-02-18 15:26:04:499] Mai Lương Vân HQS_Q03_SM_GENSYS: khoảng t4 bat đâu load đợt đầu tiên
+[2025-02-18 15:25:54:719] Mai Lương Vân HQS_Q03_SM_GENSYS: chia 3 đợt trong nam 2025
+[2025-02-18 15:25:37:183] PC KHÁNH. ĐÀM VĂN 0933808892: dạ SL này dự kiến khi bào triển khai chị ạ
+[2025-02-18 15:24:42:484] Mai Lương Vân HQS_Q03_SM_GENSYS: khoảng 700 lic á
+[2025-02-18 15:24:35:907] Mai Lương Vân HQS_Q03_SM_GENSYS: mã này SL lớn có giảm giá ko e
+[2025-02-18 15:24:27:829] Mai Lương Vân HQS_Q03_SM_GENSYS: Win 11 Pro 64bit Eng lntl 1pk DSP OEI DVD (OEM)(FQC-10528)
+
+======
+[2025-02-18 15:17:13:666] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"https://f5-zpc.zdn.vn/1267287091066458739/3fca55c324ed9ab3c3fc.jpg","description":"Thay vì thuê căn hộ gần nơi làm việc, Kaur (Malaysia) chọn đi làm bằng máy bay mỗi ngày, mỗi chuyến bay dài 40 phút, bởi chi phí bay rẻ hơn tiền thuê nhà.","action":"recommened.link","childnumber":0,"href":"https://lifestyle.znews.vn/di-lam-bang-may-bay-moi-ngay-vi-re-hon-thue-nha-post1531299.html","title":"https://lifestyle.znews.vn/di-lam-bang-may-bay-moi-ngay-vi-re-hon-thue-nha-post1531299.html","params":"{\"streamUrl\":\"\",\"mediaTitle\":\"Đi làm bằng máy bay mỗi ngày vì rẻ hơn thuê nhà - Lifestyle - ZNEWS.VN\",\"stream_icon\":\"\",\"src\":\"lifestyle.znews.vn\",\"artist\":\"\",\"type\":0}","type":""}
+[2025-02-18 11:18:36:496] Nhật Phạm PC.: http://192.168.117.212:8011/#/Portal/BangChamCong/XemChamCongThang
+
+======
+[2025-02-18 15:07:17:654] PC KHÁNH. ĐÀM VĂN 0933808892: em nói Ngọc báo anh rồi á.
+[2025-02-18 15:05:38:011] VoTanCao  MTA_LAN_SM_PHUCCAO: Bg dùm a PC HP
+[2025-02-18 15:05:33:557] VoTanCao  MTA_LAN_SM_PHUCCAO: {"thumb":"https://f27-zpc.zdn.vn/jpg/1013571637072751435/3cbad2495e66e038b977.jpg","description":"","action":"","childnumber":0,"href":"https://f27-zpc.zdn.vn/jpg/1013571637072751435/3cbad2495e66e038b977.jpg","title":"","params":"{\"rawUrl\":\"https:\\/\\/f27-zpc.zdn.vn\\/jpg\\/1013571637072751435\\/3cbad2495e66e038b977.jpg\",\"width\":1080,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f27-zpc.zdn.vn\\/jpg\\/1013571637072751435\\/3cbad2495e66e038b977.jpg\",\"hdSize\":46061,\"height\":666}","type":""}
+[2025-02-18 09:23:34:463] PC KHÁNH. ĐÀM VĂN 0933808892: dạ em nói Tiến báo anh rồi á.
+[2025-02-18 09:22:29:944] VoTanCao  MTA_LAN_SM_PHUCCAO: Bg dùm a laptop dell i7 /ddr 16gb/ssd 512/ 15.6"
+[2025-02-18 09:22:03:350] VoTanCao  MTA_LAN_SM_PHUCCAO: alo Khánh
+
+======
+[2025-02-18 15:06:37:803] PC KHÁNH. ĐÀM VĂN 0933808892: .
+[2025-02-18 15:06:31:161] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"https://f27-zpc.zdn.vn/jpg/1013571637072751435/3cbad2495e66e038b977.jpg","description":"","action":"","childnumber":0,"href":"https://f27-zpc.zdn.vn/jpg/1013571637072751435/3cbad2495e66e038b977.jpg","title":"","params":"{\"width\":1080,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f27-zpc.zdn.vn\\/jpg\\/1013571637072751435\\/3cbad2495e66e038b977.jpg\",\"hdSize\":46061,\"height\":666}","type":""}
+
+======
+[2025-02-18 15:01:56:157] zBusiness: [{"thumb":"https://res-zalo.zadn.vn/upload/media/2025/2/13/OA_300K___640_X_410_1739434179088_458942.png","description":"Hàng ngàn voucher đã được sử dụng. Nhanh tay nâng cấp lên gói tài khoản zBusiness Pro với nhiều đặc quyền nổi bật.\n\nSố lượng voucher có hạn và chương trình có thể kết thúc trước thời hạn.\n\nXem và nâng cấp tại website của zBusiness.","action":"action.open.inapp","childnumber":0,"href":"https://business.zbox.vn/voucher-tet2025?utm_source=zalopc&utm_medium=oamess&utm_campaign=tet2025","title":"Voucher ưu đãi từ zBusiness đang hết nhanh ⌛","params":"{\"id_tracking\":1739865716157,\"is_tracking\":true,\"data\":\"https://business.zbox.vn/voucher-tet2025?utm_source=zalopc&utm_medium=oamess&utm_campaign=tet2025\"}","type":"l.a.header.only"},{"thumb":"https://res-zalo.zadn.vn/upload/media/2024/3/29/ic_business_suite_1711695940715_321510.png","description":"","action":"action.open.inapp","childnumber":0,"href":"https://business.zbox.vn/voucher-tet2025?utm_source=zalopc&utm_medium=oamess&utm_campaign=tet2025","title":"Nâng cấp ngay","params":"{\"id_tracking\":1739865716157,\"is_tracking\":true,\"data\":\"https://business.zbox.vn/voucher-tet2025?utm_source=zalopc&utm_medium=oamess&utm_campaign=tet2025\"}","type":"l.a.child.full"}]
+
+======
+[2025-02-18 14:59:55:124] PC KHÁNH. ĐÀM VĂN 0933808892: LCD DELL P2723QE    mã này nhà PP báo hết chưa có lịch về ạ.
+[2025-02-18 14:59:37:360] PC KHÁNH. ĐÀM VĂN 0933808892: LCD DELL 27'' S2725H   4,300,000fv  hàng load về 1 ngày ,check lại trước khi chốt PO ạ.
+[2025-02-18 14:15:52:906] PC KHÁNH. ĐÀM VĂN 0933808892: màn hình hiện tại SL trên bên em không có sẵn để em kiếm hàng ạ
+[2025-02-18 14:15:36:879] PC KHÁNH. ĐÀM VĂN 0933808892: Máy tính để bàn Dell Vostro 3020T 13th Core i7-13700, 8GB DDR4 3200Mhz, SSD 512GB PCIe, No DVD, Wifi+BT, Win11 SL, Dell Optical Mouse & Keyboard, 01Year, Malaysia_MTI72062W1-8G-512G	 18,950,000 fv  
+
+em gửi chi PC hàng sẵn kho chị nha.
+[2025-02-18 14:14:26:213] Lan Còi HQS_Q01_SM_PHUNGVI: có ji báo  nấy cho chi
+[2025-02-18 14:14:20:269] Lan Còi HQS_Q01_SM_PHUNGVI: LCD DELL 27'' S2725H =70
+LCD DELL P2723QE = 160
+DESKTOP DELL VOSTRO Tower 3020 8GB-512G) (I7-13700/8GB/512GB SSDW11 = 70
+
+sl
+[2025-02-18 10:17:30:348] PC KHÁNH. ĐÀM VĂN 0933808892: Em gửi chị
+[2025-02-18 10:17:24:754] PC KHÁNH. ĐÀM VĂN 0933808892: Màn hình máy tính Dell D2020H 19.5inch, 1600x900, VGA, HDMi, LED, 03 Years. 1.700.000  fv
+[2025-02-18 10:11:22:670] Lan Còi HQS_Q01_SM_PHUNGVI: em co ko
+[2025-02-18 10:11:20:303] Lan Còi HQS_Q01_SM_PHUNGVI: d2020h
+[2025-02-18 10:11:17:403] Lan Còi HQS_Q01_SM_PHUNGVI: {"globalMsgId":6328112923285,"destId":0,"srcId":3749915870311140782,"deleteMsg":0,"cliMsgId":1739848271540}
+[2025-02-18 10:11:12:538] Lan Còi HQS_Q01_SM_PHUNGVI: MÀN HÌNH PHILIPS 23.8″ 24E2N1100/74
+
+======
+[2025-02-18 14:56:03:218] MR ĐẠT 0939598678  HQC_GVA_SM_CNTTBAOTIN: oke em nhé
+[2025-02-18 14:55:45:780] PC KHÁNH. ĐÀM VĂN 0933808892: dạ chốt được chốt sớm anh nhé, CTKM giảm 500K tới 28/02 hết rồi á anh
+[2025-02-18 14:54:02:417] PC KHÁNH. ĐÀM VĂN 0933808892: dạ còn anh nhé
+[2025-02-18 14:53:08:082] MR ĐẠT 0939598678  HQC_GVA_SM_CNTTBAOTIN: Em vẫn còn đủ 5 đúng không?
+
+======
+[2025-02-18 14:55:10:940] PC KHÁNH. ĐÀM VĂN 0933808892: {"thumb":"https://f15-zpc.zdn.vn/jpg/4559073427967477280/c02c704da2621c3c4573.jpg","description":"","action":"","childnumber":0,"href":"https://f15-zpc.zdn.vn/jpg/4559073427967477280/c02c704da2621c3c4573.jpg","title":"anh gửi phiếu nhé.","params":"{\"rawUrl\":\"https:\\/\\/f15-zpc.zdn.vn\\/jpg\\/4559073427967477280\\/c02c704da2621c3c4573.jpg\",\"width\":535,\"convertible\":\"jxl\",\"hd\":\"https:\\/\\/f15-zpc.zdn.vn\\/jpg\\/4559073427967477280\\/c02c704da2621c3c4573.jpg\",\"hdSize\":91082,\"height\":528}","type":""}
+[2025-02-18 14:52:01:803] Ms Hau 0912041108 MDO_DNA_SM_TINVIETTIEN: ok a
+[2025-02-18 14:51:34:265] PC KHÁNH. ĐÀM VĂN 0933808892: có hàng rồi em nhé ,anh gửi xe chú Quang nha.
+
+======
+[2025-02-18 14:51:09:274] PC KHÁNH. ĐÀM VĂN 0933808892: dạ chị
+[2025-02-18 14:50:36:474] MS TRANG NHẬP HÀNG 881: e xuất 1b liền đi, Chiến xuất 4b, và Huy 37b là hết
+[2025-02-18 14:48:09:287] MS TRANG NHẬP HÀNG 881: e xuất nhé
+[2025-02-18 14:48:07:061] MS TRANG NHẬP HÀNG 881: SWMS_2024_EP2_06630

@@ -15,12 +15,12 @@ use Gate;
 class AdminlogsController extends Controller
 {
     public function index(Request $request){
-        if(!Gate::allows("Lịch sử hoạt động.index")){
-            return response()->json([
-                'status' => false,
-                'message' => 'no permission',
-            ], 403); 
-        }
+        // if(!Gate::allows("Lịch sử hoạt động.index")){
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'no permission',
+        //     ], 403); 
+        // }
             $adminLogs = DB::table('adminlogs')
             ->join('admins', 'adminlogs.admin_id', '=', 'admins.id')
             ->select(
@@ -53,6 +53,15 @@ class AdminlogsController extends Controller
     }
 
     public function destroy(string $id){
-        
+
+    }
+
+    public function delete(string $id){
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) { 
+            return response()->json([
+                'status' => false,
+                'message' => 'no permission',
+            ], 403);
+        }
     }
 }

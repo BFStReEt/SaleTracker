@@ -27,14 +27,16 @@ class BusinessGroupController extends Controller
             ], 403); 
         }
 
+        $admin = Auth::guard('admin')->user();
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'index business group',
-        'cat' => 'admin',
+            'admin_id' => $admin->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'index business group',
+            'cat' => $admin->display_name,
+            'page' => 'Quản lí phòng ban',
         ]);
 
         $searchName = $request->query('data');
@@ -96,26 +98,29 @@ class BusinessGroupController extends Controller
                 'errors' => $validator->errors()], 400);
         }
 
+        $admin = Auth::guard('admin')->user();
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'store business group',
-        'cat' => 'admin',
+            'admin_id' => $admin->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'store business group',
+            'cat' => $admin->display_name,
+            'page' => 'Quản lí phòng ban',
         ]);
 
         $businessGroup = BusinessGroup::create($request->all());
         return response()->json([
             'status' => true, 
-            'data' => $businessGroup->name], 201); 
+            'data' => $businessGroup->name]
+            ,201); 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request,string $id)
     {
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) { 
             return response()->json([
@@ -132,14 +137,16 @@ class BusinessGroupController extends Controller
             ], 404);
         }
 
+        $admin = Auth::guard('admin')->user();
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'show business group',
-        'cat' => 'admin',
+            'admin_id' => $admin->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'show business group',
+            'cat' => $admin->display_name,
+            'page' => 'Quản lí phòng ban',
         ]);
 
         $manager = $businessGroup->manager; 
@@ -187,14 +194,16 @@ class BusinessGroupController extends Controller
         $businessGroup->fill($request->only(['name', 'description'])); 
         $businessGroup->save();
 
+        $admin = Auth::guard('admin')->user();
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'update business group',
-        'cat' => 'admin',
+            'admin_id' => $admin->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update business group',
+            'cat' => $admin->display_name,
+            'page' => 'Quản lí phòng ban',
         ]);
 
         return response()->json(['status' => true, 'message' => 'Business group updated successfully', 'data' => $businessGroup], 200);
@@ -228,14 +237,16 @@ class BusinessGroupController extends Controller
                 BusinessGroup::whereIn('id', $idsArray)->delete();
             }
     
+            $admin = Auth::guard('admin')->user();
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'delete business group',
-            'cat' => 'admin',
+                'admin_id' => $admin->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'delete business group',
+                'cat' => $admin->display_name,
+                'page' => 'Quản lí phòng ban',
             ]);
 
             return response()->json([
@@ -249,7 +260,7 @@ class BusinessGroupController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.destroy')) { 
             return response()->json([
@@ -269,14 +280,16 @@ class BusinessGroupController extends Controller
 
             $businessGroup->delete();
 
+            $admin = Auth::guard('admin')->user();
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'destroy business group',
-            'cat' => 'admin',
+                'admin_id' => $admin->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'destroy business group',
+                'cat' => $admin->display_name,
+                'page' => 'Quản lí phòng ban',
             ]);
 
             return response()->json([

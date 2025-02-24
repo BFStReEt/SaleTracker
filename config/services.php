@@ -13,9 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-    'copilot' => [
-        'api_key' => env('COPILOT_API_KEY'),
-        'base_url' => env('COPILOT_API_URL'),
+   'copilot' => [
+        'base_url' => env('COPILOT_API_URL', 'https://api.copilot.app'),
+        'api_key'  => env('COPILOT_API_KEY'),
     ],
 
     'mailgun' => [

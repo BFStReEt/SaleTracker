@@ -36,7 +36,8 @@ class AdminController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'index admin',
-            'cat' => 'admin',
+            'cat' => $currentUser->display_name,
+            'page' => 'Quản lí tài khoản admin'
             ]);
         // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
         //     $query->where('business_group_id', $currentUser->business_group_id);
@@ -108,7 +109,8 @@ class AdminController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'add a admin',
-        'cat' => 'admin',
+        'cat' => $currentUser->display_name,
+        'page' => 'Quản lí tài khoản admin'
         ]);
 
         $validator = Validator::make($request->all(), [
@@ -206,16 +208,6 @@ class AdminController extends Controller
                 'message' => 'no permission',
             ], 403); 
         }
-
-        $nows = now()->timestamp;
-        $now = date('d-m-Y, g:i:s A', $nows);
-        DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'show a admin',
-        'cat' => 'admin',
-        ]);
 
         $user = Admin::find($id);
 
@@ -322,7 +314,8 @@ class AdminController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'update a admin',
-        'cat' => 'admin',
+        'cat' => $currentUser->display_name,
+        'page' => 'Quản lí tài khoản admin'
         ]);
 
         $user = Admin::find($id);
@@ -429,7 +422,8 @@ class AdminController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'delete a admin',
-            'cat' => 'admin',
+            'cat' => $currentUser->display_name,
+            'page' => 'Quản lí tài khoản admin'
             ]);
 
             $request->validate([
@@ -502,7 +496,7 @@ class AdminController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'destroy a admin',
-            'cat' => 'admin',
+            'cat' => 'quản lí phòng ban',
             ]);
 
             $userToDelete = Admin::findOrFail($id);
@@ -569,7 +563,7 @@ class AdminController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'update default password',
-        'cat' => 'admin',
+        'cat' => 'quản lí phòng ban',
         ]);
 
         DefaultPassword::where('key', 'default_password')->update(['value' => $newPassword]);
@@ -614,7 +608,7 @@ class AdminController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'update user password',
-            'cat' => 'admin',
+            'cat' => 'quản lí phòng ban',
             ]);
 
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
@@ -664,7 +658,7 @@ class AdminController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'user change password',
-            'cat' => 'user',
+            'cat' => 'quản lí phòng ban',
             ]);
 
             return response()->json([

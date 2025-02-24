@@ -19,7 +19,7 @@ class AdminlogsController extends Controller
         //     return response()->json([
         //         'status' => false,
         //         'message' => 'no permission',
-        //     ], 403); 
+        //     ], 403); ss
         // }
             $adminLogs = DB::table('adminlogs')
             ->join('admins', 'adminlogs.admin_id', '=', 'admins.id')

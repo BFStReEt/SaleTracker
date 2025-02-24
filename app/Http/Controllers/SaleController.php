@@ -105,7 +105,7 @@ class SaleController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'index data',
-        'cat' => 'admin',
+        'cat' => 'Quản lí khách hàng',
         ]);
 
         $formattedSales = $sales->map(function ($sale) {
@@ -138,11 +138,11 @@ class SaleController extends Controller
         ]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         $user = Auth::guard('admin')->user();
 
-        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) { 
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) {  
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
@@ -157,7 +157,7 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'destroy data',
-            'cat' => 'admin',
+            'cat' => 'Quản lí khách hàng',
             ]);
             $sale = Sale::findOrFail($id);
 
@@ -226,7 +226,7 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'delete data',
-            'cat' => 'admin',
+            'cat' => 'Quản lí khách hàng',
             ]);
     
             return response()->json([
@@ -242,7 +242,7 @@ class SaleController extends Controller
         
     }
 
-    public function edit(string $id){
+    public function edit(Request $request, string $id){
         $sale = Sale::find($id);
 
         if (!$sale) {
@@ -259,7 +259,7 @@ class SaleController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'edit data',
-        'cat' => 'admin',
+        'cat' => 'Quản lí khách hàng',
         ]);
 
         return response()->json([
@@ -299,7 +299,7 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'update note',
-            'cat' => 'admin',
+            'cat' => 'Quản lí khách hàng',
             ]);
 
             return response()->json([

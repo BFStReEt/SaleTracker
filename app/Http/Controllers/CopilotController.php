@@ -7,21 +7,17 @@ use Illuminate\Support\Facades\Http;
 
 class CopilotController extends Controller
 {
-    public function index(Request $request)
+    public function askCopilot(Request $request)
     {
-        // Lấy prompt từ request đầu vào
-        $prompt = $request->input('prompt');
+        $question = $request->input('question');
 
-        // Gửi request đến API Copilot
         $response = Http::withHeaders([
-            'X-API-KEY' => env('COPILOT_API_KEY'),
-            'Content-Type' => 'application/json'
-        ])->post(env('COPILOT_API_URL'), [
-            'prompt' => $prompt,
-            
+            'Authorization' => 'Bearer ' . config('services.copilot.api_key'),
+            'Content-Type'  => 'application/json',
+        ])->post(config('services.copilot.base_url') . '/chat', [
+            'message' => $question,
         ]);
 
-        // Trả về dữ liệu phản hồi
         return response()->json($response->json());
     }
 }

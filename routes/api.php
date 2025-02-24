@@ -60,5 +60,5 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
 //Upload
 Route::post('/upload', [FileUploadController::class, 'upload']);
 
-Route::post('/copilot', [CopilotController::class, 'index']);
+Route::post('/ask-copilot', [CopilotController::class, 'askCopilot']);
 

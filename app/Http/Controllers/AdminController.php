@@ -26,22 +26,22 @@ class AdminController extends Controller
             return response()->json(['status' => false, 'message' => 'Unauthorized.'], 401);
         }
 
-        $query = Admin::with('businessGroup'); 
+        $query = Admin::with('businessGroup');
 
         if (Gate::allows('QUẢN LÍ TÀI KHOẢN.index')) {
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'index admin',
-            'cat' => $currentUser->display_name,
-            'page' => 'Quản lí tài khoản admin'
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'index admin',
+                'cat' => $currentUser->display_name,
+                'page' => 'Quản lí tài khoản admin'
             ]);
-        // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
-        //     $query->where('business_group_id', $currentUser->business_group_id);
-        // 
+            // } elseif ($currentUser->is_manager && $currentUser->business_group_id) {
+            //     $query->where('business_group_id', $currentUser->business_group_id);
+            // 
         } else {
             return response()->json(['status' => false, 'message' => 'no permission.'], 403);
         }
@@ -58,7 +58,7 @@ class AdminController extends Controller
 
         $users = $query->orderBy('id', 'asc')->paginate(10);
 
-        if ($users instanceof \Illuminate\Http\JsonResponse) { 
+        if ($users instanceof \Illuminate\Http\JsonResponse) {
             return $users;
         }
 
@@ -85,17 +85,15 @@ class AdminController extends Controller
             ],
         ]);
     }
-   
-    public function create()
-    {
-    }
 
-    
+    public function create() {}
+
+
     public function store(Request $request)
     {
         $currentUser = Auth::guard('admin')->user();
 
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.store'))  {
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.store')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission'
@@ -105,12 +103,12 @@ class AdminController extends Controller
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'add a admin',
-        'cat' => $currentUser->display_name,
-        'page' => 'Quản lí tài khoản admin'
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'add a admin',
+            'cat' => $currentUser->display_name,
+            'page' => 'Quản lí tài khoản admin'
         ]);
 
         $validator = Validator::make($request->all(), [
@@ -152,7 +150,7 @@ class AdminController extends Controller
 
                 $businessGroup = BusinessGroup::find($businessGroupId);
                 if ($businessGroup) {
-                    $businessGroup->manager_id = null; 
+                    $businessGroup->manager_id = null;
                     $businessGroup->save();
                 }
             }
@@ -181,7 +179,6 @@ class AdminController extends Controller
                 'status' => true,
                 'message' => 'successful',
             ], 201);
-
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error($e);
@@ -194,7 +191,7 @@ class AdminController extends Controller
 
     public function show(string $id)
     {
-        $currentUser = auth('admin')->user(); 
+        $currentUser = auth('admin')->user();
         if (!$currentUser) {
             return response()->json([
                 'status' => false,
@@ -202,11 +199,11 @@ class AdminController extends Controller
             ], 401);
         }
 
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.show')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.show')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
 
         $user = Admin::find($id);
@@ -226,13 +223,14 @@ class AdminController extends Controller
                 'email' => $user->email,
                 'display_name' => $user->display_name,
                 'is_manager' => $user->is_manager,
-                'business_group_id' => $user->business_group_id, 
+                'business_group_id' => $user->business_group_id,
             ],
         ]);
     }
 
-    public function getProfile(Request $request){
-        $user = auth('admin')->user(); 
+    public function getProfile(Request $request)
+    {
+        $user = auth('admin')->user();
         if (!$user) {
             return response()->json([
                 'status' => false,
@@ -242,7 +240,7 @@ class AdminController extends Controller
 
         $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
 
-        $check_password = false; 
+        $check_password = false;
 
         if ($defaultPassword == $user->password) {
             $check_password = true;
@@ -261,9 +259,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function edit(string $id){
-        
-    }
+    public function edit(string $id) {}
 
     public function updateID(Request $request)
     {
@@ -278,7 +274,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(), [
             'display_name' => 'required|string',
-            'email' => 'required|email|unique:admins,email,' . $user->id, 
+            'email' => 'required|email|unique:admins,email,' . $user->id,
         ]);
 
         if ($validator->fails()) {
@@ -300,22 +296,22 @@ class AdminController extends Controller
 
     public function update(Request $request, string $id)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.update')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.update')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
 
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'update a admin',
-        'cat' => $currentUser->display_name,
-        'page' => 'Quản lí tài khoản admin'
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update a admin',
+            'cat' => Auth::guard('admin')->user()->display_name,
+            'page' => 'Quản lí tài khoản admin'
         ]);
 
         $user = Admin::find($id);
@@ -394,7 +390,6 @@ class AdminController extends Controller
                     'is_manager' => $user->is_manager,
                 ],
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error($e);
@@ -404,42 +399,42 @@ class AdminController extends Controller
             ], 500);
         }
     }
-    
+
     public function delete(Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.delete')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.delete')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         try {
 
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'delete a admin',
-            'cat' => $currentUser->display_name,
-            'page' => 'Quản lí tài khoản admin'
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'delete a admin',
+                'cat' => $currentUser->display_name,
+                'page' => 'Quản lí tài khoản admin'
             ]);
 
             $request->validate([
                 'ids' => 'required|array',
                 'ids.*' => 'exists:admins,id',
             ]);
-    
-            $ids = $request->input('ids'); 
+
+            $ids = $request->input('ids');
 
             if (is_array($ids)) {
                 $ids = implode(",", $ids);
             }
 
-            $idsArray = explode(",", $ids); 
+            $idsArray = explode(",", $ids);
             $currentUser = Auth::guard('admin')->user();
-        
+
             foreach ($idsArray as $id) {
                 $user = Admin::find($id);
 
@@ -466,25 +461,26 @@ class AdminController extends Controller
 
                 $user->delete();
             }
-    
+
             return response()->json([
                 'status' => true,
                 'message' => 'success'
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => false, 
-                'message' => 'Lỗi khi xóa dữ liệu'], 500);
-        }  
+                'status' => false,
+                'message' => 'Lỗi khi xóa dữ liệu'
+            ], 500);
+        }
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.destroy')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.destroy')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         $currentUser = Auth::guard('admin')->user();
 
@@ -492,11 +488,12 @@ class AdminController extends Controller
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'destroy a admin',
-            'cat' => 'quản lí phòng ban',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'destroy a admin',
+                'cat' => $currentUser->display_name,
+                'page' => 'Quản lí tài khoản admin'
             ]);
 
             $userToDelete = Admin::findOrFail($id);
@@ -505,13 +502,13 @@ class AdminController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => "You cannot delete your own account (ID: $id)"
-                ], 400); 
+                ], 400);
             }
 
-            if ($userToDelete->is_default === 1) {  
+            if ($userToDelete->is_default === 1) {
                 return response()->json([
                     'status' => false,
-                    'message' => "Cannot delete Super Admin" 
+                    'message' => "Cannot delete Super Admin"
                 ], 400);
             }
 
@@ -525,7 +522,6 @@ class AdminController extends Controller
                 'status' => true,
                 'message' => 'Admin deleted successfully.'
             ]);
-
         } catch (\Exception $e) {
             if ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
                 return response()->json([
@@ -533,7 +529,7 @@ class AdminController extends Controller
                     'message' => 'Admin not found.'
                 ], 404);
             } else {
-                \Log::error($e); 
+                \Log::error($e);
                 return response()->json([
                     'status' => false,
                     'message' => 'An error occurred during deletion.'
@@ -544,11 +540,11 @@ class AdminController extends Controller
 
     public function updateDefaultPassword(Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateDefaultPassword')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         $newPassword = $request->input('default_password');
 
@@ -556,14 +552,15 @@ class AdminController extends Controller
             'default_password' => 'required',
         ]);
 
-       $nows = now()->timestamp;
+        $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'update default password',
-        'cat' => 'quản lí phòng ban',
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'update default password',
+            'cat' => Auth::guard('admin')->user()->display_name,
+            'page' => 'Quản lí tài khoản admin'
         ]);
 
         DefaultPassword::where('key', 'default_password')->update(['value' => $newPassword]);
@@ -573,8 +570,8 @@ class AdminController extends Controller
             'message' => 'Update default password successfully.'
         ]);
     }
-   
-    public function updatePasswordID(string $id)
+
+    public function updatePasswordID(string $id, Request $request)
     {
         if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.updateUserPassword')) {
             return response()->json([
@@ -604,11 +601,12 @@ class AdminController extends Controller
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'update user password',
-            'cat' => 'quản lí phòng ban',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'update user password',
+                'cat' => $currentUser->display_name,
+                'page' => 'Quản lí tài khoản admin'
             ]);
 
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
@@ -619,17 +617,14 @@ class AdminController extends Controller
                     'message' => 'Default password not found.'
                 ], 500);
             }
-
-            $hashedPassword = Hash::make($defaultPassword); 
-
-            $admin->password = $hashedPassword; 
+            $hashedPassword = Hash::make($defaultPassword);
+            $admin->password = $hashedPassword;
             $admin->save();
 
             return response()->json([
                 'status' => true,
                 'message' => 'Password updated successfully.'
             ], 200);
-
         } catch (\Exception $e) {
             \Log::error($e);
             return response()->json([
@@ -651,14 +646,15 @@ class AdminController extends Controller
             $currentUser->password = Hash::make($request->new_password);
             $currentUser->save();
 
-           $nows = now()->timestamp;
+            $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'user change password',
-            'cat' => 'quản lí phòng ban',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'user change password',
+                'cat' => $currentUser->display_name,
+                'page' => 'Quản lí tài khoản admin'
             ]);
 
             return response()->json([
@@ -669,23 +665,23 @@ class AdminController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Incorrect current password'
-            ], 404); 
+            ], 404);
         }
     }
 
     public function getDefaultPassword(Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.getDefaultPassword')) { 
+        if (!Gate::allows('QUẢN LÍ TÀI KHOẢN.getDefaultPassword')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         try {
             $defaultPassword = DefaultPassword::where('key', 'default_password')->value('value');
 
             if (!$defaultPassword) {
-                 return response()->json([
+                return response()->json([
                     'status' => false,
                     'message' => 'Default password not found.'
                 ], 404);
@@ -693,9 +689,8 @@ class AdminController extends Controller
 
             return response()->json([
                 'status' => true,
-                'default_password' => $defaultPassword, 
+                'default_password' => $defaultPassword,
             ]);
-
         } catch (\Exception $e) {
             \Log::error($e);
             return response()->json([
@@ -730,28 +725,26 @@ class AdminController extends Controller
         } else {
             $employees = [];
         }
-        
+
         $formattedEmployees = collect($employees)
-        ->map(function ($employee) {
-            $managerId = null;
-            $managerName = null;
+            ->map(function ($employee) {
+                $managerId = null;
+                $managerName = null;
 
-            if ($employee->businessGroup && $employee->businessGroup->manager) {
-                $managerId = $employee->businessGroup->manager->id;
-                $managerName = $employee->businessGroup->manager->display_name;
-            }
+                if ($employee->businessGroup && $employee->businessGroup->manager) {
+                    $managerId = $employee->businessGroup->manager->id;
+                    $managerName = $employee->businessGroup->manager->display_name;
+                }
 
-            return [
-                'id' => $employee->id,
-                'display_name' => $employee->display_name,
-            ];
-        });
+                return [
+                    'id' => $employee->id,
+                    'display_name' => $employee->display_name,
+                ];
+            });
 
         return response()->json([
             'status' => true,
-            'data' => $formattedEmployees->values()->all(), 
+            'data' => $formattedEmployees->values()->all(),
         ]);
     }
-
-
 }

@@ -15,16 +15,16 @@ use Gate;
 
 class BusinessGroupController extends Controller
 {
-   
+
     public function index(Request $request)
     {
-        $currentUser = auth('admin')->user(); 
-       
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.index')) { 
+        $currentUser = auth('admin')->user();
+
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.index')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
 
         $admin = Auth::guard('admin')->user();
@@ -47,10 +47,10 @@ class BusinessGroupController extends Controller
             $query->where('name', 'like', '%' . $searchName . '%');
         }
 
-        $perPage = 10; 
-        $page = $request->query('page', 1); 
+        $perPage = 10;
+        $page = $request->query('page', 1);
 
-        $businessGroups = $query->paginate($perPage, ['*'], 'page', $page); 
+        $businessGroups = $query->paginate($perPage, ['*'], 'page', $page);
 
         $formattedBusinessGroups = $businessGroups->map(function ($businessGroup) {
             return [
@@ -73,17 +73,13 @@ class BusinessGroupController extends Controller
         ]);
     }
 
-    public function create()
-    {
-    }
-
     public function store(Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -94,8 +90,9 @@ class BusinessGroupController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => false, 
-                'errors' => $validator->errors()], 400);
+                'status' => false,
+                'errors' => $validator->errors()
+            ], 400);
         }
 
         $admin = Auth::guard('admin')->user();
@@ -111,22 +108,25 @@ class BusinessGroupController extends Controller
         ]);
 
         $businessGroup = BusinessGroup::create($request->all());
-        return response()->json([
-            'status' => true, 
-            'data' => $businessGroup->name]
-            ,201); 
+        return response()->json(
+            [
+                'status' => true,
+                'data' => $businessGroup->name
+            ],
+            201
+        );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request,string $id)
+    public function show(Request $request, string $id)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         $businessGroup = BusinessGroup::find($id);
 
@@ -149,32 +149,26 @@ class BusinessGroupController extends Controller
             'page' => 'Quản lí phòng ban',
         ]);
 
-        $manager = $businessGroup->manager; 
+        $manager = $businessGroup->manager;
 
         return response()->json([
             'status' => true,
-            'data' =>[
+            'data' => [
                 'name' => $businessGroup->name,
-                'description' =>$businessGroup->description,
+                'description' => $businessGroup->description,
                 //'manage_by' => $manager ? $manager->display_name : null, 
             ]
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-    }
 
     public function update(Request $request, string $id)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.update')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.update')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         $businessGroup = BusinessGroup::find($id);
 
@@ -191,7 +185,7 @@ class BusinessGroupController extends Controller
             return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
 
-        $businessGroup->fill($request->only(['name', 'description'])); 
+        $businessGroup->fill($request->only(['name', 'description']));
         $businessGroup->save();
 
         $admin = Auth::guard('admin')->user();
@@ -212,11 +206,11 @@ class BusinessGroupController extends Controller
 
     public function delete(Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
 
         try {
@@ -224,19 +218,19 @@ class BusinessGroupController extends Controller
                 'ids' => 'required|array',
                 'ids.*' => 'exists:business_groups,id',
             ]);
-    
-            $ids = $request->input('ids'); 
+
+            $ids = $request->input('ids');
 
             if (is_array($ids)) {
                 $ids = implode(",", $ids);
             }
 
-            $idsArray = explode(",", $ids); 
+            $idsArray = explode(",", $ids);
 
             foreach ($idsArray as $id) {
                 BusinessGroup::whereIn('id', $idsArray)->delete();
             }
-    
+
             $admin = Auth::guard('admin')->user();
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
@@ -255,18 +249,19 @@ class BusinessGroupController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => false, 
-                'message' => 'Lỗi khi xóa dữ liệu'], 500);
+                'status' => false,
+                'message' => 'Lỗi khi xóa dữ liệu'
+            ], 500);
         }
     }
 
     public function destroy(string $id, Request $request)
     {
-        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.destroy')) { 
+        if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.destroy')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
-            ], 403); 
+            ], 403);
         }
         try {
             $businessGroup = BusinessGroup::find($id);
@@ -303,5 +298,4 @@ class BusinessGroupController extends Controller
             ], 500);
         }
     }
-
 }

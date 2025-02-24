@@ -26,7 +26,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/profile/delete',[AdminController::class, 'delete']);
     
     //Reset Password
-    Route::put('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
+    Route::patch('/password/update-default-password',[AdminController::class, 'updateDefaultPassword']);
     Route::patch('/password/update-password/{id}',[AdminController::class,'updatePasswordID']);
     Route::patch('/password/change-password',[AdminController::class,'changePassword']);
     Route::get('/password/get-default-password',[AdminController::class,'getDefaultPassword']);
@@ -61,4 +61,3 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
 Route::post('/upload', [FileUploadController::class, 'upload']);
 
 Route::post('/ask-copilot', [CopilotController::class, 'askCopilot']);
-

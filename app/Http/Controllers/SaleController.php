@@ -105,7 +105,8 @@ class SaleController extends Controller
         'time' => $now,
         'ip' => $request->ip() ?? null,
         'action' => 'index data',
-        'cat' => 'Quản lí khách hàng',
+        'cat' => $user->display_name,
+        'page' => 'Quản lí khách hàng',
         ]);
 
         $formattedSales = $sales->map(function ($sale) {
@@ -157,7 +158,8 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'destroy data',
-            'cat' => 'Quản lí khách hàng',
+            'cat' => $user->display_name,
+            'page' => 'Quản lí khách hàng',
             ]);
             $sale = Sale::findOrFail($id);
 
@@ -226,7 +228,8 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'delete data',
-            'cat' => 'Quản lí khách hàng',
+            'cat' => $user->display_name,
+            'page' => 'Quản lí khách hàng',
             ]);
     
             return response()->json([
@@ -251,16 +254,6 @@ class SaleController extends Controller
                 'message' => 'Data id not found'
             ], 404);
         }
-
-        $nows = now()->timestamp;
-        $now = date('d-m-Y, g:i:s A', $nows);
-        DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'edit data',
-        'cat' => 'Quản lí khách hàng',
-        ]);
 
         return response()->json([
             'status' => true,
@@ -299,7 +292,8 @@ class SaleController extends Controller
             'time' => $now,
             'ip' => $request->ip() ?? null,
             'action' => 'update note',
-            'cat' => 'Quản lí khách hàng',
+            'cat' => $user->display_name,
+            'page' => 'Quản lí khách hàng',
             ]);
 
             return response()->json([

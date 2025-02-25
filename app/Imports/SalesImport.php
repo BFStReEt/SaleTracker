@@ -6,41 +6,11 @@ use App\Models\Sale;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Log;
 class SalesImport implements ToModel
 {
-    // public function model(array $row)
-    // {
-    //     if ($row[0] === 'Thời gian bắt đầu' || empty($row[0])) {
-    //         return null;
-    //     }
-
-    //     $startTime = $this->convertExcelTimeToString($row[0]);
-    //     $endTime = $this->convertExcelTimeToString($row[1]);
-
-    //     $businessName = $this->getValue($row[2]);
-
-    //     preg_match('/\d{10}/', $businessName, $matches);
-
-    //     $phoneNumber = $matches[0] ?? null;
-
-    //     $userName = $phoneNumber;
-
-    //     return new Sale([
-    //         'start_time' => $startTime,
-    //         'end_time' => $endTime,
-    //         'business_name' => $businessName,
-    //         'user_name' => $userName,
-    //         'customer_name' => $this->getValue($row[3] ?? null), 
-    //         'item' => $this->getValue($row[4] ?? null), 
-    //         'quantity' => $this->getValue($row[5] ?? null),
-    //         'price' => $this->getValue($row[6] ?? null),
-    //         'sales_result' => $this->getValue($row[7] ?? null),
-    //         'suggestions' => $this->getValue($row[8] ?? null), 
-    //     ]);
-    // }
-    
-    public function model(array $row){
+    public function model(array $row)
+    {
         if ($row[0] === 'Thời gian bắt đầu' || empty($row[0])) {
             return null;
         }
@@ -62,10 +32,11 @@ class SalesImport implements ToModel
         $existingSale = Sale::where('business_name', $businessName)
                             ->where('customer_name', $customerName)
                             ->where('item', $item)
+                            ->where('start_time', $startTime)
                             ->orderBy('created_at', 'desc')
                             ->first();
-
-        if ($existingSale && $existingSale->status !== 'Đã chốt') {
+        
+        if ($existingSale && $existingSale->sales_result !== 'Đã chốt') {
             $existingSale->update([
                 'start_time' => $startTime,
                 'end_time' => $endTime,
@@ -74,7 +45,6 @@ class SalesImport implements ToModel
                 'sales_result' => $this->getValue($row[7] ?? null),
                 'suggestions' => $this->getValue($row[8] ?? null),
             ]);
-
             return $existingSale;
         }
 
@@ -92,12 +62,13 @@ class SalesImport implements ToModel
         ]);
     }
 
-
-    private function getValue($value){
+    private function getValue($value)
+    {
         return empty($value) ? null : $value;
     }
 
-    private function convertExcelTimeToString($excelTime){
+    private function convertExcelTimeToString($excelTime)
+    {
         if (empty($excelTime)) {
             return null;
         }

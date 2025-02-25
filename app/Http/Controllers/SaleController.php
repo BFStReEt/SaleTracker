@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Sale;
+
 use Gate;
+
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SalesExport;
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -20,31 +25,29 @@ class SaleController extends Controller
         $user = Auth::guard('admin')->user();
         $salesQuery = Sale::with('admin');
         if ($request->filled('id') || $request->has('data')) {
-            $salesQuery->where(function($query) use ($request, $user) {
+            $salesQuery->where(function ($query) use ($request, $user) {
                 if ($request->filled('id')) {
-                $employeeId = $request->input('id');
+                    $employeeId = $request->input('id');
 
-                if (Gate::allows('QUẢN LÍ DATA.viewall')) {
-                    $query->whereHas('admin', function ($subQuery) use ($employeeId) {
-                        $subQuery->where('id', $employeeId);
-                    });
-                } 
-                elseif ($user->is_manager && $user->business_group_id) {
-                    $query->whereHas('admin', function ($subQuery) use ($employeeId, $user) {
-                        $subQuery->where('id', $employeeId)
-                            ->where('business_group_id', $user->business_group_id);
-                    });
-                } 
-                else {
-                    $query->whereHas('admin', function ($subQuery) use ($employeeId) {
-                        $subQuery->where('id', $employeeId);
-                    });
+                    if (Gate::allows('QUẢN LÍ DATA.viewall')) {
+                        $query->whereHas('admin', function ($subQuery) use ($employeeId) {
+                            $subQuery->where('id', $employeeId);
+                        });
+                    } elseif ($user->is_manager && $user->business_group_id) {
+                        $query->whereHas('admin', function ($subQuery) use ($employeeId, $user) {
+                            $subQuery->where('id', $employeeId)
+                                ->where('business_group_id', $user->business_group_id);
+                        });
+                    } else {
+                        $query->whereHas('admin', function ($subQuery) use ($employeeId) {
+                            $subQuery->where('id', $employeeId);
+                        });
+                    }
                 }
-            }
                 if ($request->has('data')) {
                     $searchTerm = $request->data;
                     if ($request->filled('id')) {
-                        $query->where(function($subQuery) use ($searchTerm) {
+                        $query->where(function ($subQuery) use ($searchTerm) {
                             $subQuery->where('customer_name', 'like', "%$searchTerm%")
                                 ->orWhereHas('admin', function ($adminQuery) use ($searchTerm) {
                                     $adminQuery->where('business_name', 'like', "%$searchTerm%");
@@ -63,12 +66,12 @@ class SaleController extends Controller
                 }
             });
         }
-        
+
         if ($request->has('start_time') || $request->has('end_time')) {
             try {
                 $startTime = $request->input('start_time');
                 $endTime = $request->input('end_time');
-    
+
                 if (!empty($startTime) && !empty($endTime)) {
                     $startTime = \Carbon\Carbon::createFromFormat('d/m/Y', $startTime)->startOfDay();
                     $endTime = \Carbon\Carbon::createFromFormat('d/m/Y', $endTime)->endOfDay();
@@ -86,38 +89,41 @@ class SaleController extends Controller
             }
         }
 
-        if (Gate::allows('QUẢN LÍ KHÁCH HÀNG.view')) { 
+        if (Gate::allows('QUẢN LÍ KHÁCH HÀNG.view')) {
         } elseif ($user->is_manager && $user->business_group_id) {
             $salesQuery->whereHas('admin', function ($query) use ($user) {
                 $query->where('business_group_id', $user->business_group_id);
             });
-
         } else {
             $salesQuery->where('user_name', $user->username);
         }
 
+        if ($request->has('export')) {
+            return Excel::download(new SalesExport($salesQuery), 'sales_data.xlsx');
+        }
+        
         $sales = $salesQuery->orderBy('id', 'desc')->paginate(10);
         //$sales = $salesQuery->orderBy('start_time', 'desc')->paginate(10); 
         $nows = now()->timestamp;
         $now = date('d-m-Y, g:i:s A', $nows);
         DB::table('adminlogs')->insert([
-        'admin_id' => Auth::guard('admin')->user()->id,
-        'time' => $now,
-        'ip' => $request->ip() ?? null,
-        'action' => 'index data',
-        'cat' => $user->display_name,
-        'page' => 'Quản lí khách hàng',
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'time' => $now,
+            'ip' => $request->ip() ?? null,
+            'action' => 'index data',
+            'cat' => $user->display_name,
+            'page' => 'Quản lí khách hàng',
         ]);
 
         $formattedSales = $sales->map(function ($sale) {
             if ($sale->start_time) {
                 $sale->start_time = \Carbon\Carbon::parse($sale->start_time)->format('d/m/Y g:i:s A');
             }
-    
+
             if ($sale->end_time) {
                 $sale->end_time = \Carbon\Carbon::parse($sale->end_time)->format('d/m/Y g:i:s A');
             }
-    
+
             return [
                 "id" => $sale->id,
                 "start_time" => $sale->start_time,
@@ -131,7 +137,7 @@ class SaleController extends Controller
                 "suggestions" => $sale->suggestions,
             ];
         });
-    
+
         return response()->json([
             'status' => true,
             'count' => $sales->total(),
@@ -143,7 +149,7 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
-        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) {  
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.destroy')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
@@ -154,12 +160,12 @@ class SaleController extends Controller
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'destroy data',
-            'cat' => $user->display_name,
-            'page' => 'Quản lí khách hàng',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'destroy data',
+                'cat' => $user->display_name,
+                'page' => 'Quản lí khách hàng',
             ]);
             $sale = Sale::findOrFail($id);
 
@@ -169,7 +175,6 @@ class SaleController extends Controller
                 'status' => true,
                 'message' => 'Sale deleted successfully.',
             ]);
-
         } catch (\Exception $e) {
             if ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
                 return response()->json([
@@ -189,7 +194,7 @@ class SaleController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
-        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.delete')) { 
+        if (!Gate::allows('QUẢN LÍ KHÁCH HÀNG.delete')) {
             return response()->json([
                 'status' => false,
                 'message' => 'no permission',
@@ -200,15 +205,15 @@ class SaleController extends Controller
                 'ids' => 'required|array',
                 'ids.*' => 'exists:sales,id',
             ]);
-    
-            $ids = $request->input('ids'); 
+
+            $ids = $request->input('ids');
 
             if (is_array($ids)) {
                 $ids = implode(",", $ids);
             }
 
-            $idsArray = explode(",", $ids); 
-        
+            $idsArray = explode(",", $ids);
+
             foreach ($idsArray as $id) {
                 $sale = Sale::find($id);
 
@@ -224,28 +229,28 @@ class SaleController extends Controller
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'delete data',
-            'cat' => $user->display_name,
-            'page' => 'Quản lí khách hàng',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'delete data',
+                'cat' => $user->display_name,
+                'page' => 'Quản lí khách hàng',
             ]);
-    
+
             return response()->json([
                 'status' => true,
                 'message' => 'success'
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => false, 
-                'message' => 'Lỗi khi xóa dữ liệu'], 500);
+                'status' => false,
+                'message' => 'Lỗi khi xóa dữ liệu'
+            ], 500);
         }
-
-        
     }
 
-    public function edit(Request $request, string $id){
+    public function edit(Request $request, string $id)
+    {
         $sale = Sale::find($id);
 
         if (!$sale) {
@@ -258,18 +263,19 @@ class SaleController extends Controller
         return response()->json([
             'status' => true,
             'data' => [
-            'customer_name' => $sale->customer_name,
-            'item' => $sale->item,
-            'quantity' => $sale->quantity,
-            'sales_result' => $sale->sales_result,
-            'note' => $sale->note,
-        ],]);
+                'customer_name' => $sale->customer_name,
+                'item' => $sale->item,
+                'quantity' => $sale->quantity,
+                'sales_result' => $sale->sales_result,
+                'note' => $sale->note,
+            ],
+        ]);
     }
 
     public function updateNote(Request $request, string $id)
     {
         $sale = Sale::find($id);
-
+        $user = Auth::guard('admin')->user();
         if (!$sale) {
             return response()->json([
                 'status' => false,
@@ -278,7 +284,7 @@ class SaleController extends Controller
         }
 
         $request->validate([
-            'note' => 'nullable|string', 
+            'note' => 'nullable|string',
         ]);
 
         try {
@@ -288,24 +294,24 @@ class SaleController extends Controller
             $nows = now()->timestamp;
             $now = date('d-m-Y, g:i:s A', $nows);
             DB::table('adminlogs')->insert([
-            'admin_id' => Auth::guard('admin')->user()->id,
-            'time' => $now,
-            'ip' => $request->ip() ?? null,
-            'action' => 'update note',
-            'cat' => $user->display_name,
-            'page' => 'Quản lí khách hàng',
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'time' => $now,
+                'ip' => $request->ip() ?? null,
+                'action' => 'update note',
+                'cat' => $user->display_name,
+                'page' => 'Quản lí khách hàng',
+
             ]);
 
             return response()->json([
                 'status' => true,
                 'message' => 'Note updated successfully',
                 'data' => [
-                    'note' => $sale->note, 
+                    'note' => $sale->note,
                 ],
             ], 200);
-
         } catch (\Exception $e) {
-            \Log::error($e); 
+            \Log::error($e);
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to update note'

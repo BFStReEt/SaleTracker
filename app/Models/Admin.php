@@ -10,8 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use App\Models\Role;
 
-class Admin extends Authenticatable
-{
+class Admin extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable, Authorizable;
     protected $table = 'admins';
     protected $primaryKey = 'id';
@@ -33,20 +32,18 @@ class Admin extends Authenticatable
         'updated_at'
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'admin_role');
+    public function roles() {
+        return $this->belongsToMany( Role::class, 'admin_role' );
     }
 
-    public function businessGroup()
-    {
-        return $this->belongsTo(BusinessGroup::class, 'business_group_id'); 
+    public function businessGroup() {
+        return $this->belongsTo( BusinessGroup::class, 'business_group_id' );
+
     }
 
-    public function hasPermission($permission)
-    {
-        foreach ($this->roles as $role) {
-            if ($role->permissions->where('slug', $permission)->count() > 0) {
+    public function hasPermission( $permission ) {
+        foreach ( $this->roles as $role ) {
+            if ( $role->permissions->where( 'slug', $permission )->count() > 0 ) {
                 return true;
             }
         }

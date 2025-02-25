@@ -73,8 +73,7 @@ class BusinessGroupController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.store')) {
             return response()->json([
                 'status' => false,
@@ -117,11 +116,7 @@ class BusinessGroupController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, string $id)
-    {
+    public function show(Request $request, string $id){
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.show')) {
             return response()->json([
                 'status' => false,
@@ -240,7 +235,7 @@ class BusinessGroupController extends Controller
                 'ip' => $request->ip() ?? null,
                 'action' => 'delete business group',
                 'cat' => $admin->display_name,
-                'page' => 'Quản lí phòng ban',
+                'page' => 'Quản lí nhóm kinh doanh',
             ]);
 
             return response()->json([

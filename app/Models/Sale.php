@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sale extends Model
-{
+class Sale extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -23,8 +22,7 @@ class Sale extends Model
         'note',
     ];
 
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'user_name', 'username'); // Hoặc khóa ngoại phù hợp
+    public function admin() {
+        return $this->belongsTo( Admin::class, 'user_name', 'username' );
     }
 }

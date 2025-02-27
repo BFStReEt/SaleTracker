@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+
 class SalesImport implements ToModel
 {
     public function model(array $row)
@@ -32,11 +33,10 @@ class SalesImport implements ToModel
         $existingSale = Sale::where('business_name', $businessName)
                             ->where('customer_name', $customerName)
                             ->where('item', $item)
-                            ->where('start_time', $startTime)
                             ->orderBy('created_at', 'desc')
                             ->first();
-        
-        if ($existingSale && $existingSale->sales_result !== 'Đã chốt') {
+
+        if ($existingSale && $existingSale->status !== 'Đã chốt') {
             $existingSale->update([
                 'start_time' => $startTime,
                 'end_time' => $endTime,
@@ -45,6 +45,7 @@ class SalesImport implements ToModel
                 'sales_result' => $this->getValue($row[7] ?? null),
                 'suggestions' => $this->getValue($row[8] ?? null),
             ]);
+
             return $existingSale;
         }
 
@@ -53,12 +54,11 @@ class SalesImport implements ToModel
             'end_time' => $endTime,
             'business_name' => $businessName,
             'user_name' => $userName,
-            'customer_name' => $customerName,
-            'item' => $item,
+            'customer_name' => $this->getValue($row[3] ?? null), 
+            'item' => $this->getValue($row[4] ?? null), 
             'quantity' => $this->getValue($row[5] ?? null),
             'price' => $this->getValue($row[6] ?? null),
             'sales_result' => $this->getValue($row[7] ?? null),
-            'suggestions' => $this->getValue($row[8] ?? null),
         ]);
     }
 
@@ -83,7 +83,7 @@ class SalesImport implements ToModel
             return $dateTime->format('Y-m-d H:i:s');
 
         } catch (\Exception $e) {
-            \Log::error("Lỗi chuyển đổi thời gian Excel: " . $e->getMessage() . " Giá trị: " . $excelTime);
+            Log::error("Lỗi chuyển đổi thời gian Excel: " . $e->getMessage() . " Giá trị: " . $excelTime);
             return null;
         }
     }

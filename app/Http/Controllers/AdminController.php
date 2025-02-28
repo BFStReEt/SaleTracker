@@ -704,28 +704,14 @@ class AdminController extends Controller {
                 $employees = $query->with('businessGroup.manager')->get(['id', 'display_name']);
             } elseif ($currentUser->is_manager) {
                 $employees = $query->where('business_group_id', $currentUser->business_group_id)
-                    ->where('id', ' != ', $currentUser->id)
                     ->with('businessGroup.manager')
                     ->get(['id', 'display_name']);
-
-                $manager = Admin::find($currentUser->id);
-                if ($manager) {
-                    $employees->push($manager);
-                }
             } else {
                 $employees = [];
             }
 
             $formattedEmployees = collect($employees)
                 ->map(function ($employee) {
-                    $managerId = null;
-                    $managerName = null;
-
-                    if ($employee->businessGroup && $employee->businessGroup->manager) {
-                        $managerId = $employee->businessGroup->manager->id;
-                        $managerName = $employee->businessGroup->manager->display_name;
-                    }
-
                     return [
                         'id' => $employee->id,
                         'display_name' => $employee->display_name,
@@ -735,6 +721,6 @@ class AdminController extends Controller {
             return response()->json([
                 'status' => true,
                 'data' => $formattedEmployees->values()->all(),
-            ] );
+            ]);
         }
     }

@@ -30,36 +30,43 @@ class SalesImport implements ToModel
         $customerName = $this->getValue($row[3] ?? null);
         $item = $this->getValue($row[4] ?? null);
 
-        $existingSale = Sale::where('business_name', $businessName)
-                            ->where('customer_name', $customerName)
-                            ->where('item', $item)
+        // Log::info('Sales result: ' . $startTime . ' - ' . $businessName . ' - ' . $customerName . ' - ' . $item);
+
+        $existingSale = Sale::where('business_name', $businessName)->where('customer_name', $customerName)
+        ->where('item', $item)->where('start_time', $startTime)
                             ->orderBy('created_at', 'desc')
                             ->first();
+        if ($existingSale) {
+            Log::info('Sales result: ' . $existingSale->sales_result);
+        }
 
-        if ($existingSale && $existingSale->status !== 'Đã chốt') {
+        if ($existingSale) {
             $existingSale->update([
                 'start_time' => $startTime,
                 'end_time' => $endTime,
+                'business_name' => $businessName,
+                'user_name' => $userName,
+                'customer_name' => $this->getValue($row[3] ?? null), 
+                'item' => $this->getValue($row[4] ?? null), 
                 'quantity' => $this->getValue($row[5] ?? null),
                 'price' => $this->getValue($row[6] ?? null),
                 'sales_result' => $this->getValue($row[7] ?? null),
-                'suggestions' => $this->getValue($row[8] ?? null),
             ]);
-
             return $existingSale;
         }
-
-        return new Sale([
-            'start_time' => $startTime,
-            'end_time' => $endTime,
-            'business_name' => $businessName,
-            'user_name' => $userName,
-            'customer_name' => $this->getValue($row[3] ?? null), 
-            'item' => $this->getValue($row[4] ?? null), 
-            'quantity' => $this->getValue($row[5] ?? null),
-            'price' => $this->getValue($row[6] ?? null),
-            'sales_result' => $this->getValue($row[7] ?? null),
-        ]);
+        else{
+            return new Sale([
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+                'business_name' => $businessName,
+                'user_name' => $userName,
+                'customer_name' => $this->getValue($row[3] ?? null), 
+                'item' => $this->getValue($row[4] ?? null), 
+                'quantity' => $this->getValue($row[5] ?? null),
+                'price' => $this->getValue($row[6] ?? null),
+                'sales_result' => $this->getValue($row[7] ?? null),
+            ]);
+        }
     }
 
     private function getValue($value)

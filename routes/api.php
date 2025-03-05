@@ -9,7 +9,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\BusinessGroupController;
 use App\Http\Controllers\AdminlogsController;
 use App\Http\Controllers\CopilotController;
-
+use App\Http\Controllers\OpenAIController;
 
 Route::match(['get','post'],'/login', [AuthController::class, 'login'])->name('admin-login');;
 Route::post('/logout', [AuthController::class, 'logout']);
@@ -59,5 +59,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'sale'], function () {
 
 //Upload
 Route::post('/upload', [FileUploadController::class, 'upload']);
+Route::post('/upload_black_list', [FileUploadController::class, 'upload_black_list']);
 
 Route::post('/ask-copilot', [CopilotController::class, 'askCopilot']);
+
+//OpenAI
+Route::post('/ask-ai', [OpenAIController::class, 'ask']);

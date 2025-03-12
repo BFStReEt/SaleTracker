@@ -53,10 +53,13 @@ class FileUploadController extends Controller
                 return response()->json(['message' => 'Success']);
             }
 
-            return response()->json(['message' => 'No file uploaded'], 400);
+            return response()->json([
+                'status' => 'true',
+                'message' => 'No file uploaded'], 400);
 
         } catch (ValidationException $e) {
             return response()->json([
+                'status' => 'false',
                 'message' => $e->getMessage(),
             ], 422);
         }

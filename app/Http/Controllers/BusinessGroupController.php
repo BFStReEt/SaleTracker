@@ -198,7 +198,6 @@ class BusinessGroupController extends Controller
         return response()->json(['status' => true, 'message' => 'Business group updated successfully', 'data' => $businessGroup], 200);
     }
 
-
     public function delete(Request $request)
     {
         if (!Gate::allows('QUẢN LÍ NHÓM KINH DOANH.delete')) {

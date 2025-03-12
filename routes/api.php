@@ -10,6 +10,7 @@ use App\Http\Controllers\BusinessGroupController;
 use App\Http\Controllers\AdminlogsController;
 use App\Http\Controllers\CopilotController;
 use App\Http\Controllers\OpenAIController;
+use App\Http\Controllers\BlacklistController;
 
 Route::match(['get','post'],'/login', [AuthController::class, 'login'])->name('admin-login');;
 Route::post('/logout', [AuthController::class, 'logout']);
@@ -62,6 +63,14 @@ Route::post('/upload', [FileUploadController::class, 'upload']);
 Route::post('/upload_black_list', [FileUploadController::class, 'upload_black_list']);
 
 Route::post('/ask-copilot', [CopilotController::class, 'askCopilot']);
+
+//Blacklist
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/blacklist', [BlacklistController::class, 'index']);
+    Route::post('/blacklist', [BlacklistController::class, 'store']);
+    Route::delete('/blacklist/{id}', [BlacklistController::class, 'destroy']);
+    Route::delete('/blacklists/delete', [BlacklistController::class, 'delete']); 
+});
 
 //OpenAI
 Route::post('/ask-ai', [OpenAIController::class, 'ask']);

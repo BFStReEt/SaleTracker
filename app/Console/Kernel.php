@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('check:import-excel')->everyMinute();
+        $schedule->command('check:import-blacklist')->everyMinute();
+        $schedule->command('sales:clean-duplicates')->everyMinute(); 
     }
 
     protected function commands(): void

@@ -4,11 +4,9 @@ namespace App\Imports;
 
 use App\Models\Blacklist;
 use Maatwebsite\Excel\Concerns\ToModel;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class SalesImport implements ToModel
+class Blacklist_import implements ToModel
 {
     public function model(array $row)
     {
@@ -16,7 +14,7 @@ class SalesImport implements ToModel
             return null;
         }
 
-        $existingRecord = BusinessReason::where('business_name', $row[0])
+        $existingRecord = Blacklist::where('business_name', $row[0])
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -28,9 +26,9 @@ class SalesImport implements ToModel
             return $existingRecord;
         }
 
-        return new BusinessReason([
+        return new Blacklist([
             'business_name' => $row[0],
             'reason' => $row[1] ?? null,
         ]);
-  }
+    }
 }

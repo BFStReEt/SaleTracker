@@ -7,3 +7,4 @@ php artisan make:import SalesImport --model=Sale
 composer require maatwebsite/excel
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
 composer require phpoffice/phpspreadsheet
+php artisan check:import-blacklist

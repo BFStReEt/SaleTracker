@@ -35,6 +35,57 @@ class FileUploadController extends Controller
         }
     }
 
+    public function uploads(Request $request)
+    {
+        $folderPath = "C:\\Users\\longh\\OneDrive - chinhnhan.vn\\Folder Import";
+        
+        try {
+            if (!File::exists($folderPath)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Directory not found: ' . $folderPath
+                ], 404);
+            }
+
+            
+            $files = File::files($folderPath);
+            $importedFiles = 0;
+            $errors = [];
+
+            foreach ($files as $file) {
+                if (in_array($file->getExtension(), ['xlsx', 'xls'])) {
+                    try {
+                        
+                        Excel::import(new SalesImport, $file->getPathname());
+                        
+                       
+                        File::delete($file->getPathname());
+                        
+                        $importedFiles++;
+                    } catch (\Exception $e) {
+                        $errors[] = [
+                            'file' => $file->getFilename(),
+                            'error' => $e->getMessage()
+                        ];
+                    }
+                }
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => $importedFiles . ' files imported successfully',
+                'imported_count' => $importedFiles,
+                'errors' => $errors
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error processing files: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function upload_black_list(Request $request)
     {
         try {

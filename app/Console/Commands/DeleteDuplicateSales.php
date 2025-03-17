@@ -47,7 +47,7 @@ class DeleteDuplicateSales extends Command
                 $this->info("Không còn bản ghi trùng lặp. Đang chờ...");
             }
 
-            sleep(5); 
+            sleep(1); 
         }
     }
 }

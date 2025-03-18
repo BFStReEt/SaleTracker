@@ -30,15 +30,9 @@ class SalesImport implements ToModel
         $customerName = $this->getValue($row[3] ?? null);
         $item = $this->getValue($row[4] ?? null);
 
-        // Log::info('Sales result: ' . $startTime . ' - ' . $businessName . ' - ' . $customerName . ' - ' . $item);
-
         $existingSale = Sale::where('business_name', $businessName)->where('customer_name', $customerName)
-        ->where('item', $item)->where('start_time', $startTime)
-                            ->orderBy('created_at', 'desc')
-                            ->first();
-        if ($existingSale) {
-            Log::info('Sales result: ' . $existingSale->sales_result);
-        }
+        ->where('item', $item)->orderBy('id', 'desc')->first();
+       
 
         if ($existingSale) {
             $existingSale->update([
@@ -49,7 +43,7 @@ class SalesImport implements ToModel
                 'customer_name' => $this->getValue($row[3] ?? null), 
                 'item' => $this->getValue($row[4] ?? null), 
                 'quantity' => $this->getValue($row[5] ?? null),
-                'price' => $this->getValue($row[6] ?? null),
+                'price' => $this->formatPrice($row[6] ?? null),
                 'sales_result' => $this->getValue($row[7] ?? null),
             ]);
             return $existingSale;
@@ -63,10 +57,21 @@ class SalesImport implements ToModel
                 'customer_name' => $this->getValue($row[3] ?? null), 
                 'item' => $this->getValue($row[4] ?? null), 
                 'quantity' => $this->getValue($row[5] ?? null),
-                'price' => $this->getValue($row[6] ?? null),
+                'price' => $this->formatPrice($row[6] ?? null),
                 'sales_result' => $this->getValue($row[7] ?? null),
             ]);
         }
+    }
+
+    private function formatPrice($price)
+    {
+        if (empty($price)) {
+            return null;
+        }
+
+        $price = str_replace([',', ' '], '', $price);
+        
+        return number_format((float)$price, 0, '.', ',');
     }
 
     private function getValue($value)

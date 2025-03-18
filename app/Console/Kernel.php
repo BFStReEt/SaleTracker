@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('check:import-excel')->everyMinute();
         $schedule->command('check:import-blacklist')->everyMinute();
-        $schedule->command('sales:clean-duplicates')->everyMinute(); 
+        //$schedule->command('sales:clean-duplicates')->everyMinute(); 
     }
 
     protected function commands(): void

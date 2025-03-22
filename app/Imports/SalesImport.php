@@ -30,8 +30,10 @@ class SalesImport implements ToModel
         $customerName = $this->getValue($row[3] ?? null);
         $item = $this->getValue($row[4] ?? null);
 
-        $existingSale = Sale::where('business_name', $businessName)->where('customer_name', $customerName)
-        ->where('item', $item)->orderBy('id', 'desc')->first();
+        $existingSale = Sale::where('business_name', $businessName)
+        ->where('customer_name', $customerName)
+        ->where('item', $item)
+        ->orderBy('id', 'desc')->first();
        
 
         if ($existingSale) {

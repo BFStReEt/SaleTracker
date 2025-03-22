@@ -16,8 +16,7 @@ class CheckAndImportExcel extends Command
 
     protected $importPath = 'C:\\Users\\longh\\OneDrive - chinhnhan.vn\\Folder Import';
 
-    protected function removeDuplicates()
-    {
+    protected function removeDuplicates(){
         $totalDeleted = 0;
 
         DB::beginTransaction();
@@ -51,68 +50,116 @@ class CheckAndImportExcel extends Command
     public function handle()
     {
         if (!File::exists($this->importPath)) {
-            $this->error("Directory not found: {$this->importPath}");
+            $this->error("Không tìm thấy thư mục: {$this->importPath}");
             return;
         }
 
+        $this->info("Bắt đầu theo dõi thư mục: {$this->importPath}");
+
         while (true) {
-             $files = collect(File::files($this->importPath))->filter(function ($file) {
-                $extension = strtolower($file->getExtension());
-                $fileName = $file->getFilename();
-                
-                return in_array($extension, ['xlsx', 'xls']) 
-                    && !in_array($fileName, ['desktop.ini', 'thumbs.db'])
-                    && !str_starts_with($fileName, '~$'); 
-            });
+            try {
+                $files = collect(File::files($this->importPath))->filter(function ($file) {
+                    $extension = strtolower($file->getExtension());
+                    $fileName = $file->getFilename();
+                    
+                    return in_array($extension, ['xlsx', 'xls']) 
+                        && !in_array($fileName, ['desktop.ini', 'thumbs.db'])
+                        && !str_starts_with($fileName, '~$'); 
+                });
 
-
-            foreach ($files as $file) {
-                $fileName = $file->getFilename();
-                $filePath = $file->getPathname();
-
-                if (!in_array($file->getExtension(), ['xlsx', 'xls'])) {
-                    $this->info("File {$fileName} is not an Excel file. Skipping...");
-                    continue;
-                }
-
-                $lastModified = $file->getMTime();
-                $lastImported = cache('last_imported_time_' . $fileName);
-
-                if (!$lastImported || $lastModified > $lastImported) {
-                    $startTime = Carbon::now(); 
-                    $this->info("Import started for {$fileName} at: " . $startTime->toDateTimeString());
+                foreach ($files as $file) {
+                    $fileName = $file->getFilename();
+                    $filePath = str_replace('\\', '/', $file->getPathname());
 
                     try {
-                        Excel::import(new SalesImport, $filePath);
-                        
-                        $this->info("Kiểm tra và xóa dữ liệu trùng lặp...");
-                        $deletedCount = $this->removeDuplicates();
-                        
-                        cache(['last_imported_time_' . $fileName => $lastModified]);
-                        File::delete($filePath);
+                        $startTime = Carbon::now();
+                        $this->info("------------------------------------------");
+                        $this->info("Bắt đầu xử lý file: {$fileName}");
+                        $this->info("Thời gian bắt đầu: " . $startTime->format('d/m/Y H:i:s'));
 
-                        $endTime = Carbon::now(); 
-                        $importDuration = $endTime->diffInSeconds($startTime); 
+                        if ($this->safeImport($filePath, $fileName)) {
+                            $this->info("Kiểm tra dữ liệu trùng lặp...");
+                            //$deletedCount = $this->removeDuplicates();
 
-                        $this->info("Data imported successfully from file {$fileName}. File has been deleted.");
-                        if ($deletedCount > 0) {
-                            $this->info("Đã xóa tổng cộng {$deletedCount} bản ghi trùng lặp");
-                        } else {
-                            $this->info("Không phát hiện dữ liệu trùng lặp");
+                            $endTime = Carbon::now();
+                            $importDuration = $endTime->diffInSeconds($startTime);
+
+                            $this->info("Kết quả xử lý:");
+                            $this->info("- File đã import: {$fileName}");
+                            // if ($deletedCount > 0) {
+                            //     $this->info("- Đã xóa {$deletedCount} bản ghi trùng lặp");
+                            // } else {
+                            //     $this->info("- Không có dữ liệu trùng lặp");
+                            // }
+                            $this->info("- Thời gian xử lý: {$importDuration} giây");
+                            $this->info("- Hoàn thành lúc: " . $endTime->format('d/m/Y H:i:s'));
                         }
-                        $this->info("Import completed in {$importDuration} seconds at: " . $endTime->toDateTimeString());
 
                     } catch (\Exception $e) {
-                        $this->error("Import failed for {$fileName}: " . $e->getMessage());
-                        $this->error("Error details: " . $e->getTraceAsString());
+                        $this->error("Lỗi xử lý file {$fileName}:");
+                        $this->error("- " . $e->getMessage());
+                        
+                        \Log::error("Import Error for {$fileName}: " . $e->getMessage());
+                        \Log::error($e->getTraceAsString());
                     }
-                } else {
-                    $this->info("No changes detected in file {$fileName}.");
                 }
+
+                if ($files->isEmpty()) {
+                    $this->info("Đang chờ file mới... (" . Carbon::now()->format('d/m/Y H:i:s') . ")");
+                }
+
+                sleep(5); 
+
+            } catch (\Exception $e) {
+                $this->error("Lỗi hệ thống: " . $e->getMessage());
+                \Log::error("System Error: " . $e->getMessage());
+                \Log::error($e->getTraceAsString());
+                sleep(10); 
+            }
+        }
+    }
+
+    protected function safeImport($filePath, $fileName)
+    {
+        $tempPath = null;
+        try {
+            $tempDir = storage_path('app/temp');
+            if (!File::exists($tempDir)) {
+                File::makeDirectory($tempDir, 0755, true);
             }
 
-            $this->info("Waiting for new files...");
-            sleep(5);
+            $safeName = time() . '_' . preg_replace('/[^a-zA-Z0-9.]/', '_', $fileName);
+            $tempPath = $tempDir . DIRECTORY_SEPARATOR . $safeName;
+
+            $content = file_get_contents($filePath);
+            if ($content === false) {
+                throw new \Exception("Không thể đọc file gốc: {$fileName}");
+            }
+
+            if (file_put_contents($tempPath, $content) === false) {
+                throw new \Exception("Không thể tạo file tạm: {$safeName}");
+            }
+
+            Excel::import(new SalesImport, $tempPath);
+
+            if (file_exists($filePath)) {
+                if (!@unlink($filePath)) {
+                    $this->warn("Không thể xóa file gốc: {$fileName}");
+                }
+            }
+            if (file_exists($tempPath)) {
+                if (!@unlink($tempPath)) {
+                    $this->warn("Không thể xóa file tạm: {$safeName}");
+                }
+            }
+            $this->info("Đã xóa file sau khi import thành công: {$fileName}");
+            return true;
+
+        } catch (\Exception $e) {
+            if ($tempPath && file_exists($tempPath)) {
+                @unlink($tempPath);
+            }
+            throw $e;
         }
     }
 }
